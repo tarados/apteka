@@ -1,0 +1,10 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+*.log
+.idea/
+*.iml
+db.sqlite3
+frontend/dist
+frontend/node_modules
+frontend/webpack-stats.json
