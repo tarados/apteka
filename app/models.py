@@ -19,7 +19,7 @@ class Product(models.Model):
     class Meta:
         db_table = 'product'
 
-    product_id = models.IntegerField()
+    # product_id = models.IntegerField()
     product_name = models.CharField(max_length=250)
     product_manufacturer = models.CharField(max_length=250, null=True, blank=True)
     price = models.FloatField(null=True, blank=True)
