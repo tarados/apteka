@@ -81,13 +81,14 @@
             query: function (seach) {
                 console.log(seach);
                 if (this.timerId) {
-                    clearTimeout(timerId);
+                    console.log("timer", this.timerId);
+                    clearTimeout(this.timerId);
                 }
                 if (seach.length > 3) {
-                    var timerId = setTimeout( () => {
+                    this.timerId = setTimeout( () => {
                         this.getPayloadParam(seach);
                         this.timerId = 0;
-                    }, 500);
+                    }, 5000);
                 }
             }
         }
