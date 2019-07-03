@@ -13,8 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 def index(request):
     payload = []
     if request.GET:
-        query = request.GET.get('query')
-        print(query)
+        query = request.GET.get('query').upper()
         products = Product.objects.filter(product_name__icontains=query)
         for product in products:
             payload.append(

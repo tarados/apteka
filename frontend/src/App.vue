@@ -27,10 +27,9 @@
         </nav>
         <div class="row content-box">
             <div class="col-sm content-filter">
-                For filter
+                Найдено: {{ count }}
             </div>
             <div class="col-sm-10 content-zone">
-                Content zone
                 <div class="price-content" v-for="product in payload.payload">
                     <div class="product-name">
                         {{ product["product"] }}
@@ -55,11 +54,13 @@
             return {
                 query: "",
                 payload: [],
+                count: 0,
                 url: {
                     index: 'http://127.0.0.1:8000'
                 }
             }
         },
+        computed: {},
         methods: {
             async getPayload() {
                 const response = await axios.get(this.url.index);
@@ -72,6 +73,7 @@
                     }
                 });
                 this.payload = response.data;
+                this.count = response.data.valueOf().payload.length;
             }
         },
         mounted() {
@@ -79,17 +81,13 @@
         },
         watch: {
             query: function (seach) {
-                console.log(seach);
                 if (this.timerId) {
-                    console.log("timer", this.timerId);
                     clearTimeout(this.timerId);
                 }
-                if (seach.length > 3) {
-                    this.timerId = setTimeout( () => {
-                        this.getPayloadParam(seach);
-                        this.timerId = 0;
-                    }, 5000);
-                }
+                this.timerId = setTimeout(() => {
+                    this.getPayloadParam(seach);
+                    this.timerId = 0;
+                }, 3000);
             }
         }
     }
@@ -105,8 +103,12 @@
         border-right: 1px solid;
     }
 
+    .content-zone {
+        margin-top: 10px;
+    }
+
     .price-content {
-        height: 90px;
+        height: 120px;
         margin-bottom: 10px;
         border: 1px solid;
         border-radius: 5px;
