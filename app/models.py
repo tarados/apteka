@@ -4,13 +4,15 @@ from django.db import models
 class Farmacy(models.Model):
     """Модель торговой точки"""
 
-    farmacy_id = models.IntegerField()
     pharmacy_name = models.CharField(max_length=255)
     city = models.CharField(max_length=50)
     house = models.CharField(max_length=50)
+    street = models.CharField(null=True, max_length=50)
     state_province = models.CharField(max_length=50)
     manager = models.CharField(max_length=50)
     phone = models.CharField(max_length=50)
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
 
 
 class Product(models.Model):
