@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand" href="#">Navbar</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
                     aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,7 +9,7 @@
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
@@ -18,6 +18,9 @@
                     <li class="nav-item">
                         <a class="nav-link disabled" href="#">Disabled</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Found: {{ count }}</a>
+                    </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input v-model="query" class="form-control mr-sm-2" type="search" placeholder="Search">
@@ -25,23 +28,7 @@
             </div>
         </nav>
         <div class="row content-box">
-            <div class="col-sm content-filter">
-                Найдено: {{ count }}
-            </div>
             <b-table striped hover :items="payload"></b-table>
-<!--            <div class="col-sm-10 content-zone">-->
-<!--                <div class="price-content" v-for="product in payload.payload">-->
-<!--                    <div class="product-name">-->
-<!--                        {{ product["product"] }}-->
-<!--                    </div>-->
-<!--                    <div class="product-manufacturer">-->
-<!--                        {{ product["manufacturer"] }}-->
-<!--                    </div>-->
-<!--                    <div class="product-price">-->
-<!--                        {{ product["price"] }} руб.-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
         </div>
     </div>
 </template>
@@ -95,25 +82,6 @@
 
 <style scoped>
     .content-box {
-        margin: 20px 0 5px 0;
-        border: 1px solid;
-    }
-
-    .content-filter {
-        border-right: 1px solid;
-    }
-
-    .content-zone {
-        margin-top: 10px;
-    }
-
-    .price-content {
-        /*height: 120px;*/
-        margin-bottom: 10px;
-        border: 1px solid;
-        border-radius: 5px;
-        padding-top: 7px;
-        padding-bottom: 7px;
-        text-align: center;
+        margin: 70px 0 5px 0;
     }
 </style>
