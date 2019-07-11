@@ -5,7 +5,7 @@
 <script>
     import MarkerClusterer from '@google/markerclusterer';
 
-    import gmapsInit from '/home/sergey/projects/apteka/frontend/src/utils/gmaps.js';
+    import gmapsInit from '../utils/gmaps.js';
 
     const locations = [
         {
