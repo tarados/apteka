@@ -1,7 +1,6 @@
 import os
 from conf.settings import BASE_DIR
 from app.models import Product
-import json
 import re
 
 
@@ -34,6 +33,8 @@ def priceTxt():
 
 def deletePrice():
     Product.objects.all().delete()
+
+
 
 """Обновление прайса производим по схеме:
  1. Загружаем новый прайс с именем price.xml в папку static
