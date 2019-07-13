@@ -6,7 +6,7 @@ class Farmacy(models.Model):
 
     pharmacy_name = models.CharField(max_length=255)
     city = models.CharField(max_length=50)
-    house = models.CharField(max_length=50)
+    house = models.TextField()
     street = models.CharField(null=True, max_length=50)
     state_province = models.CharField(max_length=50)
     manager = models.CharField(max_length=50)

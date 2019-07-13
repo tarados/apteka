@@ -27,10 +27,14 @@ def loadfarmacy():
     sheet = rb.sheet_by_index(0)
     vals = [sheet.row_values(rownum) for rownum in range(sheet.nrows)]
     for i in range(1, len(vals)):
+        if type(vals[i][3]) == float:
+            house = int(vals[i][3])
+        else:
+            house = vals[i][3]
         f = Farmacy(
             pharmacy_name=vals[i][0],
             city=vals[i][1],
-            house=vals[i][3],
+            house=house,
             street=vals[i][2],
             state_province=vals[i][4],
             manager=vals[i][5],
@@ -39,6 +43,7 @@ def loadfarmacy():
             longitude=vals[i][8]
         )
         f.save()
+
 
 def deleteFarmacy():
     Farmacy.objects.all().delete()
