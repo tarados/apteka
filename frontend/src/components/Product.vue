@@ -43,7 +43,7 @@
                 payload: [],
                 count: 0,
                 url: {
-                    index: 'http://127.0.0.1:8000'
+                    index: 'http://127.0.0.1:8000/app'
                 }
             }
         },
