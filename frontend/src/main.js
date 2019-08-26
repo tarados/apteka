@@ -4,10 +4,12 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+import AppStartscreen from "./components/StartScreen";
 import AppProduct from "./components/Product.vue";
 import AppFarmacy from "./components/Farmacy.vue";
 import AppMaps from "./components/maps.vue";
 
+Vue.component("AppStartscreen", AppStartscreen);
 Vue.component("AppPoduct", AppProduct);
 Vue.component("AppFarmacy", AppFarmacy);
 Vue.component("AppMaps", AppMaps);

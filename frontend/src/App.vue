@@ -1,6 +1,7 @@
 <template>
     <div class="productStorage">
-        <app-poduct v-if="state === 'product'"></app-poduct>
+        <app-startscreen v-if="state === 'start'"></app-startscreen>
+        <app-poduct v-else-if="state === 'product'"></app-poduct>
         <app-farmacy v-else-if="state === 'farmacy'"></app-farmacy>
         <app-maps v-else-if="state === 'maps'"></app-maps>
         <div v-else>Unknown state</div>
@@ -13,7 +14,7 @@
     export default {
         data() {
             return {
-                state: 'product'
+                state: 'start'
             }
         }
     }
