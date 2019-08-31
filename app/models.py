@@ -22,7 +22,7 @@ class Product(models.Model):
         db_table = 'product'
 
     # product_id = models.IntegerField()
-    product_name = models.CharField(max_length=250)
+    product_name = models.CharField(max_length=250, db_index=True)
     product_manufacturer = models.CharField(max_length=250, null=True, blank=True)
     price = models.FloatField(null=True, blank=True)
 
@@ -33,9 +33,29 @@ class ProductAvailability(models.Model):
     class Meta:
         db_table = 'product_availability'
 
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="available")
     farmacy = models.ForeignKey(Farmacy, on_delete=models.CASCADE)
     number = models.FloatField(null=True, blank=True)
 
 
-# Create your models here.
+def test():
+    data = [
+        {"name": "Анальгин", "farmacy": "Харцизк1", "price": 20, "number": 100},
+        {"name": "Аспирин", "farmacy": "Харцизк1", "price": 20, "number": 100},
+        {"name": "Анальгин", "farmacy": "Харцизк2", "price": 20, "number": 100},
+        {"name": "Анальгин", "farmacy": "Харцизк3", "price": 20, "number": 100},
+        {"name": "Анальгин", "farmacy": "Харцизк4", "price": 20, "number": 100},
+    ]
+
+    for row in data:
+        farmacy = Farmacy.objects.get(pharmacy_name=row["farmacy"])
+        product = Product.objects.get(product_name=row["name"])
+
+        pa = ProductAvailability.objects.get_or_create(product=product, farmacy=farmacy)
+        pa.number = row["number"]
+        pa.save()
+
+    product = Product.objects.filter(product_name="Анальгин", available__number__gte=2)
+    product = Product.objects.filter(product_name="Анальгин", available__number__gte=2)
+    product.available.all()
+    ProductAvailability.objects.filter(product=product)

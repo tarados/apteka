@@ -46,9 +46,9 @@
                         throw new Error(status);
                     }
 
-                    map.setCenter(results[0].geometry.location);
-                    map.setZoom(8);
-                    map.fitBounds(results[0].geometry.viewport);
+                    map.setCenter({ lat: 48.056858, lng: 38.129393});
+                    map.setZoom(10);
+                    // map.fitBounds(results[0].geometry.viewport);
                 });
 
                 const markerClickHandler = (marker) => {

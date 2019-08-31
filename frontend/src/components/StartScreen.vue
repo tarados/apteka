@@ -22,13 +22,30 @@
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
+
+        <component v-bind:is="currentPage" v-if="currentPage"></component>
+
         <img src="/static/brand.png" alt="Kitten">
     </div>
 </template>
 
 <script>
+    import maps from "./maps";
+    import Product from "./Product";
+
     export default {
-        name: "StartScreen"
+        name: "StartScreen",
+
+        components: {
+            maps,
+            Product
+        },
+
+        data() {
+            return {
+                currentPage: "Product"
+            }
+        }
     }
 </script>
 

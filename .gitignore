@@ -8,3 +8,4 @@ vars
 env
 db.sqlite3
 static
+venv/

@@ -3,6 +3,10 @@ from app.models import Product, Farmacy
 
 
 def index(request):
+    # TODO: убрать дублирование кода
+    # TODO: поставить ограничение при фильтрации 100-200 строк
+    # TODO: если нет фильтра то выдавать какой-то набор популярных товаров
+
     payload = []
     if request.GET:
         query = request.GET.get('query').upper()
