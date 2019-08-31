@@ -48,7 +48,6 @@
             async getPayload() {
                 const response = await axios.get(this.url.index);
                 this.payload = response.data;
-                this.count = response.data.valueOf().payload.length;
             }
         },
         mounted() {

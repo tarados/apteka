@@ -1,7 +1,9 @@
 <template>
     <div class="container-fluid">
         <b-navbar toggleable="lg" type="dark" variant="primary">
-            <b-navbar-brand href="#">NavBar</b-navbar-brand>
+            <b-navbar-brand href="#">
+
+            </b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -20,6 +22,7 @@
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
+        <img src="/static/brand.png" alt="Kitten">
     </div>
 </template>
 

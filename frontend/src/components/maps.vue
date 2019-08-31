@@ -1,63 +1,53 @@
 <template>
-    <div class="App"/>
+    <div class="App"></div>
 </template>
 
 <script>
     import MarkerClusterer from '@google/markerclusterer';
 
+    import * as axios from "axios";
+
     import gmapsInit from '../utils/gmaps.js';
 
-    const locations = [
-        {
-            position: {
-                lat: 48.016367,
-                lng: 37.805424,
-            },
-        },
-        {
-            position: {
-                lat: 48.174270,
-                lng: 16.329620,
-            },
-        },
-        {
-            position: {
-                lat: 48.146140,
-                lng: 16.297030,
-            },
-        },
-        {
-            position: {
-                lat: 48.135830,
-                lng: 16.194460,
-            },
-        },
-        {
-            position: {
-                lat: 48.306091,
-                lng: 14.286440,
-            },
-        },
-        {
-            position: {
-                lat: 47.503040,
-                lng: 9.747070,
-            },
-        },
-    ];
     export default {
+        data() {
+            return {
+                payload: [],
+                locations: [],
+                count: 0,
+                url: {
+                    index: 'http://127.0.0.1:8000/app/farmacy'
+                }
+            }
+        },
+        methods: {
+            async getPayload() {
+                const response = await axios.get(this.url.index);
+                this.payload = response.data;
+                this.payload.pharmacyes.forEach(pharmacy => {
+                    const position = {};
+                    position['lat'] = pharmacy.latitude;
+                    position['lng'] = pharmacy.longitude;
+                    const locdata = {position};
+                    this.locations.push(locdata);
+                });
+            }
+        },
         async mounted() {
+            await this.getPayload();
             try {
                 const google = await gmapsInit();
                 const geocoder = new google.maps.Geocoder();
                 const map = new google.maps.Map(this.$el);
 
-                geocoder.geocode({address: `Austria`}, (results, status) => {
+
+                geocoder.geocode({address: `Donetsk`}, (results, status) => {
                     if (status !== `OK` || !results[0]) {
                         throw new Error(status);
                     }
 
                     map.setCenter(results[0].geometry.location);
+                    map.setZoom(8);
                     map.fitBounds(results[0].geometry.viewport);
                 });
 
@@ -66,7 +56,7 @@
                     map.setCenter(marker.getPosition());
                 };
 
-                const markers = locations
+                const markers = this.locations
                     .map((location) => {
                         const marker = new google.maps.Marker({...location, map});
                         marker.addListener(`click`, () => markerClickHandler(marker));

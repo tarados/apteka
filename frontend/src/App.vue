@@ -14,7 +14,7 @@
     export default {
         data() {
             return {
-                state: 'start'
+                state: 'maps'
             }
         }
     }
