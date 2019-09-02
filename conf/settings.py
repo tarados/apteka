@@ -60,7 +60,7 @@ ROOT_URLCONF = 'conf.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'frontend', 'public')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -141,6 +141,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'frontend', 'dist'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 WEBPACK_LOADER = {
