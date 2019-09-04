@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <b-navbar toggleable="lg" class="navbar fixed-top">
             <b-navbar-brand href="#">
-                <img src="../brand.png" alt="Kitten">
+                <img src="../img/brand.png" alt="Brand">
             </b-navbar-brand>
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
             <b-collapse id="nav-collapse" is-nav>

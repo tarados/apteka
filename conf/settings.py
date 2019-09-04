@@ -93,14 +93,6 @@ WSGI_APPLICATION = 'conf.wsgi.application'
 DATABASES = {'default': dj_database_url.config(default=env['DB_URL'])}
 DATABASES['default']['CONN_MAX_AGE'] = None
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -119,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-FIXTURE_DIRS = (os.path.join(BASE_DIR, 'app', 'fixture'),)
+FIXTURE_DIRS = (os.path.join(BASE_DIR, 'app'),)
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -140,7 +132,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'frontend', 'dist'),
+    os.path.join(BASE_DIR, 'frontend'),
     os.path.join(BASE_DIR, 'static'),
 )
 
@@ -148,7 +140,7 @@ WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
         'BUNDLE_DIR_NAME': '',
-        'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json'),
+        'STATS_FILE': os.path.join(BASE_DIR, 'frontend'),
     }
 }
 
