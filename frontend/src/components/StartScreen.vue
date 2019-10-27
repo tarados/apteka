@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <b-navbar toggleable="lg" class="navbar fixed-top">
+        <b-navbar toggleable="lg" variant="light" class="navbar fixed-top">
             <b-navbar-brand href="#">
                 <img src="../img/brand.png" alt="Brand">
             </b-navbar-brand>
@@ -13,24 +13,26 @@
             </b-collapse>
         </b-navbar>
         <component v-bind:is="currentPage" v-if="currentPage"></component>
+        <app-maps></app-maps>
     </div>
 </template>
 
 <script>
-    import maps from "./Maps";
+    import Maps from "./Maps";
     import Product from "./Product";
 
     export default {
         name: "StartScreen",
 
         components: {
-            maps,
+            Maps,
             Product
         },
 
         data() {
             return {
-                currentPage: "Product"
+                currentPage: "Product",
+                maps: "Maps"
             }
         }
     }

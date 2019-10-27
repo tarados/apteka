@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'conf.wsgi.application'
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'apteka',
 #         'USER': 'sergey',
-#         'PASSWORD': 'zvada1601',
+#         'PASSWORD': '1',
 #         'HOST': '127.0.0.1',
 #         'PORT': '5432',
 #     }

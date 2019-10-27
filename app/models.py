@@ -5,12 +5,12 @@ class Farmacy(models.Model):
     """Модель торговой точки"""
 
     pharmacy_name = models.CharField(max_length=255)
-    city = models.CharField(max_length=50)
-    house = models.TextField()
+    city = models.CharField(max_length=50, null=True)
+    house = models.TextField(null=True)
     street = models.CharField(null=True, max_length=50)
-    state_province = models.CharField(max_length=50)
-    manager = models.CharField(max_length=50)
-    phone = models.CharField(max_length=50)
+    state_province = models.CharField(max_length=50, null=True)
+    manager = models.CharField(max_length=50, null=True)
+    phone = models.CharField(max_length=50, null=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
 
@@ -21,10 +21,9 @@ class Product(models.Model):
     class Meta:
         db_table = 'product'
 
-    # product_id = models.IntegerField()
     product_name = models.CharField(max_length=250, db_index=True)
     product_manufacturer = models.CharField(max_length=250, null=True, blank=True)
-    price = models.FloatField(null=True, blank=True)
+    # price = models.FloatField(null=True, blank=True)
 
 
 class ProductAvailability(models.Model):
@@ -40,11 +39,11 @@ class ProductAvailability(models.Model):
 
 def test():
     data = [
-        {"name": "Анальгин", "farmacy": "Харцизк1", "price": 20, "number": 100},
-        {"name": "Аспирин", "farmacy": "Харцизк1", "price": 20, "number": 100},
-        {"name": "Анальгин", "farmacy": "Харцизк2", "price": 20, "number": 100},
-        {"name": "Анальгин", "farmacy": "Харцизк3", "price": 20, "number": 100},
-        {"name": "Анальгин", "farmacy": "Харцизк4", "price": 20, "number": 100},
+        {"name": "АНАЛЬГИН 500МГ №10 (ТЮМЕНЬ)..", "farmacy": "Аптека № 1 (Макеевка)", "price": 20, "number": 100},
+        {"name": "АНАФЕРОН ДЕТСКИЙ №20 ТАБ..", "farmacy": "Аптека № 2 (Текстильщик)", "price": 200, "number": 150},
+        {"name": "АНАФЕРОН ДЕТСКИЙ №20 ТАБ..", "farmacy": "Аптека №12 (Зугресс)", "price": 205, "number": 200},
+        {"name": "АНАЛЬГИН 500МГ №10 (ТЮМЕНЬ)..", "farmacy": "Аптека №46 (Шахтерск)", "price": 25, "number": 300},
+        {"name": "ВЕНАРУС 500МГ №60..", "farmacy": "Аптека №28 (Горловка)", "price": 152, "number": 108},
     ]
 
     for row in data:
@@ -55,7 +54,7 @@ def test():
         pa.number = row["number"]
         pa.save()
 
-    product = Product.objects.filter(product_name="Анальгин", available__number__gte=2)
+    # product = Product.objects.filter(product_name="Анальгин", available__number__gte=2)
     product = Product.objects.filter(product_name="Анальгин", available__number__gte=2)
     product.available.all()
     ProductAvailability.objects.filter(product=product)

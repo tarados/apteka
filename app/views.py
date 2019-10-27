@@ -14,15 +14,15 @@ def index(request):
         for product in products:
             payload.append(
                 {'product': product.product_name,
-                 'manufacturer': product.product_manufacturer,
-                 'price': product.price})
+                 'manufacturer': product.product_manufacturer
+                 })
     else:
         products = Product.objects.all()[:5]
         for product in products:
             payload.append(
                 {'product': product.product_name,
-                 'manufacturer': product.product_manufacturer,
-                 'price': product.price})
+                 'manufacturer': product.product_manufacturer
+                 })
     return JsonResponse({'payload': payload})
 
 
