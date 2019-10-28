@@ -54,7 +54,7 @@ def test():
         pa.number = row["number"]
         pa.save()
 
-    # product = Product.objects.filter(product_name="Анальгин", available__number__gte=2)
-    product = Product.objects.filter(product_name="Анальгин", available__number__gte=2)
+    # product = Product.objects.filter(product_name="АНАЛЬГИН 500МГ №10 (ТЮМЕНЬ)..", available__number__gte=2)
+    product = Product.objects.filter(product_name="АНАЛЬГИН 500МГ №10 (ТЮМЕНЬ)..", available__number__gte=2)
     product.available.all()
     ProductAvailability.objects.filter(product=product)
