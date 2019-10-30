@@ -4,7 +4,7 @@
             <b-form-input v-model="query" size="lg" class="my-lg-2" placeholder="Search"></b-form-input>
         </b-nav-form>
         <div class="row content-box">
-            <b-table striped hover :items="payload"></b-table>
+            <b-table striped hover :items="productload"></b-table>
         </div>
     </div>
 </template>
@@ -16,7 +16,7 @@
         data() {
             return {
                 query: "",
-                payload: [],
+                productload: [],
                 count: 0,
                 url: {
                     index: 'http://127.0.0.1:8000/app'
@@ -25,22 +25,22 @@
         },
         computed: {},
         methods: {
-            async getPayload() {
+            async getProductload() {
                 const response = await axios.get(this.url.index);
-                this.payload = response.data;
+                this.productload = response.data;
             },
-            async getPayloadParam(query) {
+            async getProductloadParam(query) {
                 const response = await axios.get(this.url.index, {
                     params: {
                         query: query
                     }
                 });
-                this.payload = response.data.payload;
-                this.count = response.data.valueOf().payload.length;
+                this.productload = response.data.productload;
+                this.count = response.data.valueOf().productload.length;
             }
         },
         mounted() {
-            // this.getPayload();
+            // this.getProductload();
         },
         watch: {
             query: function (seach) {
@@ -48,7 +48,7 @@
                     clearTimeout(this.timerId);
                 }
                 this.timerId = setTimeout(() => {
-                    this.getPayloadParam(seach);
+                    this.getProductloadParam(seach);
                     this.timerId = 0;
                 }, 1000);
             }

@@ -7,23 +7,19 @@ def index(request):
     # TODO: поставить ограничение при фильтрации 100-200 строк
     # TODO: если нет фильтра то выдавать какой-то набор популярных товаров
 
-    payload = []
+    productload = []
     if request.GET:
         query = request.GET.get('query').upper()
-        products = Product.objects.filter(product_name__icontains=query)
+        if query:
+            products = Product.objects.filter(product_name__icontains=query)
+        else:
+            products = Product.objects.all()[:5]
         for product in products:
-            payload.append(
+            productload.append(
                 {'product': product.product_name,
                  'manufacturer': product.product_manufacturer
                  })
-    else:
-        products = Product.objects.all()[:5]
-        for product in products:
-            payload.append(
-                {'product': product.product_name,
-                 'manufacturer': product.product_manufacturer
-                 })
-    return JsonResponse({'payload': payload})
+    return JsonResponse({'productload': productload})
 
 
 def farmacy(request):
