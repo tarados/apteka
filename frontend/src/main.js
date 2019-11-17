@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import '../src/css/mystyle.css'
 
-import AppStartscreen from "./components/StartScreen";
+import AppStartscreen from "./components/Home";
 import AppProduct from "./components/Product.vue";
 import AppFarmacy from "./components/Farmacy.vue";
 import AppMaps from "./components/Maps.vue";
