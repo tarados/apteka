@@ -1,25 +1,29 @@
 <template>
-    <div class="productStorage">
-        <app-startscreen v-if="state === 'start'"></app-startscreen>
-        <app-poduct v-else-if="state === 'product'"></app-poduct>
-        <app-farmacy v-else-if="state === 'farmacy'"></app-farmacy>
-        <app-maps v-else-if="state === 'maps'"></app-maps>
-        <div v-else>Unknown state</div>
+    <div id="app">
+        <component :is="layout">
+            <router-view/>
+        </component>
     </div>
-
 </template>
 
 <script>
-
+    import EmptyLayout from './templates/EmptyLayout'
+    import MainLayout from './templates/MainLayout'
     export default {
-        data() {
-            return {
-                state: 'start'
+        computed: {
+            layout() {
+                // eslint-disable-next-line no-console
+                console.log(this.$route.meta.layout);
+                return this.$route.meta.layout
             }
+        },
+        components: {
+            EmptyLayout, MainLayout
         }
     }
 </script>
 
-<style scoped>
+
+<style lang="scss">
 
 </style>

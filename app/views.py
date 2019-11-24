@@ -11,7 +11,7 @@ def index(request):
     if request.GET:
         query = request.GET.get('query').upper()
         if query:
-            products = Product.objects.filter(product_name__icontains=query)
+            products = Product.objects.filter(product_name__icontains=query)[:100]
         else:
             products = Product.objects.all()[:5]
         for product in products:
