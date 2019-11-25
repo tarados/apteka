@@ -10,8 +10,8 @@ def index(request):
     productload = []
     if request.GET:
         query = request.GET.get('query').upper()
-        if query:
-            products = Product.objects.filter(product_name__icontains=query)[:100]
+        if query != 'EMPTY':
+            products = Product.objects.filter(product_name__icontains=query)[:10]
         else:
             products = Product.objects.all()[:5]
         for product in products:

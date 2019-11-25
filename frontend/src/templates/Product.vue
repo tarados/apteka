@@ -26,8 +26,12 @@
         computed: {},
         methods: {
             async getProductload() {
-                const response = await axios.get(this.url.index);
-                this.productload = response.data;
+                const response = await axios.get(this.url.index, {
+                    params: {
+                        query: 'empty'
+                    }
+                });
+                this.productload = response.data.productload;
             },
             async getProductloadParam(query) {
                 const response = await axios.get(this.url.index, {
@@ -40,7 +44,7 @@
             }
         },
         mounted() {
-            // this.getProductload();
+            this.getProductload();
         },
         watch: {
             query: function (seach) {
