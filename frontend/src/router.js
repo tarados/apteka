@@ -18,6 +18,18 @@ export default new Router({
             name: 'maps',
             meta: {layout: 'MainLayout'},
             component: () => import('./templates/Maps.vue')
+        },
+        {
+            path: '/product',
+            name: 'product',
+            meta: {layout: 'MainLayout'},
+            component: () => import('./templates/Product.vue')
+        },
+        {
+            path: '/product/:textseach',
+            name: 'productseach',
+            meta: {layout: 'MainLayout'},
+            component: () => import('./templates/Product.vue')
         }
 
     ]
