@@ -12,19 +12,12 @@
     export default {
         data() {
             return {
-                query: this.$route.params.textseach,
+                query: '',
                 productload: [],
                 count: 0,
                 url: {
                     index: 'http://127.0.0.1:8000/app'
                 }
-            }
-        },
-        computed: {
-            getParams() {
-                // eslint-disable-next-line no-console
-                console.log(this.$route.params);
-                return this.$route.params
             }
         },
         methods: {
@@ -44,22 +37,38 @@
                 });
                 this.productload = response.data.productload;
                 this.count = response.data.valueOf().productload.length;
+            },
+            getProduct() {
+                if (this.$route.params.textseach === undefined)
+                    this.getProductload();
+                if (this.$route.params.textsaech === this.query)
+                    return;
+                else
+                    this.query = this.$route.params.textseach;
+                // eslint-disable-next-line no-console
+                console.log(this.query);
+                this.getProductloadParam(this.query);
             }
         },
         mounted() {
-            this.getProductload();
+            this.getProduct()
         },
-        watch: {
-            query: function (seach) {
-                if (this.timerId) {
-                    clearTimeout(this.timerId);
-                }
-                this.timerId = setTimeout(() => {
-                    this.getProductloadParam(seach);
-                    this.timerId = 0;
-                }, 1000);
-            }
+        updated() {
+            this.getProduct()
         }
+        // watch: {
+        //     query: function (seach) {
+        //         if (this.timerId) {
+        //             clearTimeout(this.timerId);
+        //         }
+        //         this.timerId = setTimeout(() => {
+        //             // eslint-disable-next-line no-console
+        //             console.log('sdfsadf');
+        //             this.getProductloadParam(seach);
+        //             this.timerId = 0;
+        //         }, 1000);
+        //     }
+        // }
     }
 </script>
 
