@@ -4,8 +4,8 @@
             <b-navbar-brand href="#">
                 <img src="../assets/logo.png" alt="brand">
             </b-navbar-brand>
-<!--            <custom-icon name="search" base-class="custom-icon"></custom-icon>-->
-<!--            <custom-icon name="map-pin" base-class="custom-icon"></custom-icon>-->
+            <!--            <custom-icon name="search" base-class="custom-icon"></custom-icon>-->
+            <!--            <custom-icon name="map-pin" base-class="custom-icon"></custom-icon>-->
 
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -14,7 +14,7 @@
                 <b-navbar-nav class="mx-auto">
                     <b-nav-form>
                         <b-input-group size="sm">
-                            <b-form-input placeholder="Search"></b-form-input>
+                            <b-form-input v-model="texts" placeholder="Search"></b-form-input>
                         </b-input-group>
                     </b-nav-form>
 
@@ -39,6 +39,7 @@
         },
         data: function () {
             return {
+                texts: '',
                 baseClass: 'v-icon',
                 items: [
                     {category: 'Акции'},
@@ -49,6 +50,29 @@
                     {category: 'Медтехника и изделия медицинского назначения'},
                     {category: 'Витамины и БАДы'}
                 ]
+            }
+        },
+        methods: {
+            getParam(texts) {
+                this.$router.push({path: 'product/' + texts, params: texts});
+            },
+            getParamOut() {
+                this.$router.push({path: '/', params: 'empty'});
+            }
+        },
+        computed: {},
+        watch: {
+            texts: function (seach) {
+                if (this.timerId) {
+                    clearTimeout(this.timerId);
+                }
+                this.timerId = setTimeout(() => {
+                    if (seach == '')
+                        this.getParamOut();
+                    else
+                        this.getParam(seach);
+                    this.timerId = 0;
+                }, 1000);
             }
         }
     }

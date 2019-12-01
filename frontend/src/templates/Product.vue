@@ -1,8 +1,5 @@
 <template>
     <div class="container-fluid">
-        <b-nav-form class="form-inline">
-            <b-form-input v-model="query" size="lg" class="my-lg-2" placeholder="Search"></b-form-input>
-        </b-nav-form>
         <div class="row content-box">
             <b-table striped hover :items="productload"></b-table>
         </div>
@@ -15,7 +12,7 @@
     export default {
         data() {
             return {
-                query: "",
+                query: this.$route.params.textseach,
                 productload: [],
                 count: 0,
                 url: {
@@ -23,7 +20,13 @@
                 }
             }
         },
-        computed: {},
+        computed: {
+            getParams() {
+                // eslint-disable-next-line no-console
+                console.log(this.$route.params);
+                return this.$route.params
+            }
+        },
         methods: {
             async getProductload() {
                 const response = await axios.get(this.url.index, {
@@ -64,13 +67,4 @@
     .content-box {
         margin: 20px 0 5px 0;
     }
-
-    .my-lg-2 {
-        margin: 0 auto;
-    }
-
-    .form-inline {
-        margin-top: 10px;
-    }
-
 </style>

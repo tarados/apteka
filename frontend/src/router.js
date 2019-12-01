@@ -11,6 +11,7 @@ export default new Router({
             path: '/',
             name: 'home',
             meta: {layout: 'MainLayout'},
+            params: {textseach: 'ddd'},
             component: () => import('./templates/Home.vue')
         },
         {
