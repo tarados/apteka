@@ -1,9 +1,9 @@
 <template>
-    <div class="container-fluid">
-        <div class="row content-box">
-            <b-table striped hover :items="productload"></b-table>
-        </div>
+<div class="container-fluid">
+    <div class="row content-box">
+        <b-table striped hover :items="productload"></b-table>
     </div>
+</div>
 </template>
 
 <script>
@@ -39,15 +39,15 @@
                 this.count = response.data.valueOf().productload.length;
             },
             getProduct() {
-                if (this.$route.params.textseach === undefined)
+                if (this.$route.params.textseach === undefined) {
                     this.getProductload();
-                if (this.$route.params.textsaech === this.query)
+                } else if (this.query === this.$route.params.textseach) {
                     return;
-                else
+                } else {
                     this.query = this.$route.params.textseach;
-                // eslint-disable-next-line no-console
-                console.log(this.query);
-                this.getProductloadParam(this.query);
+                    this.getProductloadParam(this.query);
+                }
+
             }
         },
         mounted() {
@@ -56,19 +56,6 @@
         updated() {
             this.getProduct()
         }
-        // watch: {
-        //     query: function (seach) {
-        //         if (this.timerId) {
-        //             clearTimeout(this.timerId);
-        //         }
-        //         this.timerId = setTimeout(() => {
-        //             // eslint-disable-next-line no-console
-        //             console.log('sdfsadf');
-        //             this.getProductloadParam(seach);
-        //             this.timerId = 0;
-        //         }, 1000);
-        //     }
-        // }
     }
 </script>
 
