@@ -1,9 +1,9 @@
 <template>
-<div class="container-fluid">
-    <div class="row content-box">
-        <b-table striped hover :items="productload"></b-table>
+    <div class="container-fluid">
+        <div class="content-box" v-for="(product, index) in productload" v-bind:key="index">
+            <h2 v-text="product.product"></h2>
+        </div>
     </div>
-</div>
 </template>
 
 <script>
@@ -41,7 +41,7 @@
             getProduct() {
                 if (this.$route.params.textseach === undefined) {
                     this.getProductload();
-                } else if (this.query === this.$route.params.textseach) {
+                } else if (this.$route.params.textseach === this.query) {
                     return;
                 } else {
                     this.query = this.$route.params.textseach;
@@ -54,13 +54,20 @@
             this.getProduct()
         },
         updated() {
-            this.getProduct()
+            if ((this.query === '') || (this.query === undefined)) {
+                this.$route.params.textseach = '';
+            }
         }
     }
 </script>
 
 <style scoped>
+    .container-fluid {
+        display: flex;
+    }
+
     .content-box {
-        margin: 20px 0 5px 0;
+        border: 1px solid grey;
+        border-radius: 3px;
     }
 </style>
