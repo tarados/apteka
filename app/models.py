@@ -23,7 +23,8 @@ class Product(models.Model):
 
     product_name = models.CharField(max_length=250, db_index=True)
     product_manufacturer = models.CharField(max_length=250, null=True, blank=True)
-    # price = models.FloatField(null=True, blank=True)
+    price = models.FloatField(null=True, blank=True)
+    product_photo = models.ImageField(upload_to='images', null=True, blank=True)
 
 
 class ProductAvailability(models.Model):

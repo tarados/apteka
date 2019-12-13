@@ -131,6 +131,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# STATIC_ROOT = env.get('STATIC_ROOT', '')
+
+MEDIA_URL = '/media/'
+
+# MEDIA_ROOT = env.get('MEDIA_ROOT', '')
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'frontend'),
     os.path.join(BASE_DIR, 'static'),

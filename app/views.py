@@ -17,7 +17,9 @@ def index(request):
         for product in products:
             productload.append(
                 {'product': product.product_name,
-                 'manufacturer': product.product_manufacturer
+                 'manufacturer': product.product_manufacturer,
+                 'price': product.price,
+                 # 'product_photo': product.product_photo.url
                  })
     return JsonResponse({'productload': productload})
 
