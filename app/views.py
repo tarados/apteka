@@ -7,7 +7,7 @@ def index(request):
     # TODO: поставить ограничение при фильтрации 100-200 строк
     # TODO: если нет фильтра то выдавать какой-то набор популярных товаров
 
-    productload = []
+    products_result = []
     if request.GET:
         query = request.GET.get('query').upper()
         if query != 'EMPTY':
@@ -15,13 +15,13 @@ def index(request):
         else:
             products = Product.objects.all()[:5]
         for product in products:
-            productload.append(
+            products_result.append(
                 {'product': product.product_name,
                  'manufacturer': product.product_manufacturer,
                  'price': product.price,
                  # 'product_photo': product.product_photo.url
                  })
-    return JsonResponse({'productload': productload})
+    return JsonResponse({'products': products_result})
 
 
 def farmacy(request):

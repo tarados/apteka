@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="mainlayout">
         <b-navbar toggleable="lg" type="light" variant="light">
             <b-navbar-brand href="#">
                 <img src="../assets/logo.png" alt="brand">
@@ -54,7 +54,7 @@
         },
         methods: {
             getParam(texts) {
-                this.$router.push({path: 'product/' + texts, params: texts});
+                this.$router.push({path: '/product/' + encodeURI(texts), params: encodeURI(texts)});
             },
             getParamOut() {
                 this.$router.push({path: '/', params: 'empty'});
@@ -79,6 +79,9 @@
 </script>
 
 <style scoped>
+    .mainlayout {
+        /*background-color: #232323;*/
+    }
     /*.v-icon,*/
     /*.custom-icon {*/
     /*    width: 24px;*/

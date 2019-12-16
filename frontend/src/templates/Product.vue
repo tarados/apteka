@@ -1,20 +1,20 @@
 <template>
-    <div class="wrapper">
-        <div class="productContent">
-            <div class="product" v-for="(product, index) in productload" v-bind:key="index">
-                <div class="title" v-text="product.product"></div>
+    <b-container>
+        <b-row class="productContent" align-h="center">
+            <b-col class="product" cols="4" v-for="(product, index) in products" v-bind:key="index">
                 <div class="pic">
                     <img src="../assets/no-img.png" alt="">
                 </div>
+                <div class="title" v-text="product.product"></div>
                 <div class="manufacturer" v-text="product.manufacturer"></div>
                 <div class="price" v-text="product.price + ' руб.'"></div>
                 <div class="action">
                     <div class="btn">Где есть</div>
                     <div class="btn">В корзину</div>
                 </div>
-            </div>
-        </div>
-    </div>
+            </b-col>
+        </b-row>
+    </b-container>
 </template>
 
 <script>
@@ -24,7 +24,7 @@
         data() {
             return {
                 query: '',
-                productload: [],
+                products: [],
                 count: 0,
                 url: {
                     index: 'http://127.0.0.1:8000/app'
@@ -32,84 +32,67 @@
             }
         },
         methods: {
-            async getProductload() {
-                const response = await axios.get(this.url.index, {
-                    params: {
-                        query: 'empty'
-                    }
-                });
-                this.productload = response.data.productload;
-            },
-            async getProductloadParam(query) {
+            async loadProducts(query) {
+                if (!query || !query.length) {
+                    query = 'empty'
+                }
                 const response = await axios.get(this.url.index, {
                     params: {
                         query: query
                     }
                 });
-                this.productload = response.data.productload;
-                this.count = response.data.valueOf().productload.length;
+                this.products = response.data.products;
+                this.count = this.products.length;
             },
-            getProduct() {
-                if (this.$route.params.textseach === undefined) {
-                    this.getProductload();
-                } else if (this.$route.params.textseach === this.query) {
-                    return 'df';
-                } else {
+            checkQueryAndLoadProducts() {
+                if (this.$route.params.textseach !== this.query) {
                     this.query = this.$route.params.textseach;
-                    this.getProductloadParam(this.query);
+                    this.loadProducts(this.query);
                 }
-
             }
         },
         mounted() {
-            this.getProduct()
+            this.checkQueryAndLoadProducts();
         },
         updated() {
             if ((this.query === '') || (this.query === undefined)) {
                 this.$route.params.textseach = '';
+            }
+        },
+        watch: {
+            // eslint-disable-next-line no-unused-vars
+            $route(to, from) {
+                this.checkQueryAndLoadProducts()
             }
         }
     }
 </script>
 
 <style scoped>
-    .wrapper {
-        max-width: 1280px;
-        padding: 0 15px;
-        margin: 0 auto;
-        border: 1px solid #ff0;
-    }
-
     .productContent {
-        background: #f00;
+        background: #6DDCBD;
     }
 
-    .productContent:after {
-        content: "";
-        display: block;
-        clear: both;
-    }
-
-    .wrapper .product {
-        text-align: center;
-        background: #777;
-        min-height: 250px;
-
-        float: left;
+    .product {
+        background: grey;
+        padding: 15px;
         margin: 15px;
-        width: calc(100% / 4 - 30px);
     }
 
     .title {
-        font-size: 20px;
+        font-size: 14px;
     }
 
     .manufacturer {
         font-style: italic;
     }
 
+    .pic {
+
+    }
+
     .price {
-        text-align: right;
+
     }
 
     .action {
@@ -119,4 +102,6 @@
     .btn {
 
     }
+
+
 </style>
