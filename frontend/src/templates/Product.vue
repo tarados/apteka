@@ -1,7 +1,7 @@
 <template>
     <div class="product">
         <div class="pic">
-<!--            <img src="../assets/no-img.png" alt="">-->
+            <img src="../assets/no-img.png" alt="">
         </div>
         <div class="title" v-text="product.title"></div>
         <div class="manufacturer" v-text="product.manufacturer"></div>
@@ -27,10 +27,10 @@
 <style scoped>
     .product {
         text-align: center;
-        background: grey;
-        padding: 15px;
-        margin: 15px;
-        width: 100%;
+        /*background: #5a8028;*/
+        /*padding: 15px;*/
+        /*margin: 15px;*/
+        /*width: calc(100% / 2 - 30px);*/
     }
 
     .title {

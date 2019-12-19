@@ -1,13 +1,12 @@
 <template>
-    <div class="wrapper">
-        <div class="products">
-            <div v-for="product in products" :key="product.title">
-                <Product
-                        :product="product"
-                />
-            </div>
+    <div class="products container">
+        <div class="item" v-for="product in products" :key="product.title">
+            <Product
+                    :product="product"
+            />
         </div>
     </div>
+
 </template>
 
 <script>
@@ -67,16 +66,24 @@
 </script>
 
 <style scoped>
-    .wrapper {
-        max-width: 1280px;
-        padding: 0 15px;
-        margin: 0 auto;
-        border: 1px solid yellow;
-    }
     .products {
-        margin: 0 -15px;
         display: flex;
         flex-wrap: wrap;
-        /*background: #f00;*/
+        background: red;
+        margin: 0 auto;
     }
+
+    .item {
+        border: 0.5px solid #EDEDED;
+        padding: 15px;
+        margin: 5px;
+        width: calc(100% / 2 - 10px);
+    }
+
+    @media screen and (max-width: 992px) {
+        .item {
+            width: calc(100% / 1 - 10px);
+        }
+    }
+
 </style>
