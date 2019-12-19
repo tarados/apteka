@@ -74,7 +74,7 @@
     }
 
     .item {
-        border: 0.5px solid #EDEDED;
+        border: 1px solid #EDEDED;
         padding: 15px;
         margin: 5px;
         width: calc(100% / 2 - 10px);

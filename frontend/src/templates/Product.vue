@@ -27,6 +27,9 @@
 <style scoped>
     .product {
         text-align: center;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px 30px;
         /*background: #5a8028;*/
         /*padding: 15px;*/
         /*margin: 15px;*/
@@ -35,22 +38,29 @@
 
     .title {
         font-size: 14px;
+        grid-row: 1;
+        grid-column: 2 / 4;
     }
 
     .manufacturer {
         font-style: italic;
+        grid-row: 3;
+        grid-column: 1 / 2;
     }
 
     .pic {
-
+        grid-row: 1;
+        grid-column: 1 / 2;
     }
 
     .price {
-
+        grid-row: 2;
+        grid-column: 1 / 1;
     }
 
     .action {
-
+        grid-row: 4;
+        grid-column: 2 / 4;
     }
 
     .btn {
