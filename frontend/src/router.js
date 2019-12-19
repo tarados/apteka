@@ -24,13 +24,13 @@ export default new Router({
             path: '/product',
             name: 'product',
             meta: {layout: 'MainLayout'},
-            component: () => import('./templates/Product.vue')
+            component: () => import('./templates/Products.vue')
         },
         {
             path: '/product/:textseach',
             name: 'productseach',
             meta: {layout: 'MainLayout'},
-            component: () => import('./templates/Product.vue')
+            component: () => import('./templates/Products.vue')
         }
 
     ]

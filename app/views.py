@@ -16,7 +16,7 @@ def index(request):
             products = Product.objects.all()[:5]
         for product in products:
             products_result.append(
-                {'product': product.product_name,
+                {'title': product.product_name,
                  'manufacturer': product.product_manufacturer,
                  'price': product.price,
                  # 'product_photo': product.product_photo.url
