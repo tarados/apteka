@@ -58,7 +58,7 @@
         },
         watch: {
             // eslint-disable-next-line no-unused-vars
-            $route(to, from) {
+            $route() {
                 this.checkQueryAndLoadProducts()
             }
         }
@@ -69,8 +69,8 @@
     .products {
         display: flex;
         flex-wrap: wrap;
-        background: red;
         margin: 0 auto;
+        padding: 0;
     }
 
     .item {

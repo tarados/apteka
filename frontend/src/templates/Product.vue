@@ -4,18 +4,34 @@
             <img src="../assets/no-img.png" alt="">
         </div>
         <div class="title" v-text="product.title"></div>
-        <div class="manufacturer" v-text="product.manufacturer"></div>
         <div class="price" v-text="product.price + ' руб.'"></div>
+        <div class="manufacturer" v-text="product.manufacturer"></div>
         <div class="action">
-            <div class="btn">Где есть</div>
-            <div class="btn">В корзину</div>
+            <div>
+                <b-button variant="info" class="btn">
+                    <custom-icon name="map-pin" base-class="custom-icon"/>
+                </b-button>
+                <p><span>Где искать</span></p>
+            </div>
+            <div>
+                <b-button variant="success" class="btn">
+                    <custom-icon name="shopping-cart" class="custom-icon"/>
+                </b-button>
+                <p><span>Купить</span></p>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+    import customIcon from 'vue-icon/lib/vue-feather.esm'
+
     export default {
         name: "Product",
+        components: {
+            // eslint-disable-next-line vue/no-unused-components
+            customIcon
+        },
         props: {
             product: {
                 type: Object
@@ -30,10 +46,6 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-gap: 10px 30px;
-        /*background: #5a8028;*/
-        /*padding: 15px;*/
-        /*margin: 15px;*/
-        /*width: calc(100% / 2 - 30px);*/
     }
 
     .title {
@@ -44,26 +56,46 @@
 
     .manufacturer {
         font-style: italic;
-        grid-row: 3;
-        grid-column: 1 / 2;
-    }
-
-    .pic {
-        grid-row: 1;
-        grid-column: 1 / 2;
-    }
-
-    .price {
         grid-row: 2;
-        grid-column: 1 / 1;
-    }
-
-    .action {
-        grid-row: 4;
         grid-column: 2 / 4;
     }
 
-    .btn {
+    .pic {
+        grid-row: 1 / 5;
+        grid-column: 1 / 2;
+        border: 1px solid grey;
+    }
 
+    .price {
+        grid-row: 3;
+        grid-column: 2 / 4;
+        font-weight: bold;
+    }
+
+    .action {
+        grid-column: 2 / 4;
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-items: flex-end;
+
+    }
+
+    .btn {
+        margin: 0 5px;
+    }
+
+    .custom-icon {
+        width: 24px;
+    }
+
+    span {
+        font-style: italic;
+        font-size: 10px;
+    }
+
+    p {
+        margin: 0;
     }
 </style>

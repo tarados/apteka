@@ -4,17 +4,13 @@
             <b-navbar-brand href="#">
                 <img src="../assets/logo.png" alt="brand">
             </b-navbar-brand>
-            <!--            <custom-icon name="search" base-class="custom-icon"></custom-icon>-->
-            <!--            <custom-icon name="map-pin" base-class="custom-icon"></custom-icon>-->
-
-
-            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+            <b-navbar-toggle target="nav-collapse"/>
 
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav class="mx-auto">
                     <b-nav-form>
                         <b-input-group size="sm">
-                            <b-form-input v-model="texts" placeholder="Search"></b-form-input>
+                            <b-form-input v-model="texts" placeholder="Search"/>
                         </b-input-group>
                     </b-nav-form>
 
@@ -25,18 +21,15 @@
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
-        <slot></slot>
+<!--        <custom-icon name="search" base-class="custom-icon"></custom-icon>-->
+        <slot/>
     </div>
 </template>
 
 <script>
-    import customIcon from 'vue-icon/lib/vue-feather.esm'
 
     export default {
-        components: {
-            // eslint-disable-next-line vue/no-unused-components
-            customIcon
-        },
+
         data: function () {
             return {
                 texts: '',
@@ -67,7 +60,7 @@
                     clearTimeout(this.timerId);
                 }
                 this.timerId = setTimeout(() => {
-                    if (seach == '')
+                    if (seach === '')
                         this.getParamOut();
                     else
                         this.getParam(seach);
@@ -82,12 +75,5 @@
     .mainlayout {
         /*background-color: #232323;*/
     }
-    /*.v-icon,*/
-    /*.custom-icon {*/
-    /*    width: 24px;*/
-    /*}*/
 
-    /*.icon {*/
-    /*    color: #4bda46;*/
-    /*}*/
 </style>
