@@ -8,11 +8,11 @@
                     split
                     split-variant="outline-info"
                     variant="info"
-                    text="По релевантности"
+                    :text="text"
                     class="m-2 dr"
             >
-                <b-dropdown-item href="#">От дешевых</b-dropdown-item>
-                <b-dropdown-item href="#">От дорогих</b-dropdown-item>
+                <b-dropdown-item @click="SortingFromMin">От дешевых</b-dropdown-item>
+                <b-dropdown-item @click="SortingFromMax">От дорогих</b-dropdown-item>
             </b-dropdown>
             <button type="button" class="btn btn-danger">
                 <custom-icon name="filter" class="custom-icon"/>
@@ -36,6 +36,21 @@
                 type: Object
             },
             count: Number
+        },
+        data() {
+            return {
+                text: "По релевантности"
+            }
+        },
+        methods: {
+            SortingFromMin() {
+                this.text = "От дешевых";
+                this.$emit("sortingProductPrice", 'min');
+            },
+            SortingFromMax() {
+                this.text = "От дорогих";
+                this.$emit("sortingProductPrice", 'max');
+            }
         }
     }
 </script>
