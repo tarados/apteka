@@ -9,12 +9,12 @@
                     split-variant="outline-info"
                     variant="info"
                     :text="text"
-                    class="m-2 dr"
+                    class="m-2"
             >
-                <b-dropdown-item @click="SortingFromMin">От дешевых</b-dropdown-item>
-                <b-dropdown-item @click="SortingFromMax">От дорогих</b-dropdown-item>
+                <b-dropdown-item @click="sortingFromMin">От дешевых</b-dropdown-item>
+                <b-dropdown-item @click="sortingFromMax">От дорогих</b-dropdown-item>
             </b-dropdown>
-            <button type="button" class="btn btn-danger">
+            <button type="button" @click="filterProduct" class="btn btn-danger">
                 <custom-icon name="filter" class="custom-icon"/>
                 <span>Фильтр</span>
             </button>
@@ -43,13 +43,16 @@
             }
         },
         methods: {
-            SortingFromMin() {
+            sortingFromMin() {
                 this.text = "От дешевых";
                 this.$emit("sortingProductPrice", 'min');
             },
-            SortingFromMax() {
+            sortingFromMax() {
                 this.text = "От дорогих";
                 this.$emit("sortingProductPrice", 'max');
+            },
+            filterProduct() {
+                this.$emit("filterProduct", "filter");
             }
         }
     }
@@ -62,14 +65,6 @@
         justify-content: space-between;
         align-items: center;
         margin: 0 5px;
-    }
-
-    .counter {
-        float: left;
-    }
-
-    .sorting {
-
     }
 
     .custom-icon {

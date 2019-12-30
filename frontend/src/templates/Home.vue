@@ -1,19 +1,21 @@
 <template>
     <div>
+        <NavBar/>
         <Products/>
     </div>
 </template>
 
 <script>
     import Products from "./Products";
-
-    export default {
+    import NavBar from "./Navbar";
+       export default {
+        name: "Home",
         components: {
-            Products
+            Products,
+            NavBar
         }
     }
 </script>
-
 
 <style scoped>
 

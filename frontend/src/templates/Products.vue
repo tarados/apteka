@@ -6,7 +6,18 @@
             </h3>
             <h3 v-else>Первые пять позиций прайса</h3>
         </div>
-        <Sorting :count="count" @sortingProductPrice="sortingProductPrice"/>
+
+        <Sorting
+                :count="count"
+                @sortingProductPrice="sortingProductPrice"
+                @filterProduct="filterProduct"
+        />
+        <Filtration
+                class="filtered"
+                v-if="filter"
+                :product-list="products"
+        />
+        <div v-else></div>
         <div class="products">
             <div class="item" v-for="product in products" :key="product.title">
                 <Product
@@ -22,16 +33,19 @@
     import * as axios from "axios";
     import Product from "./Product";
     import Sorting from "./Sorting";
+    import Filtration from "./Filter"
 
     export default {
         components: {
-            // eslint-disable-next-line vue/no-unused-components
             Product,
+            // eslint-disable-next-line vue/no-unused-components
+            Filtration,
             Sorting
         },
         data() {
             return {
                 query: '',
+                filter: '',
                 products: [],
                 count: 0,
                 url: {
@@ -60,13 +74,19 @@
             },
             sortingProductPrice(text) {
                 let sortByPrice = function (d1, d2) {
-                    if (text === 'min'){
+                    if (text === 'min') {
                         return (d1.price > d2.price) ? 1 : -1;
                     } else if (text === 'max') {
                         return (d1.price < d2.price) ? 1 : -1;
                     }
                 };
                 this.products.sort(sortByPrice);
+            },
+            filterProduct(text) {
+                this.filter = text;
+                // this.products = this.products.filter(function (item) {
+                //     return item.manufacturer.match("КАЛИНА")
+                // })
             }
         },
         mounted() {
@@ -88,6 +108,10 @@
 </script>
 
 <style scoped>
+    .filtered {
+
+    }
+
     .products {
         display: flex;
         flex-wrap: wrap;
@@ -102,16 +126,17 @@
         width: calc(100% / 2 - 10px);
     }
 
+    h3 {
+        font-size: 1.5rem;
+        font-weight: 300;
+        margin: 10px;
+    }
+
     @media screen and (max-width: 992px) {
         .item {
             width: calc(100% / 1 - 10px);
         }
     }
 
-    h3 {
-        font-size: 1.5rem;
-        font-weight: 300;
-        margin: 10px;
-    }
 
 </style>
