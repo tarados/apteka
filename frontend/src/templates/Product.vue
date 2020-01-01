@@ -5,7 +5,7 @@
         </div>
         <div class="title" v-text="product.title"></div>
         <div class="price" v-text="product.price + ' руб.'"></div>
-        <div class="manufacturer" v-text="product.manufacturer"></div>
+        <div class="manufacturer" v-text="product.text"></div>
         <div class="action">
             <div>
                 <b-button variant="info" class="btn">

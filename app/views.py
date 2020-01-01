@@ -18,6 +18,7 @@ def index(request):
             products_result.append(
                 {'title': product.product_name,
                  'text': product.product_manufacturer,
+                 'value': product.product_manufacturer,
                  'price': product.price,
                  # 'product_photo': product.product_photo.url
                  })

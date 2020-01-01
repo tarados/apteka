@@ -6,7 +6,6 @@
             </h3>
             <h3 v-else>Первые пять позиций прайса</h3>
         </div>
-
         <Sorting
                 :count="count"
                 @sortingProductPrice="sortingProductPrice"
@@ -14,6 +13,7 @@
         />
         <Filtration
                 class="filtered"
+                @filteredManufacturer="filteredManufacturer"
                 v-if="filter"
                 :product-list="products"
         />
@@ -84,9 +84,12 @@
             },
             filterProduct(text) {
                 this.filter = text;
-                // this.products = this.products.filter(function (item) {
-                //     return item.manufacturer.match("КАЛИНА")
-                // })
+            },
+            filteredManufacturer(manufacturerList) {
+                const filterParameter = manufacturerList.join(' ');
+                this.products = this.products.filter(function (item) {
+                    return item.text.match(filterParameter)
+                })
             }
         },
         mounted() {

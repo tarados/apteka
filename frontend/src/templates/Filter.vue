@@ -1,6 +1,5 @@
 <template>
     <div class="filtered">
-        {{productList[0]}}
         <b-form-group class="inline-group">
             <b-form-checkbox-group
                     v-model="selected"
@@ -21,6 +20,8 @@
 </template>
 
 <script>
+    import groupArray from 'group-array'
+
     export default {
         name: "Filters",
         props: {
@@ -36,11 +37,23 @@
         },
         methods: {
             createOptionsList() {
-                this.options = this.options.concat(this.productList);
+                // eslint-disable-next-line no-unused-vars
+                const groupProductList = groupArray(this.productList, 'text');
+                const keys = [];
+                for (const key in groupProductList) {
+                    keys.push(key);
+                }
+                this.options = this.options.concat(keys);
+            },
+            selectedManufacturer() {
+                this.$emit("filteredManufacturer", this.selected);
             }
         },
         mounted() {
             this.createOptionsList();
+        },
+        updated() {
+            this.selectedManufacturer();
         }
     }
 </script>
