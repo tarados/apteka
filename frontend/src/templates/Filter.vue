@@ -52,8 +52,12 @@
         mounted() {
             this.createOptionsList();
         },
-        updated() {
-            this.selectedManufacturer();
+        watch: {
+            selected: function (val) {
+                this.selectedManufacturer();
+                // eslint-disable-next-line no-console
+                console.log(val)
+            }
         }
     }
 </script>

@@ -19,7 +19,7 @@
         />
         <div v-else></div>
         <div class="products">
-            <div class="item" v-for="product in products" :key="product.title">
+            <div class="item" v-for="product in productsFiltered" :key="product.title">
                 <Product
                         :product="product"
                 />
@@ -46,11 +46,21 @@
             return {
                 query: '',
                 filter: '',
+                manufacturerFilter: null,
                 products: [],
                 count: 0,
                 url: {
                     index: 'http://127.0.0.1:8000/app'
                 }
+            }
+        },
+        computed: {
+            productsFiltered() {
+                if (this.manufacturerFilter && this.manufacturerFilter.length) {
+                    const filter = this.manufacturerFilter.join('|');
+                    return this.products.filter(item => item.text.match(filter))
+                }
+                return this.products
             }
         },
         methods: {
@@ -86,10 +96,7 @@
                 this.filter = text;
             },
             filteredManufacturer(manufacturerList) {
-                const filterParameter = manufacturerList.join(' ');
-                this.products = this.products.filter(function (item) {
-                    return item.text.match(filterParameter)
-                })
+               this.manufacturerFilter = manufacturerList;
             }
         },
         mounted() {
