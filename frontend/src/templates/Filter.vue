@@ -53,10 +53,8 @@
             this.createOptionsList();
         },
         watch: {
-            selected: function (val) {
+            selected: function () {
                 this.selectedManufacturer();
-                // eslint-disable-next-line no-console
-                console.log(val)
             }
         }
     }

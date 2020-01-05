@@ -58,8 +58,13 @@
             productsFiltered() {
                 if (this.manufacturerFilter && this.manufacturerFilter.length) {
                     const filter = this.manufacturerFilter.join('|');
-                    return this.products.filter(item => item.text.match(filter))
+                    const filteredList = this.products.filter(item => item.text.match(filter));
+                    // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+                    this.count = filteredList.length;
+                    return filteredList
                 }
+                // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+                this.count = this.products.length;
                 return this.products
             }
         },
