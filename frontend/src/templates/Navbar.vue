@@ -12,11 +12,6 @@
                             <b-form-input v-model="texts" placeholder="Search"/>
                         </b-input-group>
                     </b-nav-form>
-
-                    <b-nav-item-dropdown text="Категории" right>
-                        <b-dropdown-item href="#" v-for="item in items" v-bind:key="item.category">{{ item.category }}
-                        </b-dropdown-item>
-                    </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
@@ -28,26 +23,20 @@
         name: "Navbar",
         data() {
             return {
-                texts: '',
-                baseClass: 'v-icon',
-                items: [
-                    {category: 'Акции'},
-                    {category: 'Лекарственные препараты'},
-                    {category: 'Красота и уход'},
-                    {category: 'Товары для детей и мам'},
-                    {category: 'Лечебно-косметические средства'},
-                    {category: 'Медтехника и изделия медицинского назначения'},
-                    {category: 'Витамины и БАДы'}
-                ]
+                texts: ''
             }
         },
         methods: {
             getParam(texts) {
                 this.$router.push({path: '/product/' + encodeURI(texts), params: encodeURI(texts)});
-            },
+            }
+            ,
             getParamOut() {
                 this.$router.push({path: '/', params: 'empty'});
             }
+        },
+        mounted() {
+            this.getParamOut();
         },
         computed: {},
         watch: {
