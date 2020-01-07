@@ -37,6 +37,9 @@
         },
         methods: {
             createOptionsList() {
+                this.productList.forEach(function (item) {
+                   item.text = item.manufacturer;
+                });
                 // eslint-disable-next-line no-unused-vars
                 const groupProductList = groupArray(this.productList, 'text');
                 const keys = [];
