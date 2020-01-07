@@ -32,7 +32,8 @@
             }
             ,
             getParamOut() {
-                this.$router.push({path: '/', params: 'empty'});
+                // eslint-disable-next-line no-unused-vars
+                this.$router.push({path: '/', params: 'empty'}).catch(err => {});
             }
         },
         mounted() {
