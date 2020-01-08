@@ -127,14 +127,6 @@
 </script>
 
 <style scoped>
-    .filtered {
-        /*display: block;*/
-    }
-
-    .text-danger {
-        /*display: block;*/
-    }
-
     .products {
         display: flex;
         flex-wrap: wrap;
@@ -150,7 +142,7 @@
     }
 
     h3 {
-        font-size: 1.5rem;
+        font-size: calc(1em + 1vw);
         font-weight: 300;
         margin: 10px;
     }
