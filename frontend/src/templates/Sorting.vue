@@ -15,7 +15,12 @@
                 <b-dropdown-item @click="sortingFromMax">От дорогих</b-dropdown-item>
             </b-dropdown>
             <button type="button" @click="filterProduct" class="btn btn-danger">
-                <custom-icon name="filter" class="custom-icon"/>
+                <i v-if="state">
+                    <custom-icon name="filter" class="custom-icon"/>
+                </i>
+                <i v-else>
+                    <custom-icon name="activity" class="custom-icon"/>
+                </i>
                 <span>Фильтр</span>
             </button>
         </div>
