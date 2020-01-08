@@ -12,7 +12,6 @@
                 @filterProduct="filterProduct"
         />
         <Filtration
-                class="filtered"
                 @filteredManufacturer="filteredManufacturer"
                 v-if="filter"
                 :product-list="products"
@@ -45,7 +44,7 @@
         data() {
             return {
                 query: '',
-                filter: '',
+                filter: null,
                 manufacturerFilter: null,
                 products: [],
                 count: 0,
@@ -98,7 +97,12 @@
                 this.products.sort(sortByPrice);
             },
             filterProduct(text) {
-                this.filter = text;
+                if (text === true) {
+                    this.filter = text;
+                } else {
+                    this.filter = null;
+                    this.manufacturerFilter = null;
+                }
             },
             filteredManufacturer(manufacturerList) {
                this.manufacturerFilter = manufacturerList;
@@ -124,7 +128,11 @@
 
 <style scoped>
     .filtered {
+        /*display: block;*/
+    }
 
+    .text-danger {
+        /*display: block;*/
     }
 
     .products {

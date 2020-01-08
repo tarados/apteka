@@ -32,14 +32,12 @@
             customIcon
         },
         props: {
-            product: {
-                type: Object
-            },
             count: Number
         },
         data() {
             return {
-                text: "Сортировка"
+                text: "Сортировка",
+                state: true
             }
         },
         methods: {
@@ -52,7 +50,8 @@
                 this.$emit("sortingProductPrice", 'max');
             },
             filterProduct() {
-                this.$emit("filterProduct", "filter");
+                this.$emit("filterProduct", this.state);
+                this.state = !this.state;
             }
         }
     }
