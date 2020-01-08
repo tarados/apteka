@@ -6,20 +6,10 @@
         <div class="title" v-text="product.title"></div>
         <div class="price" v-text="product.price + ' руб.'"></div>
         <div class="manufacturer" v-text="product.manufacturer"></div>
-        <div class="action">
-            <div>
-                <b-button variant="info" class="btn">
-                    <custom-icon name="map-pin" base-class="custom-icon"/>
-                </b-button>
-                <p><span>Где искать</span></p>
-            </div>
-            <div>
-                <b-button variant="success" class="btn">
-                    <custom-icon name="shopping-cart" class="custom-icon"/>
-                </b-button>
-                <p><span>Купить</span></p>
-            </div>
-        </div>
+        <b-button variant="success" class="action">
+            <custom-icon name="shopping-cart" class="custom-icon"/>
+            <span>Купить</span>
+        </b-button>
     </div>
 </template>
 
@@ -75,15 +65,16 @@
     .action {
         grid-column: 2 / 4;
         margin-top: 10px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        align-items: flex-end;
+        /*display: flex;*/
+        /*flex-wrap: wrap;*/
+        /*justify-content: flex-end;*/
+        /*align-items: flex-end;*/
 
     }
 
     .btn {
         margin: 0 5px;
+        width: 100%;
     }
 
     .custom-icon {
@@ -92,7 +83,8 @@
 
     span {
         font-style: italic;
-        font-size: 10px;
+        font-size: 14px;
+        margin-left: 10px;
     }
 
     p {
