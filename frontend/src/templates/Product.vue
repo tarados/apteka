@@ -65,16 +65,6 @@
     .action {
         grid-column: 2 / 4;
         margin-top: 10px;
-        /*display: flex;*/
-        /*flex-wrap: wrap;*/
-        /*justify-content: flex-end;*/
-        /*align-items: flex-end;*/
-
-    }
-
-    .btn {
-        margin: 0 5px;
-        width: 100%;
     }
 
     .custom-icon {
@@ -85,9 +75,5 @@
         font-style: italic;
         font-size: 14px;
         margin-left: 10px;
-    }
-
-    p {
-        margin: 0;
     }
 </style>
