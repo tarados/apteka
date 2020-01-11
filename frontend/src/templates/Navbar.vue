@@ -8,7 +8,7 @@
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav class="mx-auto">
                     <b-nav-form>
-                        <b-input-group size="sm">
+                        <b-input-group size="sm" class="seachInput">
                             <b-form-input v-model="texts" placeholder="Search"/>
                         </b-input-group>
                     </b-nav-form>
@@ -33,7 +33,8 @@
             ,
             getParamOut() {
                 // eslint-disable-next-line no-unused-vars
-                this.$router.push({path: '/', params: 'empty'}).catch(err => {});
+                this.$router.push({path: '/', params: 'empty'}).catch(err => {
+                });
             }
         },
         mounted() {
@@ -58,5 +59,7 @@
 </script>
 
 <style scoped>
-
+    .seachInput {
+        margin: 0 auto;
+    }
 </style>

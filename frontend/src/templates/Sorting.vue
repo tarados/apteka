@@ -64,11 +64,16 @@
 
 <style scoped>
     .sort-list {
+        width: 100%;
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-between;
         align-items: center;
         margin: 0 5px;
+    }
+
+    .sorting {
+        margin-right: 10px;
     }
 
     .custom-icon {
