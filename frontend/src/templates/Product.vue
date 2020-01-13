@@ -6,7 +6,7 @@
         <div class="title" v-text="product.title"></div>
         <div class="manufacturer" v-text="product.manufacturer"></div>
         <div class="price" v-text="product.price + ' руб.'"></div>
-        <b-button variant="success" class="action">
+        <b-button variant="success" class="action" @click="toBasket">
             <custom-icon name="shopping-cart" class="custom-icon"/>
             <span>Купить</span>
         </b-button>
@@ -25,6 +25,13 @@
         props: {
             product: {
                 type: Object
+            }
+        },
+        methods: {
+            toBasket() {
+                // eslint-disable-next-line no-unused-vars
+                this.$router.push('/basket').catch(err => {
+                });
             }
         }
     }

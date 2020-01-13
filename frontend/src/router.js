@@ -31,6 +31,12 @@ export default new Router({
             name: 'productseach',
             meta: {layout: 'MainLayout'},
             component: () => import('./templates/Products.vue')
+        },
+        {
+            path: '/basket',
+            name: 'basket',
+            meta: {layout: 'EmptyLayout'},
+            component: () => import('./templates/Basket')
         }
 
     ]

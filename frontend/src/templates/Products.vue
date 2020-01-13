@@ -106,10 +106,15 @@
             },
             filteredManufacturer(manufacturerList) {
                this.manufacturerFilter = manufacturerList;
+            },
+            currentPage() {
+                // eslint-disable-next-line no-console
+                console.log(this.$router);
             }
         },
         mounted() {
             this.checkQueryAndLoadProducts();
+            this.currentPage();
         },
         updated() {
             if ((this.query === '') || (this.query === undefined)) {
