@@ -1,7 +1,7 @@
 <template>
     <div class="product">
         <div class="pic">
-            <img src="../assets/no-img.png" alt="">
+            <img id="myImg" src="../assets/no-img.png" alt="">
         </div>
         <div class="title" v-text="product.title"></div>
         <div class="manufacturer" v-text="product.manufacturer"></div>
@@ -15,6 +15,7 @@
 
 <script>
     import customIcon from 'vue-icon/lib/vue-feather.esm'
+    import * as basket from '../basket'
 
     export default {
         name: "Product",
@@ -32,6 +33,8 @@
                 // eslint-disable-next-line no-unused-vars
                 this.$router.push('/basket').catch(err => {
                 });
+                this.product.photo = document.getElementById("myImg").src;
+                basket.addItem(this.product);
             }
         }
     }
