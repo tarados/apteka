@@ -17,12 +17,14 @@ export function addItem(item) {
 export function incrementItem(index) {
     const items = getItems();
     items[index].quantity++;
+    items[index].valueProduct = items[index].price * items[index].quantity;
     setItems(items);
 }
 
 export function decrementItem(index) {
     const items = getItems();
     items[index].quantity--;
+    items[index].valueProduct = items[index].price * items[index].quantity;
     setItems(items);
 }
 
