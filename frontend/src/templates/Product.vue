@@ -34,6 +34,7 @@
                 this.$router.push('/basket').catch(err => {
                 });
                 this.product.photo = document.getElementById("myImg").src;
+                this.product.quantity = 1;
                 basket.addItem(this.product);
             }
         }

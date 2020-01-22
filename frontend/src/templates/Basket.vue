@@ -16,13 +16,13 @@
                     <div class="price" v-text="product.price + ' руб.'"></div>
                 </div>
                 <div class="quantity">
-                    <div variant="outline"  @click="minusQuantity">
-                        <custom-icon name="minus-square"  @click="minusQuantity" class="custom-icon"/>
-                    </div>
-                    <div>{{quantity}}</div>
-                    <div variant="outline" @click="plusQuantity">
+                    <b-button variant="outline" @click="minusQuantity(index)">
+                        <custom-icon name="minus-square" class="custom-icon"/>
+                    </b-button>
+                    <div v-text="product.quantity"></div>
+                    <b-button variant="outline" @click="plusQuantity(index)">
                         <custom-icon name="plus-square" class="custom-icon"/>
-                    </div>
+                    </b-button>
                 </div>
                 <div class="total">total</div>
                 <b-button-close class="deleteOrder" @click="deleteOrder(index)">
@@ -54,7 +54,7 @@
             return {
                 productList: [],
                 count: Number,
-                quantity: 1
+                // quantity: 1
             }
         },
         methods: {
@@ -69,11 +69,13 @@
                 basket.deleteItem(index);
                 this.loadBasket();
             },
-            minusQuantity() {
-                this.quantity--;
+            minusQuantity(index) {
+                this.productList[index].quantity--;
+                basket.decrementItem(index);
             },
-            plusQuantity() {
-                this.quantity++;
+            plusQuantity(index) {
+                this.productList[index].quantity++;
+                basket.incrementItem(index);
             }
         },
         mounted() {
