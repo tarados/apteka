@@ -2,8 +2,11 @@
     <div class="container">
         <div class="wrapper">
             <div id="header">
-                <div class="title">
-                    <i>Корзина ({{count}})</i>
+                <div class="contentHeader">
+                    <div class="titleBasket">
+                        <i>Корзина ({{count}})</i>
+                    </div>
+                    <div content="totalPrice" v-text="getTotalPrice"></div>
                 </div>
             </div>
             <div class="contentBasket" v-for="(product, index) in productList" :key="index">
@@ -16,15 +19,15 @@
                     <div class="price" v-text="product.price + ' руб.'"></div>
                 </div>
                 <div class="quantity">
-                    <div variant="outline"  @click="minusQuantity(index)">
+                    <b-button variant="outline" @click="minusQuantity(index)">
                         <custom-icon name="minus-square" class="custom-icon"/>
-                    </div>
-                    <div v-text="product.quantity"></div>
-                    <div variant="outline" @click="plusQuantity(index)">
+                    </b-button>
+                    <div class="productQuantity" v-text="product.quantity"></div>
+                    <b-button variant="outline" @click="plusQuantity(index)">
                         <custom-icon name="plus-square" class="custom-icon"/>
-                    </div>
+                    </b-button>
                 </div>
-                <div class="total">total</div>
+                <div class="total">{{product.valueProduct}} руб.</div>
                 <b-button-close class="deleteOrder" @click="deleteOrder(index)">
                     <custom-icon name="x" class="custom-icon"/>
                 </b-button-close>
@@ -54,7 +57,16 @@
             return {
                 productList: [],
                 count: Number,
-                quantity: 1
+            }
+        },
+        computed: {
+            getTotalPrice: function() {
+                let valueTotal = [];
+                this.productList.forEach(function (item) {
+                    valueTotal.push(item.valueProduct);
+                });
+                let totalPrice = eval(valueTotal.join('+'));
+                return totalPrice
             }
         },
         methods: {
@@ -71,9 +83,13 @@
             },
             minusQuantity(index) {
                 this.productList[index].quantity--;
+                this.productList[index].valueProduct = this.productList[index].price * this.productList[index].quantity;
+                basket.decrementItem(index);
             },
             plusQuantity(index) {
                 this.productList[index].quantity++;
+                this.productList[index].valueProduct = this.productList[index].price * this.productList[index].quantity;
+                basket.incrementItem(index);
             }
         },
         mounted() {
@@ -152,6 +168,10 @@
         flex-wrap: wrap;
         justify-content: space-between;
         width: 70%;
+    }
+
+    .productQuantity {
+        align-self: center;
     }
 
     .total {

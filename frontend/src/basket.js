@@ -14,6 +14,20 @@ export function addItem(item) {
     setItems(items);
 }
 
+export function incrementItem(index) {
+    const items = getItems();
+    items[index].quantity++;
+    items[index].valueProduct = items[index].price * items[index].quantity;
+    setItems(items);
+}
+
+export function decrementItem(index) {
+    const items = getItems();
+    items[index].quantity--;
+    items[index].valueProduct = items[index].price * items[index].quantity;
+    setItems(items);
+}
+
 export function deleteItem(index) {
     const items = getItems();
     items.splice(index, 1);

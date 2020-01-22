@@ -35,6 +35,7 @@
                 });
                 this.product.photo = document.getElementById("myImg").src;
                 this.product.quantity = 1;
+                this.product.valueProduct = this.product.quantity * this.product.price;
                 basket.addItem(this.product);
             }
         }
