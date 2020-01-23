@@ -37,6 +37,12 @@ export default new Router({
             name: 'basket',
             meta: {layout: 'EmptyLayout'},
             component: () => import('./templates/Basket')
+        },
+        {
+            path: '/basket/checkout',
+            name: 'checkout',
+            meta: {layout: 'EmptyLayout'},
+            component: () => import('./templates/Checkout')
         }
 
     ]
