@@ -37,7 +37,7 @@
                     <custom-icon name="chevron-left" class="custom-icon"/>
                     Продолжить покупки
                 </b-button>
-                <b-button variant="success" @click="toHome">Оформить заказ</b-button>
+                <b-button variant="success" @click="toCheckout">Оформить заказ</b-button>
             </div>
         </div>
     </div>
@@ -72,6 +72,12 @@
         methods: {
             toHome() {
                 this.$router.go(-1);
+            },
+            toCheckout() {
+                // eslint-disable-next-line no-unused-vars
+               this.$router.push('/basket/checkout').catch(err => {
+                });
+               basket.addItemCheck(this.getTotalPrice);
             },
             loadBasket() {
                 this.productList = basket.getItems();

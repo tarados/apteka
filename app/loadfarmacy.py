@@ -5,9 +5,6 @@ from conf.settings import BASE_DIR
 from app.models import Farmacy
 
 
-# from app.models import Farmacy
-
-
 def loadfarmacy():
     filename = os.path.join(BASE_DIR, 'static', 'farmacy.xlsx')
 
@@ -47,3 +44,9 @@ def loadfarmacy():
 
 def deleteFarmacy():
     Farmacy.objects.all().delete()
+
+
+"""Загрузку списка аптек в БД производим по схеме:
+ 1. Загружаем список аптек с именем farmacy.xlsx в папку static
+ 5. В терминале выполяем  python manage.py farmacy
+  """

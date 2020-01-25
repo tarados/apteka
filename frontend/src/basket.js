@@ -8,10 +8,25 @@ export function getItems() {
     return items
 }
 
+export function getItemsCheck() {
+    let items = localStorage.getItem('check');
+    if (items) {
+        items = JSON.parse(items);
+    } else {
+        items = '';
+    }
+    return items
+}
+
 export function addItem(item) {
     const items = getItems();
     items.push(item);
     setItems(items);
+}
+
+export function addItemCheck(item) {
+    item = JSON.stringify(item);
+    localStorage.setItem('check', item);
 }
 
 export function incrementItem(index) {
@@ -38,3 +53,4 @@ function setItems(items) {
     items = JSON.stringify(items);
     localStorage.setItem('basket', items);
 }
+
