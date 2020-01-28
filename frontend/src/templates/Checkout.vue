@@ -1,37 +1,54 @@
 <template>
-    <div class="wrapper">
-        <div class="checkOut" v-for="(product, index) in productList" :key="index">
-            <div class="checkOutContent">
-                <div class="title" v-text="product.title"></div>
-                <div class="manufacturer" v-text="product.manufacturer"></div>
-                <div class="price" v-text="product.price"></div>
-                <div class="quantity" v-text="product.quantity"></div>
-                <div class="valueProduct" v-text="product.valueProduct"></div>
-            </div>
+    <div class="container">
+        <div class="header">
+            <b-button variant="outline-primary" @click="toBasket">
+                <custom-icon name="chevron-left" class="custom-icon"/>
+                Вернуться в корзину
+            </b-button>
+            <div class="title"> Оформление заказа</div>
         </div>
-        <div class="totalPrice" v-text="totalPrice"></div>
+
+        <div>
+            <b-table striped hover :items="productList" :fields="fields"></b-table>
+        </div>
+        <hr>
+        <div class="totalPrice">
+            <div>
+                <i>Всего к оплате:</i>
+            </div>
+            <div class="price" v-text="totalPrice + ' руб.'"></div>
+        </div>
+        <hr>
         <Farmacy/>
     </div>
 </template>
 
 <script>
+    import customIcon from 'vue-icon/lib/vue-feather.esm'
+    import Farmacy from "./Farmacy";
     import * as basket from '../basket'
-    import Farmacy from './Farmacy'
+
     export default {
         name: "Checkout",
         components: {
+            // eslint-disable-next-line vue/no-unused-components
+            customIcon,
             Farmacy
         },
         data() {
             return {
                 productList: [],
-                totalPrice: 0
+                fields: ['title', 'manufacturer', 'price', 'quantity', 'valueProduct'],
+                totalPrice: 0,
             }
         },
         methods: {
             loadBasketContent() {
                 this.productList = basket.getItems();
                 this.totalPrice = basket.getItemsCheck();
+            },
+            toBasket() {
+                this.$router.go(-1);
             }
         },
         mounted() {
@@ -41,5 +58,32 @@
 </script>
 
 <style scoped>
+    .header {
+        padding: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-wrap: wrap;
+    }
 
+    .header .title {
+        width: 70%;
+        text-align: center;
+        align-self: center;
+    }
+
+    .totalPrice {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .price {
+        font-size: 22px;
+        font-weight: 500;
+        font-style: italic;
+    }
+
+    .custom-icon {
+        width: 24px;
+    }
 </style>

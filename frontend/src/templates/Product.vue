@@ -52,20 +52,17 @@
 
     .title {
         font-size: calc(0.8em + 0.3vw);
-        /*grid-row: 1;*/
         grid-column: 2 / 4;
     }
 
     .manufacturer {
         font-size: calc(0.65em + 0.3vw);
         font-style: italic;
-        /*grid-row: 2;*/
         grid-column: 2 / 4;
     }
 
     .pic {
         grid-row: 1 / 5;
-        /*grid-column: 1 / 2;*/
         border: 1px solid grey;
     }
 
@@ -74,7 +71,6 @@
     }
 
     .price {
-        /*grid-row: 3;*/
         grid-column: 2 / 4;
         font-weight: bold;
     }

@@ -106,10 +106,6 @@
             },
             filteredManufacturer(manufacturerList) {
                this.manufacturerFilter = manufacturerList;
-            },
-            currentPage() {
-                // // eslint-disable-next-line no-console
-                // console.log(this.$router);
             }
         },
         mounted() {

@@ -1,14 +1,14 @@
 <template>
     <div class="container">
-        <div class="wrapper">
-            <div id="header">
-                <div class="contentHeader">
-                    <div class="titleBasket">
-                        <i>Корзина ({{count}})</i>
-                    </div>
-                    <div content="totalPrice" v-text="getTotalPrice"></div>
-                </div>
+        <div id="header">
+            <div class="titleBasket">
+                <i>Заказано наименований - {{count}}</i>
             </div>
+            <div class="totalPrice">
+                <i>Всего к оплате: <span>{{getTotalPrice}} руб.</span></i>
+            </div>
+        </div>
+        <div class="wrapper">
             <div class="contentBasket" v-for="(product, index) in productList" :key="index">
                 <div class="photo">
                     <img :src="product.photo" :alt="product.title">
@@ -60,7 +60,7 @@
             }
         },
         computed: {
-            getTotalPrice: function() {
+            getTotalPrice: function () {
                 let valueTotal = [];
                 this.productList.forEach(function (item) {
                     valueTotal.push(item.valueProduct);
@@ -75,9 +75,9 @@
             },
             toCheckout() {
                 // eslint-disable-next-line no-unused-vars
-               this.$router.push('/basket/checkout').catch(err => {
+                this.$router.push('/basket/checkout').catch(err => {
                 });
-               basket.addItemCheck(this.getTotalPrice);
+                basket.addItemCheck(this.getTotalPrice);
             },
             loadBasket() {
                 this.productList = basket.getItems();
@@ -119,11 +119,17 @@
     #header {
         width: 100%;
         height: 3em;
-        margin-bottom: 5px;
+        border: 1px solid grey;
+        padding: 0 10px;
         display: flex;
-        flex-wrap: wrap;
         align-items: center;
-        justify-content: center
+        justify-content: space-between;
+    }
+
+    span {
+        font-style: normal;
+        font-size: 22px;
+        font-weight: 400;
     }
 
     .contentBasket {
