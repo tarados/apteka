@@ -1,16 +1,31 @@
 <template>
-    <div class="row content-box">
-        <b-dropdown
-                split
-                split-variant="outline-info"
-                :text="text"
-                variant="info"
-                class="m-2"
-        >
-            <b-dropdown-item v-for="(city, index) in cities" :key="index" @click="getCity">{{ city }}</b-dropdown-item>
-        </b-dropdown>
+    <div class="wrapper">
+        <div class="choice">
+            <b-dropdown
+                    split
+                    split-variant="outline-info"
+                    :text="text"
+                    variant="info"
+                    class="m-2"
+            >
+                <b-dropdown-item v-for="(city, index) in cities" :key="index" @click="getCity(index)">{{ city }}
+                </b-dropdown-item>
+            </b-dropdown>
+        </div>
+        <div class="filteredCity" v-for="(farmacy, index) in filteredCity" :key="index">
+            <div class="city" v-for="(city, index) in farmacy" :key="index">
+                <div class=" item pharmacyContent">
+                    <div class="pharmacy_name">{{city.pharmacy_name}}</div>
+                    <div class="street">{{city.street}}</div>
+                    <div class="house">{{city.house}}</div>
+                    <div class="phone">{{city.phone}}</div>
+                </div>
+            </div>
+            <div class="item">Посмотреть на карте</div>
+        </div>
     </div>
 </template>
+
 
 <script>
     import * as axios from "axios";
@@ -21,6 +36,7 @@
             return {
                 payloads: [],
                 cities: [],
+                filteredCity: [],
                 text: "Выберите город",
                 count: 0,
                 url: {
@@ -40,8 +56,11 @@
                 }
                 this.cities = this.cities.concat(keys).sort();
             },
-            getCity() {
-
+            getCity(index) {
+                this.filteredCity = [];
+                const filter = this.cities[index];
+                const filteredList = this.payloads.filter(item => item.city.match(filter));
+                this.filteredCity.push(filteredList);
             }
         },
         mounted() {
@@ -51,5 +70,31 @@
 </script>
 
 <style scoped>
+    .choice {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    .city {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 5px 0;
+        border: 1px solid gray;
+
+    }
+
+    .item {
+        border: 1px solid black;
+        /*padding: 5px;*/
+    }
+
+    .pharmacyContent {
+        width: 80%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
 
 </style>
