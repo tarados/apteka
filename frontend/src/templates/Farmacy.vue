@@ -15,15 +15,18 @@
         <div class="filteredCity" v-for="(farmacy, index) in filteredCity" :key="index">
             <div class="row city" v-for="(city, index) in farmacy" :key="index">
                 <div class="pharmacyContent">
-                    <div class="pharmacy_name">{{city.pharmacy_name}}</div>
-                    <div class="street">{{city.street}}</div>
-                    <div class="house">{{city.house}}</div>
-                    <div class="phone">{{city.phone}}</div>
+                    <b-link href="#foo">
+                        {{city.pharmacy_name}}, ул.
+                        {{city.street}},
+                        {{city.house}}, тел.
+                        {{city.phone}}
+                    </b-link>
                 </div>
-
                 <div class="itemMap">
-                    <custom-icon name="map-pin" class="custom-icon"/>
-                    <p>Посмотреть на карте</p>
+                    <b-link href="#foo">
+                        <custom-icon name="map-pin" class="custom-icon"/>
+                        <i> Посмотреть на карте</i>
+                    </b-link>
                 </div>
             </div>
 
@@ -86,30 +89,30 @@
         margin: 0 auto;
     }
 
-    .filteredCity {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        background-color: #6DDCBD;
+    .wrapper {
+        text-align: center;
     }
 
     .city {
-        width: 100%;
         margin: 5px 0;
         border: 1px solid gray;
+        text-align: center;
 
     }
 
     .itemMap {
         width: 20%;
+        padding: 0.5em;
         align-self: center;
+        text-align: center;
     }
 
     .pharmacyContent {
-        width: 80%;
-        /*display: flex;*/
-        /*flex-wrap: wrap;*/
-        /*justify-content: space-between;*/
+        width: calc(80% - 1em);
+        margin-left: 1em;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
     }
 
     .custom-icon {
