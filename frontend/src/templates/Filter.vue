@@ -25,8 +25,11 @@
     export default {
         name: "Filters",
         props: {
-            productList: {
+            filterableList: {
                 type: Array
+            },
+            filterableField: {
+                type: String
             }
         },
         data() {
@@ -37,19 +40,19 @@
         },
         methods: {
             createOptionsList() {
-                this.productList.forEach(function (item) {
-                   item.text = item.manufacturer;
+                this.filterableList.forEach((item) => {
+                    item.text = item[this.filterableField];
                 });
                 // eslint-disable-next-line no-unused-vars
-                const groupProductList = groupArray(this.productList, 'text');
+                const groupFilterableList = groupArray(this.filterableList, 'text');
                 const keys = [];
-                for (const key in groupProductList) {
+                for (const key in groupFilterableList) {
                     keys.push(key);
                 }
                 this.options = this.options.concat(keys);
             },
-            selectedManufacturer() {
-                this.$emit("filteredManufacturer", this.selected);
+            selectedItem() {
+                this.$emit("filteredItem", this.selected);
             }
         },
         mounted() {
@@ -57,7 +60,7 @@
         },
         watch: {
             selected: function () {
-                this.selectedManufacturer();
+                this.selectedItem();
             }
         }
     }

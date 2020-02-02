@@ -12,9 +12,10 @@
                 @filterProduct="filterProduct"
         />
         <Filtration
-                @filteredManufacturer="filteredManufacturer"
+                @filteredItem="filteredManufacturer"
                 v-if="filter"
-                :product-list="products"
+                :filterable-list="products"
+                filterable-field="manufacturer"
         />
         <div v-else></div>
         <div class="products">
@@ -110,7 +111,6 @@
         },
         mounted() {
             this.checkQueryAndLoadProducts();
-            this.currentPage();
         },
         updated() {
             if ((this.query === '') || (this.query === undefined)) {

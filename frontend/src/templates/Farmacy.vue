@@ -15,15 +15,18 @@
         <div class="filteredCity" v-for="(farmacy, index) in filteredCity" :key="index">
             <div class="row city" v-for="(city, index) in farmacy" :key="index">
                 <div class="pharmacyContent">
-                    <b-link href="#foo">
+                    <div class="content">
                         {{city.pharmacy_name}}, ул.
                         {{city.street}},
                         {{city.house}}, тел.
                         {{city.phone}}
-                    </b-link>
+                    </div>
+                    <div class="pharmacyChoice">
+                        <b-button variant="outline-primary">Выберите аптеку</b-button>
+                    </div>
                 </div>
                 <div class="itemMap">
-                    <b-link href="#foo">
+                    <b-link href="/basket/checkout/maps">
                         <custom-icon name="map-pin" class="custom-icon"/>
                         <i> Посмотреть на карте</i>
                     </b-link>
@@ -109,10 +112,18 @@
 
     .pharmacyContent {
         width: calc(80% - 1em);
-        margin-left: 1em;
         display: flex;
         flex-wrap: wrap;
-        align-content: center;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .content {
+        margin-left: 1em;
+    }
+
+    .pharmacyChoice {
+        margin-right: 1em;
     }
 
     .custom-icon {

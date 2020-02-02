@@ -15,9 +15,9 @@ export default new Router({
             component: () => import('./templates/Home.vue')
         },
         {
-            path: '/maps',
+            path: '/basket/checkout/maps',
             name: 'maps',
-            meta: {layout: 'MainLayout'},
+            meta: {layout: 'EmptyLayout'},
             component: () => import('./templates/Maps.vue')
         },
         {
