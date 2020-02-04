@@ -38,7 +38,6 @@
         data() {
             return {
                 productList: [],
-                // fields: ['title', 'manufacturer', 'price', 'quantity', 'valueProduct'],
                 fields: {
                     title: "Наименование",
                     manufacturer: 'Производитель',

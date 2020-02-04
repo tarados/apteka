@@ -68,7 +68,7 @@
                                 label-align-sm="right"
                                 label-for="nested-street"
                         >
-                            <b-form-input id="nested-street"></b-form-input>
+                            <b-form-input v-model="firstName"></b-form-input>
                         </b-form-group>
 
                         <b-form-group
@@ -77,7 +77,7 @@
                                 label-align-sm="right"
                                 label-for="nested-city"
                         >
-                            <b-form-input id="nested-city"></b-form-input>
+                            <b-form-input v-model="lastName"></b-form-input>
                         </b-form-group>
 
                         <b-form-group
@@ -86,7 +86,7 @@
                                 label-align-sm="right"
                                 label-for="nested-state"
                         >
-                            <b-form-input id="nested-state"></b-form-input>
+                            <b-form-input v-model="phoneOrder"></b-form-input>
                         </b-form-group>
                     </b-form-group>
                 </b-card>
@@ -95,6 +95,7 @@
                 <b-button
                         variant="success"
                         class="m-2"
+                        @click="checkoutOrder"
                 >
                     Оформить заказ
                 </b-button>
@@ -116,6 +117,9 @@
         },
         data() {
             return {
+                firstName: '',
+                lastName: '',
+                phoneOrder: '',
                 payloads: [],
                 cities: [],
                 state: true,
@@ -124,7 +128,7 @@
                 text: "Выберите город",
                 count: 0,
                 url: {
-                    index: 'http://127.0.0.1:8000/app/farmacy'
+                    index: process.env.VUE_APP_API
                 }
             }
         },
@@ -154,6 +158,9 @@
             },
             choiceFarmacyBack() {
                 this.state = !this.state;
+            },
+            checkoutOrder() {
+
             }
         },
         mounted() {
