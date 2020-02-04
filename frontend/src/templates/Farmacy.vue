@@ -12,7 +12,7 @@
                 </b-dropdown-item>
             </b-dropdown>
         </div>
-        <div class="filteredCity" v-for="(farmacy, index) in filteredCity" :key="index">
+        <div class="filteredCity" v-for="(farmacy, ind) in filteredCity" :key="ind" v-show="state">
             <div class="row city" v-for="(city, index) in farmacy" :key="index">
                 <div class="pharmacyContent">
                     <div class="content">
@@ -22,7 +22,7 @@
                         {{city.phone}}
                     </div>
                     <div class="pharmacyChoice">
-                        <b-button variant="outline-primary">Выберите аптеку</b-button>
+                        <b-button variant="outline-primary" @click="choiceFarmacy(ind,index)">Выберите аптеку</b-button>
                     </div>
                 </div>
                 <div class="itemMap">
@@ -32,7 +32,27 @@
                     </b-link>
                 </div>
             </div>
-
+        </div>
+        <div class="filteredCity" v-show="!state">
+            <div class="row city">
+                <div class="pharmacyContent">
+                    <div class="content">
+                        {{pharmacyChoice.pharmacy_name}}, ул.
+                        {{pharmacyChoice.street}},
+                        {{pharmacyChoice.house}}, тел.
+                        {{pharmacyChoice.phone}}
+                    </div>
+                    <div class="pharmacyChoice">
+                        <b-button variant="outline-primary" @click="choiceFarmacyBack()">Выберите аптеку</b-button>
+                    </div>
+                    <div class="itemMap">
+                        <b-link href="/basket/checkout/maps">
+                            <custom-icon name="map-pin" class="custom-icon"/>
+                            <i> Посмотреть на карте</i>
+                        </b-link>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -52,6 +72,8 @@
             return {
                 payloads: [],
                 cities: [],
+                state: true,
+                pharmacyChoice: {},
                 filteredCity: [],
                 text: "Выберите город",
                 count: 0,
@@ -77,6 +99,19 @@
                 const filter = this.cities[index];
                 const filteredList = this.payloads.filter(item => item.city.match(filter));
                 this.filteredCity.push(filteredList);
+            },
+            choiceFarmacy(ind, index) {
+                this.state = !this.state;
+                this.filteredCity.forEach((item) => {
+                    this.pharmacyChoice = item[index];
+                    // eslint-disable-next-line no-console
+                    console.log(ind);
+                });
+                // eslint-disable-next-line no-console
+                console.log(this.state, this.pharmacyChoice.pharmacy_name);
+            },
+            choiceFarmacyBack() {
+                this.state = !this.state;
             }
         },
         mounted() {
@@ -111,7 +146,7 @@
     }
 
     .pharmacyContent {
-        width: calc(80% - 1em);
+        width: calc(80% - 0.8em);
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
