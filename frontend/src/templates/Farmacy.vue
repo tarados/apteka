@@ -22,7 +22,7 @@
                         {{city.phone}}
                     </div>
                     <div class="pharmacyChoice">
-                        <b-button variant="outline-primary" @click="choiceFarmacy(ind,index)">Выберите аптеку</b-button>
+                        <b-button variant="outline-primary" @click="choiceFarmacy(index)">Выберите аптеку</b-button>
                     </div>
                 </div>
                 <div class="itemMap">
@@ -43,15 +43,61 @@
                         {{pharmacyChoice.phone}}
                     </div>
                     <div class="pharmacyChoice">
-                        <b-button variant="outline-primary" @click="choiceFarmacyBack()">Выберите аптеку</b-button>
-                    </div>
-                    <div class="itemMap">
-                        <b-link href="/basket/checkout/maps">
-                            <custom-icon name="map-pin" class="custom-icon"/>
-                            <i> Посмотреть на карте</i>
-                        </b-link>
+                        <b-button variant="outline-primary" @click="choiceFarmacyBack()"><custom-icon name="check" class="custom-icon"/></b-button>
                     </div>
                 </div>
+                <div class="itemMap">
+                    <b-link href="/basket/checkout/maps">
+                        <custom-icon name="map-pin" class="custom-icon"/>
+                        <i> Посмотреть на карте</i>
+                    </b-link>
+                </div>
+            </div>
+            <div>
+                <b-card bg-variant="light">
+                    <b-form-group
+                            label-cols-lg="3"
+                            label="Личные данные"
+                            label-size="lg"
+                            label-class="font-weight-bold pt-0"
+                            class="mb-0"
+                    >
+                        <b-form-group
+                                label-cols-sm="3"
+                                label="Фамилия:"
+                                label-align-sm="right"
+                                label-for="nested-street"
+                        >
+                            <b-form-input id="nested-street"></b-form-input>
+                        </b-form-group>
+
+                        <b-form-group
+                                label-cols-sm="3"
+                                label="Имя:"
+                                label-align-sm="right"
+                                label-for="nested-city"
+                        >
+                            <b-form-input id="nested-city"></b-form-input>
+                        </b-form-group>
+
+                        <b-form-group
+                                label-cols-sm="3"
+                                label="Телефон:"
+                                label-align-sm="right"
+                                label-for="nested-state"
+                        >
+                            <b-form-input id="nested-state"></b-form-input>
+                        </b-form-group>
+                    </b-form-group>
+                </b-card>
+            </div>
+            <div class="choice">
+                <b-button
+                        variant="success"
+                        class="m-2"
+                >
+                    Оформить заказ
+                </b-button>
             </div>
         </div>
     </div>
@@ -100,15 +146,11 @@
                 const filteredList = this.payloads.filter(item => item.city.match(filter));
                 this.filteredCity.push(filteredList);
             },
-            choiceFarmacy(ind, index) {
+            choiceFarmacy(index) {
                 this.state = !this.state;
                 this.filteredCity.forEach((item) => {
                     this.pharmacyChoice = item[index];
-                    // eslint-disable-next-line no-console
-                    console.log(ind);
                 });
-                // eslint-disable-next-line no-console
-                console.log(this.state, this.pharmacyChoice.pharmacy_name);
             },
             choiceFarmacyBack() {
                 this.state = !this.state;
