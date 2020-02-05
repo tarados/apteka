@@ -50,7 +50,7 @@
                 products: [],
                 count: 0,
                 url: {
-                    index: 'http://127.0.0.1:8000/app'
+                    index: process.env.VUE_APP_PRODUCTS
                 }
             }
         },

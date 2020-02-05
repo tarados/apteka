@@ -27,7 +27,7 @@
                         <custom-icon name="plus-square" class="custom-icon"/>
                     </b-button>
                 </div>
-                <div class="total">{{product.valueProduct}} руб.</div>
+                <div class="total">{{product.valueProduct.toFixed(1)}} руб.</div>
                 <b-button-close class="deleteOrder" @click="deleteOrder(index)">
                     <custom-icon name="x" class="custom-icon"/>
                 </b-button-close>
@@ -66,7 +66,7 @@
                     valueTotal.push(item.valueProduct);
                 });
                 let totalPrice = eval(valueTotal.join('+'));
-                return totalPrice
+                return parseFloat(totalPrice).toFixed(1)
             }
         },
         methods: {

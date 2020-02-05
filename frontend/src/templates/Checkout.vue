@@ -43,7 +43,7 @@
                     manufacturer: 'Производитель',
                     price: 'Цена',
                     quantity: 'Количество',
-                    valueProduct: 'Сумма'
+                    valueProductFixed: 'Сумма'
                 },
                 totalPrice: 0,
             }
@@ -51,6 +51,9 @@
         methods: {
             loadBasketContent() {
                 this.productList = basket.getItems();
+                this.productList.forEach(function (item) {
+                    item.valueProductFixed = item.valueProduct.toFixed(1);
+                });
                 this.totalPrice = basket.getItemsCheck();
             },
             toBasket() {

@@ -43,7 +43,9 @@
                         {{pharmacyChoice.phone}}
                     </div>
                     <div class="pharmacyChoice">
-                        <b-button variant="outline-primary" @click="choiceFarmacyBack()"><custom-icon name="check" class="custom-icon"/></b-button>
+                        <b-button variant="outline-primary" @click="choiceFarmacyBack()">
+                            <custom-icon name="check" class="custom-icon"/>
+                        </b-button>
                     </div>
                 </div>
                 <div class="itemMap">
@@ -68,7 +70,7 @@
                                 label-align-sm="right"
                                 label-for="nested-street"
                         >
-                            <b-form-input v-model="firstName"></b-form-input>
+                            <b-form-input v-model="firstName" state="false"></b-form-input>
                         </b-form-group>
 
                         <b-form-group
@@ -160,7 +162,12 @@
                 this.state = !this.state;
             },
             checkoutOrder() {
-
+                let order = {
+                    'title': this.firstName + ' ' + this.lastName + ' ' + this.phoneOrder,
+                    'datetOrder': Date()
+                };
+                // eslint-disable-next-line no-console
+                console.log(order);
             }
         },
         mounted() {
