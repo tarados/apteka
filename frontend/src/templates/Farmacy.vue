@@ -7,6 +7,7 @@
                     :text="text"
                     variant="info"
                     class="m-2"
+                    :disabled="!state"
             >
                 <b-dropdown-item v-for="(city, index) in cities" :key="index" @click="getCity(index)">{{ city }}
                 </b-dropdown-item>
@@ -54,53 +55,6 @@
                         <i> Посмотреть на карте</i>
                     </b-link>
                 </div>
-            </div>
-            <div>
-                <b-card bg-variant="light">
-                    <b-form-group
-                            label-cols-lg="3"
-                            label="Личные данные"
-                            label-size="lg"
-                            label-class="font-weight-bold pt-0"
-                            class="mb-0"
-                    >
-                        <b-form-group
-                                label-cols-sm="3"
-                                label="Фамилия:"
-                                label-align-sm="right"
-                                label-for="nested-street"
-                        >
-                            <b-form-input v-model="firstName" state="false"></b-form-input>
-                        </b-form-group>
-
-                        <b-form-group
-                                label-cols-sm="3"
-                                label="Имя:"
-                                label-align-sm="right"
-                                label-for="nested-city"
-                        >
-                            <b-form-input v-model="lastName"></b-form-input>
-                        </b-form-group>
-
-                        <b-form-group
-                                label-cols-sm="3"
-                                label="Телефон:"
-                                label-align-sm="right"
-                                label-for="nested-state"
-                        >
-                            <b-form-input v-model="phoneOrder"></b-form-input>
-                        </b-form-group>
-                    </b-form-group>
-                </b-card>
-            </div>
-            <div class="choice">
-                <b-button
-                        variant="success"
-                        class="m-2"
-                        @click="checkoutOrder"
-                >
-                    Оформить заказ
-                </b-button>
             </div>
         </div>
     </div>
@@ -157,17 +111,11 @@
                 this.filteredCity.forEach((item) => {
                     this.pharmacyChoice = item[index];
                 });
+                this.$emit("choiceFarmacy", this.pharmacyChoice);
             },
             choiceFarmacyBack() {
                 this.state = !this.state;
-            },
-            checkoutOrder() {
-                let order = {
-                    'title': this.firstName + ' ' + this.lastName + ' ' + this.phoneOrder,
-                    'datetOrder': Date()
-                };
-                // eslint-disable-next-line no-console
-                console.log(order);
+                this.$emit("choiceFarmacyBack", false);
             }
         },
         mounted() {

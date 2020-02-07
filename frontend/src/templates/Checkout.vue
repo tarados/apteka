@@ -19,13 +19,20 @@
             <div class="price" v-text="totalPrice + ' руб.'"></div>
         </div>
         <hr>
-        <Farmacy/>
+        <Farmacy
+                @choiceFarmacy="choiceFarmacy"
+                @choiceFarmacyBack="choiceFarmacyBack"
+        />
+        <Login
+                v-if="stateChoice"
+        />
     </div>
 </template>
 
 <script>
     import customIcon from 'vue-icon/lib/vue-feather.esm'
     import Farmacy from "./Farmacy";
+    import Login from "./Login";
     import * as basket from '../basket'
 
     export default {
@@ -33,7 +40,8 @@
         components: {
             // eslint-disable-next-line vue/no-unused-components
             customIcon,
-            Farmacy
+            Farmacy,
+            Login
         },
         data() {
             return {
@@ -46,6 +54,8 @@
                     valueProductFixed: 'Сумма'
                 },
                 totalPrice: 0,
+                pharmacyForOrder: Object,
+                stateChoice: false
             }
         },
         methods: {
@@ -58,6 +68,13 @@
             },
             toBasket() {
                 this.$router.go(-1);
+            },
+            choiceFarmacy(pharmacy) {
+                this.pharmacyForOrder = pharmacy;
+                this.stateChoice = true;
+            },
+            choiceFarmacyBack(el) {
+                this.stateChoice = el;
             }
         },
         mounted() {
