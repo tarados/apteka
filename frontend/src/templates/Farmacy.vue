@@ -7,7 +7,7 @@
                     :text="text"
                     variant="info"
                     class="m-2"
-                    :disabled="!state"
+                    :class="{ isActive: !state }"
             >
                 <b-dropdown-item v-for="(city, index) in cities" :key="index" @click="getCity(index)">{{ city }}
                 </b-dropdown-item>
@@ -79,6 +79,7 @@
                 payloads: [],
                 cities: [],
                 state: true,
+                class: '',
                 pharmacyChoice: {},
                 filteredCity: [],
                 text: "Выберите город",
@@ -167,6 +168,10 @@
 
     .custom-icon {
         width: 24px;
+    }
+
+    .isActive {
+        display: none;
     }
 
 </style>
