@@ -1,7 +1,12 @@
 <template>
     <div class="contentLogin">
         <div class="labelLogin">
-            <span>Введите, пожалуйста, Ваши контактные данные:</span>
+            <span>
+                {{visible ? 'Введите, пожалуйста, Ваши контактные данные:'
+                : 'Ваша заявка принята!'
+                }}
+
+            </span>
         </div>
         <validation-observer ref="observer" v-slot="{ passes }">
             <b-form @submit.stop.prevent="passes(onSubmit)">
@@ -61,7 +66,6 @@
                 </validation-provider>
                 <div class="buttonLogin">
                     <b-button type="submit" variant="success">Заказать</b-button>
-                    <b-button class="ml-2" @click="resetForm()" variant="outline-primary">Очистить форму</b-button>
                 </div>
 
             </b-form>
@@ -70,6 +74,8 @@
 </template>
 
 <script>
+    // import axios from 'axios'
+    import * as send from '../send'
     export default {
         name: "Login",
         data() {
@@ -78,7 +84,8 @@
                     name: null,
                     surname: null,
                     phone: null
-                }
+                },
+                visible: true
             };
         },
         methods: {
@@ -96,8 +103,22 @@
                     this.$refs.observer.reset();
                 });
             },
-            onSubmit() {
-                alert("Form submitted!");
+            async onSubmit() {
+                const response = await send.post("orders", this.form);
+                // eslint-disable-next-line no-console
+                console.log(response);
+                if (response) {
+                    this.visible = !this.visible;
+                }
+                this.form = {
+                    name: null,
+                    surname: null,
+                    phone: null
+                };
+
+                this.$nextTick(() => {
+                    this.$refs.observer.reset();
+                });
             }
         }
     }
@@ -120,8 +141,7 @@
     .buttonLogin {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
-        margin-bottom: 20px;
+        justify-content: center;
     }
 
     .d-block {

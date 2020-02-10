@@ -63,7 +63,7 @@
 
 <script>
     import customIcon from 'vue-icon/lib/vue-feather.esm'
-    import * as axios from "axios";
+    import * as send from "../send";
     import groupArray from "group-array";
 
     export default {
@@ -84,16 +84,13 @@
                 filteredCity: [],
                 text: "Выберите город",
                 count: 0,
-                url: {
-                    index: process.env.VUE_APP_API
-                }
             }
         },
         computed: {},
         methods: {
             async getPayload() {
-                const response = await axios.get(this.url.index);
-                this.payloads = response.data.pharmacyes;
+                const response = await send.get('farmacy');
+                this.payloads = response.pharmacyes;
                 const groupProductList = groupArray(this.payloads, 'city');
                 const keys = [];
                 for (const key in groupProductList) {

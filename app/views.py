@@ -1,3 +1,4 @@
+from django.core.serializers import json
 from django.http import JsonResponse
 from app.models import Product, Farmacy
 
@@ -41,3 +42,9 @@ def farmacy(request):
                 'longitude': pharmacy.longitude
             })
     return JsonResponse({'pharmacyes': payload})
+
+
+def orders(request):
+    # data = json.load(request.body.decode())
+    print(request.body.decode())
+    return JsonResponse({'successful': 'successful'})

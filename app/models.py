@@ -18,13 +18,35 @@ class Farmacy(models.Model):
 class Product(models.Model):
     """Модель прайс"""
 
-    class Meta:
-        db_table = 'product'
-
     product_name = models.CharField(max_length=250, db_index=True)
     product_manufacturer = models.CharField(max_length=250, null=True, blank=True)
     price = models.FloatField(null=True, blank=True)
     product_photo = models.ImageField(upload_to='images', null=True, blank=True)
+
+
+class Customer(models.Model):
+    """Модель заказчик"""
+
+    customer_name = models.CharField(max_length=12)
+    customer_surname = models.CharField(max_length=20)
+    customer_phone = models.CharField(max_length=20)
+
+
+class Order(models.Model):
+    """Реестр заказов"""
+
+    registry_customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
+    registry_total_price = models.FloatField()
+    registry_date = models.DateField(null=True, blank=True)
+
+
+class OrderItem(models.Model):
+    """Модель заказ"""
+
+    order_order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order_product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    order_quantity_product = models.FloatField()
+    order_value_product = models.FloatField()
 
 
 class ProductAvailability(models.Model):

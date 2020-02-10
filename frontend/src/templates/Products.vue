@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    import * as axios from "axios";
+    import * as send from '../send';
     import Product from "./Product";
     import Sorting from "./Sorting";
     import Filtration from "./Filter"
@@ -48,10 +48,7 @@
                 filter: null,
                 manufacturerFilter: null,
                 products: [],
-                count: 0,
-                url: {
-                    index: process.env.VUE_APP_PRODUCTS
-                }
+                count: 0
             }
         },
         computed: {
@@ -73,12 +70,10 @@
                 if (!query || !query.length) {
                     query = 'empty'
                 }
-                const response = await axios.get(this.url.index, {
-                    params: {
+                const response = await send.get('', {
                         query: query
-                    }
-                });
-                this.products = response.data.products;
+                    });
+                this.products = response.products;
                 this.count = this.products.length;
             },
             checkQueryAndLoadProducts() {
