@@ -76,10 +76,12 @@
 <script>
     // import axios from 'axios'
     import * as send from '../send'
+    import * as basket from '../basket'
     export default {
         name: "Login",
         data() {
             return {
+                productListOrder: [],
                 form: {
                     name: null,
                     surname: null,
@@ -104,6 +106,10 @@
                 });
             },
             async onSubmit() {
+                this.productListOrder = basket.getItems();
+                // eslint-disable-next-line no-console
+                console.log(this.productListOrder);
+                this.form.order = this.productListOrder;
                 const response = await send.post("orders", this.form);
                 // eslint-disable-next-line no-console
                 console.log(response);

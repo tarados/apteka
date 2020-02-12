@@ -45,6 +45,5 @@ def farmacy(request):
 
 
 def orders(request):
-    # data = json.load(request.body.decode())
     print(request.body.decode())
     return JsonResponse({'successful': 'successful'})

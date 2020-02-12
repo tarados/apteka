@@ -8,6 +8,7 @@
     import * as axios from "axios";
 
     import gmapsInit from '../utils/gmaps.js';
+    // import * as send from '../send';
 
     export default {
         data() {
@@ -22,6 +23,7 @@
         },
         methods: {
             async getPayload() {
+                // const response = await send.get('farmacy');
                 const response = await axios.get(this.url.index);
                 this.payload = response.data;
                 this.payload.pharmacyes.forEach(pharmacy => {
