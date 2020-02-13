@@ -82,6 +82,7 @@
         data() {
             return {
                 productListOrder: [],
+                totalPrice: Object,
                 form: {
                     name: null,
                     surname: null,
@@ -107,12 +108,13 @@
             },
             async onSubmit() {
                 this.productListOrder = basket.getItems();
-                // eslint-disable-next-line no-console
-                console.log(this.productListOrder);
+                this.totalPrice = basket.getItemsCheck();
+                this.productListOrder.forEach(function (item) {
+                    delete item.photo;
+                });
                 this.form.order = this.productListOrder;
+                this.form.totalPrice = this.totalPrice;
                 const response = await send.post("orders", this.form);
-                // eslint-disable-next-line no-console
-                console.log(response);
                 if (response) {
                     this.visible = !this.visible;
                 }
