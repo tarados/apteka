@@ -86,7 +86,7 @@
     }
 
     .App {
-        width: 100vw;
-        height: 100vh;
+        width: 80vw;
+        height: 80vh;
     }
 </style>
