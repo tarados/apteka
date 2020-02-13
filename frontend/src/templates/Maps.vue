@@ -48,8 +48,9 @@
                         throw new Error(status);
                     }
 
-                    map.setCenter({ lat: 48.056858, lng: 38.129393});
-                    map.setZoom(10);
+                    map.setCenter(this.locations[20]);
+                    // map.setCenter({ lat: 48.056858, lng: 38.129393});
+                    map.setZoom(15);
                     // map.fitBounds(results[0].geometry.viewport);
                 });
 
@@ -58,16 +59,22 @@
                     map.setCenter(marker.getPosition());
                 };
 
-                const markers = this.locations
-                    .map((location) => {
-                        const marker = new google.maps.Marker({...location, map});
-                        marker.addListener(`click`, () => markerClickHandler(marker));
+                const location = this.locations[20];
+                const marker = new google.maps.Marker({...location, map});
+                markerClickHandler(marker);
+                // marker.addListener(`click`, () => markerClickHandler(marker));
 
-                        return marker;
-                    });
+
+                // const markers = this.locations
+                //     .map((location) => {
+                //         const marker = new google.maps.Marker({...location, map});
+                //         marker.addListener(`click`, () => markerClickHandler(marker));
+                //
+                //         return marker;
+                //     });
 
                 // eslint-disable-next-line no-new
-                new MarkerClusterer(map, markers, {
+                new MarkerClusterer(map, marker, {
                     imagePath: `https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m`,
                 });
             } catch (error) {
@@ -86,7 +93,7 @@
     }
 
     .App {
-        width: 80vw;
-        height: 80vh;
+        width: 100vw;
+        height: 100vh;
     }
 </style>
