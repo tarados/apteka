@@ -66,6 +66,7 @@
                 </validation-provider>
                 <div class="buttonLogin">
                     <b-button type="submit" variant="success">Заказать</b-button>
+                    <b-button variant="outline-primary" @click="resetForm">Очистить форму</b-button>
                 </div>
 
             </b-form>
@@ -79,6 +80,11 @@
     import * as basket from '../basket'
     export default {
         name: "Login",
+        props: {
+          pharmacyForOrder: {
+              type: Object
+          }
+        },
         data() {
             return {
                 productListOrder: [],
@@ -111,22 +117,16 @@
                 this.totalPrice = basket.getItemsCheck();
                 this.productListOrder.forEach(function (item) {
                     delete item.photo;
+                    delete item.title;
+                    delete item.manufacturer;
                 });
                 this.form.order = this.productListOrder;
                 this.form.totalPrice = this.totalPrice;
+                this.form.pharmacyId = this.pharmacyForOrder.pharmacyId;
                 const response = await send.post("orders", this.form);
                 if (response) {
                     this.visible = !this.visible;
                 }
-                this.form = {
-                    name: null,
-                    surname: null,
-                    phone: null
-                };
-
-                this.$nextTick(() => {
-                    this.$refs.observer.reset();
-                });
             }
         }
     }
@@ -149,7 +149,7 @@
     .buttonLogin {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: space-between;
     }
 
     .d-block {

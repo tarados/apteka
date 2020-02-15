@@ -20,6 +20,7 @@ def index(request):
                 {'title': product.product_name,
                  'manufacturer': product.product_manufacturer,
                  'price': product.price,
+                 'productId': product.id
                  # 'product_photo': product.product_photo.url
                  })
     return JsonResponse({'products': products_result})
@@ -39,7 +40,8 @@ def farmacy(request):
                 'manager': pharmacy.manager,
                 'phone': pharmacy.phone,
                 'latitude': pharmacy.latitude,
-                'longitude': pharmacy.longitude
+                'longitude': pharmacy.longitude,
+                'pharmacyId': pharmacy.id
             })
     return JsonResponse({'pharmacyes': payload})
 

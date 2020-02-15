@@ -25,6 +25,7 @@
         />
         <Login
                 v-if="stateChoice"
+                :pharmacyForOrder="pharmacyForOrder"
         />
     </div>
 </template>
