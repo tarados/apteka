@@ -119,6 +119,7 @@
                     delete item.photo;
                     delete item.title;
                     delete item.manufacturer;
+                    delete item.valueProduct;
                 });
                 this.form.order = this.productListOrder;
                 this.form.totalPrice = this.totalPrice;
