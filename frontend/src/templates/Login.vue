@@ -1,74 +1,94 @@
 <template>
     <div class="contentLogin">
-        <div class="labelLogin">
-            <span>
-                {{visible ? 'Введите, пожалуйста, Ваши контактные данные:'
-                : 'Ваша заявка принята!'
-                }}
-
-            </span>
-        </div>
         <validation-observer ref="observer" v-slot="{ passes }">
             <b-form @submit.stop.prevent="passes(onSubmit)">
-                <validation-provider
-                        name="Name"
-                        :rules="{ required: true, min: 3 }"
-                        v-slot="validationContext"
+                <b-form-group
+                        label-cols-lg="3"
+                        :label="visible ? 'Контактные данные:': 'Ваша заявка принята!'"
+                        label-size="lg"
+                        label-class="font-weight-bold pt-0"
+                        class="mb-0"
                 >
-                    <b-form-group id="example-input-group-1" label="Имя" label-for="example-input-1">
-                        <b-form-input
-                                id="example-input-1"
-                                name="example-input-1"
-                                v-model="form.name"
-                                :state="getValidationState(validationContext)"
-                                aria-describedby="input-1-live-feedback"
-                        ></b-form-input>
+                    <validation-provider
+                            name="Name"
+                            :rules="{ required: true, min: 3 }"
+                            v-slot="validationContext"
+                    >
+                        <b-form-group
+                                id="example-input-group-1"
+                                label="Имя:"
+                                label-cols-sm="3"
+                                label-align-sm="right"
+                                label-for="example-input-1"
+                        >
+                            <b-form-input
+                                    id="example-input-1"
+                                    name="example-input-1"
+                                    v-model="form.name"
+                                    :state="getValidationState(validationContext)"
+                                    aria-describedby="input-1-live-feedback"
+                            ></b-form-input>
 
-                        <b-form-invalid-feedback id="input-1-live-feedback">{{ validationContext.errors[0] }}
-                        </b-form-invalid-feedback>
-                    </b-form-group>
-                </validation-provider>
-                <validation-provider
-                        name="SurName"
-                        :rules="{ required: true, min: 3 }"
-                        v-slot="validationContext"
-                >
-                    <b-form-group id="example-input-group-2" label="Фамилия" label-for="example-input-2">
-                        <b-form-input
-                                id="example-input-2"
-                                name="example-input-2"
-                                v-model="form.surname"
-                                :state="getValidationState(validationContext)"
-                                aria-describedby="input-1-live-feedback"
-                        ></b-form-input>
+                            <b-form-invalid-feedback id="input-1-live-feedback">{{ validationContext.errors[0] }}
+                            </b-form-invalid-feedback>
+                        </b-form-group>
+                    </validation-provider>
+                    <validation-provider
+                            name="SurName"
+                            :rules="{ required: true, min: 3 }"
+                            v-slot="validationContext"
+                    >
+                        <b-form-group
+                                id="example-input-group-2"
+                                label-cols-sm="3"
+                                label="Фамилия:"
+                                label-align-sm="right"
+                                label-for="example-input-2"
+                        >
+                            <b-form-input
+                                    id="example-input-2"
+                                    name="example-input-2"
+                                    v-model="form.surname"
+                                    :state="getValidationState(validationContext)"
+                                    aria-describedby="input-1-live-feedback"
+                            ></b-form-input>
 
-                        <b-form-invalid-feedback id="input-1-live-feedback">{{ validationContext.errors[0] }}
-                        </b-form-invalid-feedback>
-                    </b-form-group>
-                </validation-provider>
-                <validation-provider
-                        name="Phone"
-                        :rules="{ required: true, regex: /^[0-9]+$/, min: 10 }"
-                        v-slot="validationContext"
-                >
-                    <b-form-group id="example-input-group-3" label="Номер телефона" label-for="example-input-2">
-                        <b-form-input
-                                id="example-input-3"
-                                name="example-input-3"
-                                v-model="form.phone"
-                                :state="getValidationState(validationContext)"
-                                aria-describedby="input-1-live-feedback"
-                        ></b-form-input>
+                            <b-form-invalid-feedback id="input-1-live-feedback">{{ validationContext.errors[0] }}
+                            </b-form-invalid-feedback>
+                        </b-form-group>
+                    </validation-provider>
+                    <validation-provider
+                            name="Phone"
+                            :rules="{ required: true, min: 14 }"
+                            v-slot="validationContext"
+                    >
+                        <b-form-group
+                                id="example-input-group-3"
+                                label-cols-sm="3"
+                                label="Номер телефона:"
+                                label-align-sm="right"
+                                label-for="example-input-2"
+                        >
+                            <b-form-input
+                                    id="example-input-3"
+                                    name="example-input-3"
+                                    v-model="form.phone"
+                                    @input="acceptNumber"
+                                    :state="getValidationState(validationContext)"
+                                    aria-describedby="input-1-live-feedback"
+                            ></b-form-input>
 
-                        <b-form-invalid-feedback id="input-1-live-feedback">{{ validationContext.errors[0] }}
-                        </b-form-invalid-feedback>
-                    </b-form-group>
-                </validation-provider>
-                <div class="buttonLogin">
+                            <b-form-invalid-feedback id="input-1-live-feedback">{{ validationContext.errors[0] }}
+                            </b-form-invalid-feedback>
+                        </b-form-group>
+                    </validation-provider>
+                </b-form-group>
+                <div class="buttonLogin" v-if="visible">
                     <b-button type="submit" variant="success">Заказать</b-button>
-                    <b-button variant="outline-primary" @click="resetForm">Очистить форму</b-button>
                 </div>
-
+                <div class="buttonLogin" v-else>
+                    <b-button variant="success" disabled>Спасибо за покупку!</b-button>
+                </div>
             </b-form>
         </validation-observer>
     </div>
@@ -102,15 +122,7 @@
                 return dirty || validated ? valid : null;
             },
             resetForm() {
-                this.form = {
-                    name: null,
-                    surname: null,
-                    phone: null
-                };
 
-                this.$nextTick(() => {
-                    this.$refs.observer.reset();
-                });
             },
             async onSubmit() {
                 this.productListOrder = basket.getItems();
@@ -128,6 +140,19 @@
                 if (response) {
                     this.visible = !this.visible;
                 }
+                this.form = {
+                    name: null,
+                    surname: null,
+                    phone: null
+                };
+
+                this.$nextTick(() => {
+                    this.$refs.observer.reset();
+                });
+            },
+            acceptNumber() {
+                let x = this.form.phone.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+                this.form.phone = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] + '-' +x[4]: '');
             }
         }
     }
@@ -150,7 +175,7 @@
     .buttonLogin {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: center;
     }
 
     .d-block {
