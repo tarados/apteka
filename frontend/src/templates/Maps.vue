@@ -57,7 +57,7 @@
                     map.setZoom(13);
                     map.setCenter(marker.getPosition());
                 };
-                
+
                 const markers = this.locations
                     .map((location) => {
                         const marker = new google.maps.Marker({...location, map});
