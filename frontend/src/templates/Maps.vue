@@ -4,39 +4,24 @@
 
 <script>
     import MarkerClusterer from '@google/markerclusterer';
-
-    import * as axios from "axios";
-
     import gmapsInit from '../utils/gmaps.js';
-    // import * as send from '../send';
-
     export default {
+        props: {
+            locations: {
+                type: Array
+            }
+        },
         data() {
             return {
-                payload: [],
-                locations: [],
-                count: 0,
-                url: {
-                    index: 'http://127.0.0.1:8000/app/farmacy'
-                }
+                count: 0
             }
         },
         methods: {
-            async getPayload() {
-                // const response = await send.get('farmacy');
-                const response = await axios.get(this.url.index);
-                this.payload = response.data;
-                this.payload.pharmacyes.forEach(pharmacy => {
-                    const position = {};
-                    position['lat'] = pharmacy.latitude;
-                    position['lng'] = pharmacy.longitude;
-                    const locdata = {position};
-                    this.locations.push(locdata);
-                });
-            }
+
         },
         async mounted() {
-            await this.getPayload();
+            // eslint-disable-next-line no-console
+            console.log(this.locations);
             try {
                 const google = await gmapsInit();
                 const geocoder = new google.maps.Geocoder();
@@ -49,7 +34,7 @@
                     }
 
                     map.setCenter({ lat: 48.056858, lng: 38.129393});
-                    map.setZoom(10);
+                    map.setZoom(15);
                     // map.fitBounds(results[0].geometry.viewport);
                 });
 
@@ -86,7 +71,7 @@
     }
 
     .App {
-        width: 100vw;
+        width: 100%;
         height: 100vh;
     }
 </style>

@@ -50,18 +50,23 @@
                     </div>
                 </div>
                 <div class="itemMap">
-                    <b-link href="/basket/checkout/maps">
+                    <b-link @click="showOnMap">
                         <custom-icon name="map-pin" class="custom-icon"/>
                         <i> Посмотреть на карте</i>
                     </b-link>
                 </div>
             </div>
         </div>
+        <Map
+                v-if="mapVisible"
+                :locations="selectedLocations"
+        />
     </div>
 </template>
 
 
 <script>
+    import Map from './Maps'
     import customIcon from 'vue-icon/lib/vue-feather.esm'
     import * as send from "../send";
     import groupArray from "group-array";
@@ -69,7 +74,8 @@
     export default {
         components: {
             // eslint-disable-next-line vue/no-unused-components
-            customIcon
+            customIcon,
+            Map
         },
         data() {
             return {
@@ -84,13 +90,32 @@
                 filteredCity: [],
                 text: "Выберите город",
                 count: 0,
+                mapVisible: false,
+                locations: []
             }
         },
-        computed: {},
+        computed: {
+            selectedLocations () {
+                // eslint-disable-next-line no-console
+                console.log(this.pharmacyChoice.pharmacyId);
+                if (!this.pharmacyChoice.pharmacyId) {
+                    return []
+                }
+                return this.locations.filter(item => item.position.pharmacyId === this.pharmacyChoice.pharmacyId);
+            }},
         methods: {
             async getPayload() {
                 const response = await send.get('farmacy');
                 this.payloads = response.pharmacyes;
+
+                this.payloads.forEach(pharmacy => {
+                    const position = {};
+                    position['lat'] = pharmacy.latitude;
+                    position['lng'] = pharmacy.longitude;
+                    position['pharmacyId'] = pharmacy.pharmacyId;
+                    const locdata = {position};
+                    this.locations.push(locdata);
+                });
                 const groupProductList = groupArray(this.payloads, 'city');
                 const keys = [];
                 for (const key in groupProductList) {
@@ -114,6 +139,9 @@
             choiceFarmacyBack() {
                 this.state = !this.state;
                 this.$emit("choiceFarmacyBack", false);
+            },
+            showOnMap() {
+                this.mapVisible = !this.mapVisible;
             }
         },
         mounted() {
@@ -130,6 +158,7 @@
     }
 
     .wrapper {
+        width: 100%;
         text-align: center;
     }
 
