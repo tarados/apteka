@@ -1,7 +1,12 @@
 <template>
     <div class="container">
         <div class="header">
-            <b-button variant="outline-primary" @click="toBasket">
+            <b-button
+                    id="backToBasket"
+                    variant="outline-primary"
+                    @click="toBasket"
+                    :disabled="!visibleButton"
+            >
                 <custom-icon name="chevron-left" class="custom-icon"/>
                 Вернуться в корзину
             </b-button>
@@ -22,10 +27,12 @@
         <Farmacy
                 @choiceFarmacy="choiceFarmacy"
                 @choiceFarmacyBack="choiceFarmacyBack"
+                :visibleButton="!visibleButton"
         />
         <Login
                 v-if="stateChoice"
                 :pharmacyForOrder="pharmacyForOrder"
+                @visibleAfterOrder="visibleAfterOrder"
         />
     </div>
 </template>
@@ -56,7 +63,8 @@
                 },
                 totalPrice: 0,
                 pharmacyForOrder: Object,
-                stateChoice: false
+                stateChoice: false,
+                visibleButton: true
             }
         },
         methods: {
@@ -76,6 +84,9 @@
             },
             choiceFarmacyBack(el) {
                 this.stateChoice = el;
+            },
+            visibleAfterOrder(visibleState) {
+                this.visibleButton = visibleState;
             }
         },
         mounted() {

@@ -3,8 +3,9 @@
         <validation-observer ref="observer" v-slot="{ passes }">
             <b-form @submit.stop.prevent="passes(onSubmit)">
                 <b-form-group
+                        v-if="visible"
                         label-cols-lg="3"
-                        :label="visible ? 'Контактные данные:': 'Ваша заявка принята!'"
+                        label="Контактные данные"
                         label-size="lg"
                         label-class="font-weight-bold pt-0"
                         class="mb-0"
@@ -86,24 +87,25 @@
                 <div class="buttonLogin" v-if="visible">
                     <b-button type="submit" variant="success">Заказать</b-button>
                 </div>
-                <div class="buttonLogin" v-else>
-                    <b-button variant="success" disabled>Спасибо за покупку!</b-button>
-                </div>
             </b-form>
         </validation-observer>
+        <div class="orderSuccessful" v-if="!visible">
+            <p>Ваша заявка принята! Спасибо за покупку!</p>
+            <b-button variant="outline-primary" @click="backToMain">Вернуться на главную страницу</b-button>
+        </div>
     </div>
 </template>
 
 <script>
-    // import axios from 'axios'
     import * as send from '../send'
     import * as basket from '../basket'
+
     export default {
         name: "Login",
         props: {
-          pharmacyForOrder: {
-              type: Object
-          }
+            pharmacyForOrder: {
+                type: Object
+            }
         },
         data() {
             return {
@@ -120,9 +122,6 @@
         methods: {
             getValidationState({dirty, validated, valid = null}) {
                 return dirty || validated ? valid : null;
-            },
-            resetForm() {
-
             },
             async onSubmit() {
                 this.productListOrder = basket.getItems();
@@ -149,10 +148,14 @@
                 this.$nextTick(() => {
                     this.$refs.observer.reset();
                 });
+                this.$emit('visibleAfterOrder', this.visible);
             },
             acceptNumber() {
                 let x = this.form.phone.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
-                this.form.phone = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] + '-' +x[4]: '');
+                this.form.phone = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] + '-' + x[4] : '');
+            },
+            backToMain() {
+                this.$router.go(-2);
             }
         }
     }
@@ -167,10 +170,10 @@
         border-radius: 3px;
     }
 
-   .labelLogin {
-       margin: 20px 0;
-       text-align: center;
-   }
+    .labelLogin {
+        margin: 20px 0;
+        text-align: center;
+    }
 
     .buttonLogin {
         display: flex;
@@ -180,5 +183,15 @@
 
     .d-block {
         padding-left: 5px;
+    }
+
+    .orderSuccessful {
+        text-align: center;
+    }
+
+    p {
+        font-size: 25px;
+        font-weight: 600;
+        font-style: italic;
     }
 </style>

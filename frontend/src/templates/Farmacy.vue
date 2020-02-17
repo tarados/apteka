@@ -44,13 +44,21 @@
                         {{pharmacyChoice.phone}}
                     </div>
                     <div class="pharmacyChoice">
-                        <b-button variant="outline-primary" @click="choiceFarmacyBack()">
+                        <b-button
+                                variant="outline-primary"
+                                @click="choiceFarmacyBack()"
+                                :disabled="visibleButton"
+                        >
                             <custom-icon name="check" class="custom-icon"/>
                         </b-button>
                     </div>
                 </div>
                 <div class="itemMap">
-                    <b-link @click="showOnMap">
+                    <b-link
+                            href="#"
+                            @click="showOnMap"
+                            :disabled="visibleButton"
+                    >
                         <custom-icon name="map-pin" class="custom-icon"/>
                         <i> Посмотреть на карте</i>
                     </b-link>
@@ -72,6 +80,11 @@
     import groupArray from "group-array";
 
     export default {
+        props: {
+            visibleButton: {
+                type: Boolean
+            }
+        },
         components: {
             // eslint-disable-next-line vue/no-unused-components
             customIcon,
@@ -146,6 +159,8 @@
         },
         mounted() {
             this.getPayload();
+            // eslint-disable-next-line no-console
+            console.log(this.visibleButton);
         }
     }
 </script>
