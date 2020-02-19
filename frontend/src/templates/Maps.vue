@@ -27,13 +27,17 @@
                 const geocoder = new google.maps.Geocoder();
                 const map = new google.maps.Map(this.$el);
 
+                this.locations.forEach(function (item) {
+                    delete item.pharmacyId;
+                });
+
 
                 geocoder.geocode({address: `Donetsk`}, (results, status) => {
                     if (status !== `OK` || !results[0]) {
                         throw new Error(status);
                     }
 
-                    map.setCenter({ lat: 48.056858, lng: 38.129393});
+                    map.setCenter(this.locations[0].position);
                     map.setZoom(15);
                     // map.fitBounds(results[0].geometry.viewport);
                 });

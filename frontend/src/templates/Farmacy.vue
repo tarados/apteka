@@ -109,11 +109,10 @@
         },
         computed: {
             selectedLocations () {
-                // eslint-disable-next-line no-console
-                console.log(this.pharmacyChoice.pharmacyId);
                 if (!this.pharmacyChoice.pharmacyId) {
                     return []
                 }
+                // return this.locations
                 return this.locations.filter(item => item.position.pharmacyId === this.pharmacyChoice.pharmacyId);
             }},
         methods: {
@@ -159,8 +158,6 @@
         },
         mounted() {
             this.getPayload();
-            // eslint-disable-next-line no-console
-            console.log(this.visibleButton);
         }
     }
 </script>
