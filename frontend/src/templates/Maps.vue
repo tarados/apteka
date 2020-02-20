@@ -22,8 +22,6 @@
 
         },
         async mounted() {
-            // eslint-disable-next-line no-console
-            console.log(this.locations);
             try {
                 const google = await gmapsInit();
                 const geocoder = new google.maps.Geocoder();
@@ -61,6 +59,7 @@
                 new MarkerClusterer(map, markers, {
                     imagePath: `https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m`,
                 });
+
             } catch (error) {
                 // eslint-disable-next-line no-console
                 console.error(error);
@@ -78,6 +77,6 @@
 
     .App {
         width: 100%;
-        height: 100vh;
+        height: 50vh;
     }
 </style>

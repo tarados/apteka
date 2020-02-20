@@ -1,31 +1,34 @@
 <template>
     <div class="container">
-        <div class="header">
-            <b-button
-                    id="backToBasket"
-                    variant="outline-primary"
-                    @click="toBasket"
-                    :disabled="!visibleButton"
-            >
-                <custom-icon name="chevron-left" class="custom-icon"/>
-                Вернуться в корзину
-            </b-button>
-            <div class="title"> Оформление заказа</div>
+        <div v-if="!showMapVisible">
+            <div class="header">
+                <b-button
+                        id="backToBasket"
+                        variant="outline-primary"
+                        @click="toBasket"
+                        :disabled="!visibleButton"
+                >
+                    <custom-icon name="chevron-left" class="custom-icon"/>
+                    Вернуться в корзину
+                </b-button>
+                <div class="title"> Оформление заказа</div>
+            </div>
+            <div>
+                <b-table striped hover :items="productList" :fields="fields"></b-table>
+            </div>
+            <hr>
+            <div class="totalPrice">
+                <div>
+                    <i>Всего к оплате:</i>
+                </div>
+                <div class="price" v-text="totalPrice + ' руб.'"></div>
+            </div>
+            <hr>
         </div>
 
-        <div>
-            <b-table striped hover :items="productList" :fields="fields"></b-table>
-        </div>
-        <hr>
-        <div class="totalPrice">
-            <div>
-                <i>Всего к оплате:</i>
-            </div>
-            <div class="price" v-text="totalPrice + ' руб.'"></div>
-        </div>
-        <hr>
         <Farmacy
                 @choiceFarmacy="choiceFarmacy"
+                @showMap="showMap"
                 @choiceFarmacyBack="choiceFarmacyBack"
                 :visibleButton="!visibleButton"
         />
@@ -64,6 +67,7 @@
                 totalPrice: 0,
                 pharmacyForOrder: Object,
                 stateChoice: false,
+                showMapVisible: false,
                 visibleButton: true
             }
         },
@@ -87,6 +91,9 @@
             },
             visibleAfterOrder(visibleState) {
                 this.visibleButton = visibleState;
+            },
+            showMap(el) {
+                this.showMapVisible = el;
             }
         },
         mounted() {

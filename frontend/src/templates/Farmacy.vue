@@ -53,15 +53,23 @@
                         </b-button>
                     </div>
                 </div>
-                <div class="itemMap">
-                    <b-link
-                            href="#"
+                <div class="itemMap" v-if="mapClose">
+                    <b-button
+                            variant="outline-primary"
                             @click="showOnMap"
-                            :disabled="visibleButton"
                     >
                         <custom-icon name="map-pin" class="custom-icon"/>
                         <i> Посмотреть на карте</i>
-                    </b-link>
+                    </b-button>
+                </div>
+                <div class="itemMap" v-else>
+                    <b-button
+                            variant="outline-primary"
+                            @click="showMapClose"
+                    >
+                        <custom-icon name="map-pin" class="custom-icon"/>
+                        <i> Закрыть карту</i>
+                    </b-button>
                 </div>
             </div>
         </div>
@@ -104,6 +112,7 @@
                 text: "Выберите город",
                 count: 0,
                 mapVisible: false,
+                mapClose: true,
                 locations: []
             }
         },
@@ -154,6 +163,13 @@
             },
             showOnMap() {
                 this.mapVisible = !this.mapVisible;
+                this.mapClose = !this.mapClose;
+                this.$emit("showMap", true);
+            },
+            showMapClose() {
+                this.mapVisible = !this.mapVisible;
+                this.mapClose = !this.mapClose;
+                this.$emit("showMap", false);
             }
         },
         mounted() {
@@ -182,7 +198,7 @@
     }
 
     .itemMap {
-        width: 20%;
+        width: 21%;
         padding: 0.5em;
         align-self: center;
         text-align: center;
