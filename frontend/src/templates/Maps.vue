@@ -1,5 +1,7 @@
 <template>
-    <div class="App"></div>
+    <div class="App">
+        <b-button squared variant="outline-danger">Button</b-button>
+    </div>
 </template>
 
 <script>
