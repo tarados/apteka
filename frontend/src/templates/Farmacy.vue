@@ -26,11 +26,23 @@
                         <b-button variant="outline-primary" @click="choiceFarmacy(index)">Выберите аптеку</b-button>
                     </div>
                 </div>
-                <div class="itemMap">
-                    <b-link href="/basket/checkout/maps">
+                <div class="itemMap" v-if="mapClose">
+                    <b-button
+                            @click="showOnMapAll"
+                            variant="outline-primary"
+                    >
                         <custom-icon name="map-pin" class="custom-icon"/>
                         <i> Посмотреть на карте</i>
-                    </b-link>
+                    </b-button>
+                </div>
+                <div class="itemMap" v-else>
+                    <b-button
+
+                            variant="outline-primary"
+                    >
+                        <custom-icon name="map-pin" class="custom-icon"/>
+                        <i>Закрыть карту</i>
+                    </b-button>
                 </div>
             </div>
         </div>
@@ -75,7 +87,7 @@
         </div>
         <Map
                 v-if="mapVisible"
-                :locations="selectedLocations"
+                :locations="state ? selectedLocationsAll:selectedLocations"
         />
     </div>
 </template>
@@ -108,22 +120,37 @@
                 state: true,
                 class: '',
                 pharmacyChoice: {},
+                pharmacyChoiceAll: [],
                 filteredCity: [],
                 text: "Выберите город",
                 count: 0,
                 mapVisible: false,
+                listVisible: false,
                 mapClose: true,
                 locations: []
             }
         },
         computed: {
-            selectedLocations () {
+            selectedLocations() {
                 if (!this.pharmacyChoice.pharmacyId) {
                     return []
                 }
-                // return this.locations
+                // eslint-disable-next-line no-console
+                console.log(typeof this.pharmacyChoice.pharmacyId);
                 return this.locations.filter(item => item.position.pharmacyId === this.pharmacyChoice.pharmacyId);
-            }},
+            },
+            selectedLocationsAll() {
+                const locdata = [];
+                this.locations.forEach(item => {
+                   this.pharmacyChoiceAll.forEach(itemPos => {
+                       if (Number(item.position.pharmacyId) === itemPos.pharmacyId) {
+                           locdata.push(item);
+                       }
+                   });
+                });
+                return locdata;
+            }
+        },
         methods: {
             async getPayload() {
                 const response = await send.get('farmacy');
@@ -149,6 +176,7 @@
                 const filter = this.cities[index];
                 const filteredList = this.payloads.filter(item => item.city.match(filter));
                 this.filteredCity.push(filteredList);
+                this.pharmacyChoiceAll = filteredList;
             },
             choiceFarmacy(index) {
                 this.state = !this.state;
@@ -170,6 +198,9 @@
                 this.mapVisible = !this.mapVisible;
                 this.mapClose = !this.mapClose;
                 this.$emit("showMap", false);
+            },
+            showOnMapAll() {
+                this.mapVisible = !this.mapVisible;
             }
         },
         mounted() {
