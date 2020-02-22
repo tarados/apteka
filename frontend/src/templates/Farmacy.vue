@@ -86,7 +86,6 @@
                     <b-button
                             variant="outline-primary"
                             @click="showOnMap"
-                            disabled="visibleAfterOrder"
                     >
                         <custom-icon name="map-pin" class="custom-icon"/>
                         <i> Посмотреть на карте</i>
