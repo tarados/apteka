@@ -133,7 +133,6 @@
                     delete item.valueProduct;
                 });
                 this.form.order = this.productListOrder;
-                this.form.totalPrice = this.totalPrice;
                 this.form.pharmacyId = this.pharmacyForOrder.pharmacyId;
                 const response = await send.post("orders", this.form);
                 if (response) {
