@@ -19,7 +19,7 @@
             >
                 <div v-if="mapClose">
                     <b-button
-                            @click="showOnMapAll"
+                            @click="showOnMap()"
                             variant="outline-primary"
                     >
                         <custom-icon name="map-pin" class="custom-icon"/>
@@ -28,7 +28,7 @@
                 </div>
                 <div v-else>
                     <b-button
-                            @click="showOnMapAll"
+                            @click="showOnMap()"
                             variant="outline-primary"
                     >
                         <custom-icon name="map-pin" class="custom-icon"/>
@@ -84,7 +84,7 @@
                 >
                     <b-button
                             variant="outline-primary"
-                            @click="showOnMap"
+                            @click="showOnMap('se')"
                             :disabled="visibleButton"
                     >
                         <custom-icon name="map-pin" class="custom-icon"/>
@@ -94,7 +94,7 @@
                 <div class="itemMap" v-else>
                     <b-button
                             variant="outline-primary"
-                            @click="showMapClose"
+                            @click="showOnMap('cl')"
                     >
                         <custom-icon name="map-pin" class="custom-icon"/>
                         <i> Закрыть карту</i>
@@ -213,20 +213,17 @@
                 this.state = !this.state;
                 this.$emit("choiceFarmacyBack", false);
             },
-            showOnMap() {
+            showOnMap(ev) {
+                if (ev === 'se') {
+                    ev = true;
+                } else if (ev == 'cl') {
+                    ev = false;
+                } else {
+                    ev = !this.mapVisible;
+                }
                 this.mapVisible = !this.mapVisible;
                 this.mapClose = !this.mapClose;
-                this.$emit("showMap", true);
-            },
-            showMapClose() {
-                this.mapVisible = !this.mapVisible;
-                this.mapClose = !this.mapClose;
-                this.$emit("showMap", false);
-            },
-            showOnMapAll() {
-                this.mapVisible = !this.mapVisible;
-                this.mapClose = !this.mapClose;
-                this.$emit("showMap", this.mapVisible);
+                this.$emit("showMap", ev);
             }
         },
         mounted() {
