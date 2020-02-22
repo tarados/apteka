@@ -31,6 +31,7 @@
                 @showMap="showMap"
                 @choiceFarmacyBack="choiceFarmacyBack"
                 :visibleButton="!visibleButton"
+                visibleAfterOrder="visibleAfterOrder"
         />
         <Login
                 v-if="stateChoice"

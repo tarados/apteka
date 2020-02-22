@@ -78,10 +78,15 @@
                         </b-button>
                     </div>
                 </div>
-                <div class="itemMap" v-if="mapClose">
+                <div
+                        class="itemMap"
+                        v-if="mapClose"
+
+                >
                     <b-button
                             variant="outline-primary"
                             @click="showOnMap"
+                            disabled="visibleAfterOrder"
                     >
                         <custom-icon name="map-pin" class="custom-icon"/>
                         <i> Посмотреть на карте</i>
@@ -115,6 +120,9 @@
     export default {
         props: {
             visibleButton: {
+                type: Boolean
+            },
+            visibleAfterOrder: {
                 type: Boolean
             }
         },
