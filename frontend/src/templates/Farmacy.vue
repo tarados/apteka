@@ -43,7 +43,10 @@
              :class="{ isActive: mapVisible }"
         >
             <div class="row city" v-for="(city, index) in farmacy" :key="index">
-                <div class="pharmacyContent">
+                <div
+                        class="pharmacyContent"
+                        :class="{ mapVisible: !mapVisible }"
+                >
                     <div class="content">
                         {{city.pharmacy_name}}, ул.
                         {{city.street}},
@@ -275,6 +278,10 @@
 
     .isActive {
         display: none;
+    }
+
+    .mapVisible {
+        width: 100%;
     }
 
 </style>
