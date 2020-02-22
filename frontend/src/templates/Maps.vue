@@ -7,6 +7,7 @@
 <script>
     import MarkerClusterer from '@google/markerclusterer';
     import gmapsInit from '../utils/gmaps.js';
+
     export default {
         props: {
             locations: {
@@ -18,9 +19,7 @@
                 count: 0
             }
         },
-        methods: {
-
-        },
+        methods: {},
         async mounted() {
             try {
                 const google = await gmapsInit();
@@ -38,9 +37,7 @@
                     }
 
                     map.setCenter(this.locations[0].position);
-                    this.locations.length < 2 ? map.setZoom(15):map.setZoom(12);
-
-                    // map.fitBounds(results[0].geometry.viewport);
+                    this.locations.length < 2 ? map.setZoom(15) : map.setZoom(12);
                 });
 
                 const markerClickHandler = (marker) => {

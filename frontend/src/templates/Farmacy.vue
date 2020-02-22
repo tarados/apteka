@@ -81,11 +81,11 @@
                 <div
                         class="itemMap"
                         v-if="mapClose"
-
                 >
                     <b-button
                             variant="outline-primary"
                             @click="showOnMap"
+                            :disabled="visibleButton"
                     >
                         <custom-icon name="map-pin" class="custom-icon"/>
                         <i> Посмотреть на карте</i>
@@ -160,19 +160,17 @@
             selectedLocationsAll() {
                 const locdata = [];
                 this.locations.forEach(item => {
-                   this.pharmacyChoiceAll.forEach(itemPos => {
-                       if (Number(item.position.pharmacyId) === itemPos.pharmacyId) {
-                           locdata.push(item);
-                       }
-                   });
+                    this.pharmacyChoiceAll.forEach(itemPos => {
+                        if (Number(item.position.pharmacyId) === itemPos.pharmacyId) {
+                            locdata.push(item);
+                        }
+                    });
                 });
                 return locdata;
             },
             // eslint-disable-next-line vue/return-in-computed-property
             choiceCity() {
                 if (this.pharmacyChoiceAll.length !== 0) {
-                    // eslint-disable-next-line no-console
-                    console.log(this.pharmacyChoiceAll.length);
                     return true;
                 }
             }
