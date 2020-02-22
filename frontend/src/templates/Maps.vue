@@ -38,7 +38,8 @@
                     }
 
                     map.setCenter(this.locations[0].position);
-                    map.setZoom(15);
+                    this.locations.length < 2 ? map.setZoom(15):map.setZoom(12);
+
                     // map.fitBounds(results[0].geometry.viewport);
                 });
 
@@ -77,6 +78,6 @@
 
     .App {
         width: 100%;
-        height: 50vh;
+        height: 80vh;
     }
 </style>

@@ -1,6 +1,7 @@
 <template>
     <div class="wrapper">
-        <div class="choice">
+        <div class="choice"
+        >
             <b-dropdown
                     split
                     split-variant="outline-info"
@@ -12,8 +13,35 @@
                 <b-dropdown-item v-for="(city, index) in cities" :key="index" @click="getCity(index)">{{ city }}
                 </b-dropdown-item>
             </b-dropdown>
+            <div class="itemMap"
+                 v-if="choiceCity"
+                 :class="{ isActive: !state }"
+            >
+                <div v-if="mapClose">
+                    <b-button
+                            @click="showOnMapAll"
+                            variant="outline-primary"
+                    >
+                        <custom-icon name="map-pin" class="custom-icon"/>
+                        <i> Посмотреть на карте</i>
+                    </b-button>
+                </div>
+                <div v-else>
+                    <b-button
+                            @click="showOnMapAll"
+                            variant="outline-primary"
+                    >
+                        <custom-icon name="map-pin" class="custom-icon"/>
+                        <i>Закрыть карту</i>
+                    </b-button>
+                </div>
+            </div>
         </div>
-        <div class="filteredCity" v-for="(farmacy, ind) in filteredCity" :key="ind" v-show="state">
+        <div class="filteredCity"
+             v-for="(farmacy, ind) in filteredCity" :key="ind"
+             v-show="state"
+             :class="{ isActive: mapVisible }"
+        >
             <div class="row city" v-for="(city, index) in farmacy" :key="index">
                 <div class="pharmacyContent">
                     <div class="content">
@@ -25,24 +53,6 @@
                     <div class="pharmacyChoice">
                         <b-button variant="outline-primary" @click="choiceFarmacy(index)">Выберите аптеку</b-button>
                     </div>
-                </div>
-                <div class="itemMap" v-if="mapClose">
-                    <b-button
-                            @click="showOnMapAll"
-                            variant="outline-primary"
-                    >
-                        <custom-icon name="map-pin" class="custom-icon"/>
-                        <i> Посмотреть на карте</i>
-                    </b-button>
-                </div>
-                <div class="itemMap" v-else>
-                    <b-button
-
-                            variant="outline-primary"
-                    >
-                        <custom-icon name="map-pin" class="custom-icon"/>
-                        <i>Закрыть карту</i>
-                    </b-button>
                 </div>
             </div>
         </div>
@@ -135,8 +145,6 @@
                 if (!this.pharmacyChoice.pharmacyId) {
                     return []
                 }
-                // eslint-disable-next-line no-console
-                console.log(typeof this.pharmacyChoice.pharmacyId);
                 return this.locations.filter(item => item.position.pharmacyId === this.pharmacyChoice.pharmacyId);
             },
             selectedLocationsAll() {
@@ -149,6 +157,14 @@
                    });
                 });
                 return locdata;
+            },
+            // eslint-disable-next-line vue/return-in-computed-property
+            choiceCity() {
+                if (this.pharmacyChoiceAll.length !== 0) {
+                    // eslint-disable-next-line no-console
+                    console.log(this.pharmacyChoiceAll.length);
+                    return true;
+                }
             }
         },
         methods: {
@@ -201,6 +217,8 @@
             },
             showOnMapAll() {
                 this.mapVisible = !this.mapVisible;
+                this.mapClose = !this.mapClose;
+                this.$emit("showMap", this.mapVisible);
             }
         },
         mounted() {
@@ -212,7 +230,7 @@
 <style scoped>
     .choice {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         margin: 0 auto;
     }
 
