@@ -252,14 +252,14 @@
     }
 
     .itemMap {
-        width: 21%;
+        width: 22%;
         padding: 0.5em;
         align-self: center;
         text-align: center;
     }
 
     .pharmacyContent {
-        width: calc(80% - 0.8em);
+        width: calc(78% - 0.8em);
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
