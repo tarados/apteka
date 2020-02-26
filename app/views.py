@@ -1,6 +1,6 @@
-from django.core.serializers import json
+import json
 from django.http import JsonResponse
-from app.models import Product, Farmacy
+from app.models import Product, Farmacy, Customer, Order, OrderItem
 
 
 def index(request):
@@ -47,5 +47,13 @@ def farmacy(request):
 
 
 def orders(request):
-    print(request.body.decode())
+    order_str = request.body.decode()
+    order_content = json.loads(order_str)
+    customer = Customer(
+        customer_name=order_content["name"],
+        customer_surname=order_content["surname"],
+        customer_phone=order_content["phone"]
+    )
+    customer.save()
+
     return JsonResponse({'successful': 'successful'})

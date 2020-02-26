@@ -43,10 +43,10 @@ class Order(models.Model):
 class OrderItem(models.Model):
     """Модель заказ"""
 
-    order_order = models.ForeignKey(Order, on_delete=models.CASCADE)
     order_product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    order_price = models.FloatField()
     order_quantity_product = models.FloatField()
-    order_value_product = models.FloatField()
+    order_pharmacy = models.ForeignKey(Farmacy, on_delete=models.CASCADE)
 
 
 class ProductAvailability(models.Model):
