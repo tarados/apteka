@@ -57,22 +57,31 @@ def orders(request):
         customer_phone=order_content["phone"]
     )
     customer.save()
+    # current_customer = customer.id
     catalog = Order(
-        registry_customer=Customer.objects.get(customer_name=order_content["name"]),
+        registry_customer=Customer.objects.get(id=customer.id),
         registry_date=datetime.datetime.now()
     )
+    # order_total_sum = 0
+    pharmacy_id = order_content["pharmacyId"]
     for order in order_content["order"]:
-        current_price = Product.objects.get(id=order["productId"]).price
+        current_price = Product.objects.get(id=int(order["productId"])).price
         if current_price >= order["price"]:
             product_price = current_price
         else:
             product_price = order["price"]
+        quantity = float(order["quantity"])
+        print(type(quantity))
         order_item = OrderItem(
-            order_product=Product.objects.get(id=order["productId"]).product_name,
-            order_quantity_product=order["quantity"],
-            order_price=product_price,
-            order_pharmacy=Farmacy.objects.get(id=order["pharmacyId"]).pharmacy_name
+            order_product=Product.objects.get(id=int(order["productId"])),
+            # order_quantity_product=quantity,
+            order_price=order["price"],
+            # order_cost_product=product_price * order["quantity"],
+            order_pharmacy=Farmacy.objects.get(id=pharmacy_id)
         )
-
-
+        order_item.save()
+        # print(order_item.order_product.product_name, ':', order_item.order_price, ':', order_item.order_pharmacy.pharmacy_name)
+    #     order_total_sum = order_total_sum + order_item.order_cost_product
+    # catalog.registry_total_price = order_total_sum
+    catalog.save()
     return JsonResponse({'successful': 'successful'})

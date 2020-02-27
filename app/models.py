@@ -37,17 +37,17 @@ class Order(models.Model):
 
     registry_customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
     registry_total_price = models.FloatField(null=True, blank=True)
-    registry_date = models.DateField(null=True, blank=True)
+    registry_date = models.DateTimeField(null=True, blank=True)
 
 
 class OrderItem(models.Model):
     """Модель заказ"""
 
-    order_product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    order_product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
     order_price = models.FloatField(null=True, blank=True)
     order_quantity = models.FloatField(null=True, blank=True)
     order_cost_product = models.FloatField(null=True, blank=True)
-    order_pharmacy = models.ForeignKey(Farmacy, on_delete=models.CASCADE)
+    order_pharmacy = models.ForeignKey(Farmacy, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class ProductAvailability(models.Model):
