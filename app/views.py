@@ -1,4 +1,5 @@
 import json
+import datetime
 from django.http import JsonResponse
 from app.models import Product, Farmacy, Customer, Order, OrderItem
 
@@ -49,11 +50,29 @@ def farmacy(request):
 def orders(request):
     order_str = request.body.decode()
     order_content = json.loads(order_str)
+    print(order_content)
     customer = Customer(
         customer_name=order_content["name"],
         customer_surname=order_content["surname"],
         customer_phone=order_content["phone"]
     )
     customer.save()
+    catalog = Order(
+        registry_customer=Customer.objects.get(customer_name=order_content["name"]),
+        registry_date=datetime.datetime.now()
+    )
+    for order in order_content["order"]:
+        current_price = Product.objects.get(id=order["productId"]).price
+        if current_price >= order["price"]:
+            product_price = current_price
+        else:
+            product_price = order["price"]
+        order_item = OrderItem(
+            order_product=Product.objects.get(id=order["productId"]).product_name,
+            order_quantity_product=order["quantity"],
+            order_price=product_price,
+            order_pharmacy=Farmacy.objects.get(id=order["pharmacyId"]).pharmacy_name
+        )
+
 
     return JsonResponse({'successful': 'successful'})

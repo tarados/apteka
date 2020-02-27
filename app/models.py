@@ -36,7 +36,7 @@ class Order(models.Model):
     """Реестр заказов"""
 
     registry_customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
-    registry_total_price = models.FloatField()
+    registry_total_price = models.FloatField(null=True, blank=True)
     registry_date = models.DateField(null=True, blank=True)
 
 
@@ -44,8 +44,9 @@ class OrderItem(models.Model):
     """Модель заказ"""
 
     order_product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    order_price = models.FloatField()
-    order_quantity_product = models.FloatField()
+    order_price = models.FloatField(null=True, blank=True)
+    order_quantity = models.FloatField(null=True, blank=True)
+    order_cost_product = models.FloatField(null=True, blank=True)
     order_pharmacy = models.ForeignKey(Farmacy, on_delete=models.CASCADE)
 
 
