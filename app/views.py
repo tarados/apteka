@@ -1,7 +1,7 @@
 import json
 import datetime
 from django.http import JsonResponse
-from app.models import Product, Farmacy, Customer, Order, OrderItem
+from app.models import Product, Farmacy, Order, OrderItem
 
 
 def index(request):
@@ -50,33 +50,30 @@ def farmacy(request):
 def orders(request):
     order_str = request.body.decode()
     order_content = json.loads(order_str)
-    customer = Customer(
+    order = Order(
+        date=datetime.datetime.now(),
+        pharmacy=Farmacy.objects.get(id=order_content["pharmacyId"]),
         customer_name=order_content["name"],
         customer_surname=order_content["surname"],
         customer_phone=order_content["phone"]
     )
-    customer.save()
-    catalog = Order(
-        registry_customer=Customer.objects.get(id=customer.id),
-        registry_date=datetime.datetime.now()
-    )
+    order.save()
     order_total_sum = 0
-    pharmacy_id = order_content["pharmacyId"]
-    for order in order_content["order"]:
-        current_price = Product.objects.get(id=int(order["productId"])).price
-        if current_price >= order["price"]:
+    for order_items in order_content["order"]:
+        current_price = Product.objects.get(id=int(order_items["productId"])).price
+        if current_price >= order_items["price"]:
             product_price = current_price
         else:
-            product_price = order["price"]
+            product_price = order_items["price"]
         order_item = OrderItem(
-            order_product=Product.objects.get(id=int(order["productId"])),
-            order_quantity=order["quantity"],
-            order_price=order["price"],
-            order_cost_product=product_price * order["quantity"],
-            order_pharmacy=Farmacy.objects.get(id=pharmacy_id)
+            order=Order.objects.get(id=order.id),
+            product=Product.objects.get(id=order_items["productId"]),
+            quantity=order_items["quantity"],
+            price=product_price,
+            cost_product=product_price * order_items["quantity"],
         )
         order_item.save()
-        order_total_sum = order_total_sum + order_item.order_cost_product
-    catalog.registry_total_price = order_total_sum
-    catalog.save()
+        order_total_sum = order_total_sum + order_item.cost_product
+    order.total_price = order_total_sum
+    order.save()
     return JsonResponse({'successful': 'successful'})

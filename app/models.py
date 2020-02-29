@@ -24,34 +24,29 @@ class Product(models.Model):
     product_photo = models.ImageField(upload_to='images', null=True, blank=True)
 
 
-class Customer(models.Model):
-    """Модель заказчик"""
+class Order(models.Model):
+    """Модель Заказ"""
 
+    date = models.DateTimeField(null=True, blank=True)
+    total_price = models.FloatField(null=True, blank=True)
+    pharmacy = models.ForeignKey(Farmacy, on_delete=models.CASCADE, null=True, blank=True)
     customer_name = models.CharField(max_length=12)
     customer_surname = models.CharField(max_length=20)
     customer_phone = models.CharField(max_length=20)
 
 
-class Order(models.Model):
-    """Реестр заказов"""
-
-    registry_customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)
-    registry_total_price = models.FloatField(null=True, blank=True)
-    registry_date = models.DateTimeField(null=True, blank=True)
-
-
 class OrderItem(models.Model):
-    """Модель заказ"""
+    """Модель Контент заказа"""
 
-    order_product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
-    order_price = models.FloatField(null=True, blank=True)
-    order_quantity = models.FloatField(null=True, blank=True)
-    order_cost_product = models.FloatField(null=True, blank=True)
-    order_pharmacy = models.ForeignKey(Farmacy, on_delete=models.CASCADE, null=True, blank=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
+    price = models.FloatField(null=True, blank=True)
+    quantity = models.FloatField(null=True, blank=True)
+    cost_product = models.FloatField(null=True, blank=True)
 
 
 class ProductAvailability(models.Model):
-    """Модель наличие товара"""
+    """Модель Наличие товара"""
 
     class Meta:
         db_table = 'product_availability'
