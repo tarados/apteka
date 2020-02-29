@@ -83,7 +83,7 @@
     .counter span {
         margin-left: 5px;
         color: #4d4d4d;
-        font-size: 16px;
+        font-size: calc(0.65em + 0.3vw);
     }
 
 </style>

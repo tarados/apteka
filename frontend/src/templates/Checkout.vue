@@ -4,6 +4,7 @@
             <div class="header">
                 <b-button
                         id="backToBasket"
+                        class="checkout"
                         variant="outline-primary"
                         @click="toBasket"
                         :disabled="!visibleButton"
@@ -11,7 +12,7 @@
                     <custom-icon name="chevron-left" class="custom-icon"/>
                     Вернуться в корзину
                 </b-button>
-                <div class="title"> Оформление заказа</div>
+                <div class="title checkout"> Оформление заказа</div>
             </div>
             <div>
                 <b-table striped hover :items="productList" :fields="fields"></b-table>
@@ -109,27 +110,37 @@
         margin-bottom: 10px;
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-between;
     }
 
     .header .title {
-        width: 70%;
-        text-align: center;
         align-self: center;
+    }
+
+    .checkout {
+        font-size: calc(0.65em + 0.3vw);
     }
 
     .totalPrice {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        font-size: calc(0.65em + 0.3vw);
     }
 
     .price {
-        font-size: 22px;
-        font-weight: 500;
+        font-size: calc(0.99em + 0.3vw);
+        font-weight: 600;
         font-style: italic;
     }
 
     .custom-icon {
         width: 24px;
     }
+
+    .table {
+        font-size: calc(0.49em + 0.3vw);
+    }
+
+
 </style>

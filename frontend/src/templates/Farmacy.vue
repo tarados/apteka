@@ -1,19 +1,20 @@
 <template>
     <div class="wrapper">
-        <div class="choice"
-        >
-            <b-dropdown
-                    split
-                    split-variant="outline-info"
-                    :text="text"
-                    variant="info"
-                    class="m-2"
-                    :class="{ isActive: !state }"
-            >
-                <b-dropdown-item v-for="(city, index) in cities" :key="index" @click="getCity(index)">{{ city }}
-                </b-dropdown-item>
-            </b-dropdown>
-            <div class="itemMap"
+        <div class="choice">
+            <div class="choiceChild">
+                <b-dropdown
+                        split
+                        split-variant="outline-info"
+                        :text="text"
+                        variant="info"
+                        class="m-2"
+                        :class="{ isActive: !state }"
+                >
+                    <b-dropdown-item v-for="(city, index) in cities" :key="index" @click="getCity(index)">{{ city }}
+                    </b-dropdown-item>
+                </b-dropdown>
+            </div>
+            <div class="choiceChild"
                  v-if="choiceCity"
                  :class="{ isActive: !state }"
             >
@@ -239,6 +240,11 @@
         margin: 0 auto;
     }
 
+    .choiceChild {
+        align-self: center;
+        font-size: calc(0.65em + 0.3vw);
+    }
+
     .wrapper {
         width: 100%;
         text-align: center;
@@ -284,6 +290,14 @@
 
     .mapVisible {
         width: 100%;
+    }
+
+    .btn {
+        font-size: calc(0.65em + 0.3vw);
+    }
+
+    .content {
+        font-size: calc(0.6em + 0.3vw);
     }
 
 </style>

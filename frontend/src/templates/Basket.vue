@@ -33,11 +33,21 @@
                 </b-button-close>
             </div>
             <div id="footer">
-                <b-button variant="outline-primary" @click="toHome">
+                <b-button
+                        variant="outline-primary"
+                        @click="toHome"
+                        class="basket"
+                >
                     <custom-icon name="chevron-left" class="custom-icon"/>
                     Продолжить покупки
                 </b-button>
-                <b-button variant="success" @click="toCheckout">Оформить заказ</b-button>
+                <b-button
+                        variant="success"
+                        @click="toCheckout"
+                        class="basket"
+                >
+                    Оформить заказ
+                </b-button>
             </div>
         </div>
     </div>
@@ -128,8 +138,8 @@
 
     span {
         font-style: normal;
-        font-size: 22px;
-        font-weight: 400;
+        font-size: calc(0.95em + 0.3vw);
+        font-weight: 600;
     }
 
     .contentBasket {
@@ -138,6 +148,7 @@
         border: 1px solid grey;
         border-radius: 5px;
         display: grid;
+        font-size: calc(0.65em + 0.3vw);
         grid-template-columns: 0.7fr 3fr 1fr 0.5fr 0.3fr;
     }
 
@@ -160,14 +171,11 @@
         flex-grow: 0.5;
         width: 100%;
         text-align: center;
+        font-size: calc(0.65em + 0.3vw);
     }
 
-    .manufacturer {
-
-    }
-
-    .price {
-
+    .titleBasket, .totalPrice {
+        font-size: calc(0.65em + 0.3vw);
     }
 
     .quantity, .total {
@@ -202,6 +210,10 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+    }
+
+    .basket {
+        font-size: calc(0.65em + 0.3vw);
     }
 
     .custom-icon {
