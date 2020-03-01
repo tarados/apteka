@@ -5,7 +5,7 @@
                 <b-dropdown
                         split
                         split-variant="outline-info"
-                        :text="text"
+                        text="Выберите город"
                         variant="info"
                         class="m-2"
                         :class="{ isActive: !state }"
@@ -69,38 +69,42 @@
                         {{pharmacyChoice.house}}, тел.
                         {{pharmacyChoice.phone}}
                     </div>
-                    <div class="pharmacyChoice">
-                        <b-button
-                                variant="outline-primary"
-                                @click="choiceFarmacyBack()"
-                                :disabled="visibleButton"
+                    <div class="buttonGroup">
+                        <div class="pharmacyChoice">
+                            <b-button
+                                    variant="outline-primary"
+                                    @click="choiceFarmacyBack()"
+                                    :disabled="visibleButton"
+                            >
+                                <custom-icon name="check" class="custom-icon"/>
+                            </b-button>
+                        </div>
+                        <div
+                                class="itemMap"
+                                v-if="mapClose"
                         >
-                            <custom-icon name="check" class="custom-icon"/>
-                        </b-button>
+                            <b-button
+                                    variant="outline-primary"
+                                    @click="showOnMap('se')"
+                                    :disabled="visibleButton"
+                            >
+                                <custom-icon name="map-pin" class="custom-icon"/>
+                                <i> Посмотреть на карте</i>
+                            </b-button>
+                        </div>
+                        <div class="itemMap" v-else>
+                            <b-button
+                                    variant="outline-primary"
+                                    @click="showOnMap('cl')"
+                            >
+                                <custom-icon name="map-pin" class="custom-icon"/>
+                                <i> Закрыть карту</i>
+                            </b-button>
+                        </div>
                     </div>
+
                 </div>
-                <div
-                        class="itemMap"
-                        v-if="mapClose"
-                >
-                    <b-button
-                            variant="outline-primary"
-                            @click="showOnMap('se')"
-                            :disabled="visibleButton"
-                    >
-                        <custom-icon name="map-pin" class="custom-icon"/>
-                        <i> Посмотреть на карте</i>
-                    </b-button>
-                </div>
-                <div class="itemMap" v-else>
-                    <b-button
-                            variant="outline-primary"
-                            @click="showOnMap('cl')"
-                    >
-                        <custom-icon name="map-pin" class="custom-icon"/>
-                        <i> Закрыть карту</i>
-                    </b-button>
-                </div>
+
             </div>
         </div>
         <Map
@@ -143,7 +147,7 @@
                 pharmacyChoice: {},
                 pharmacyChoiceAll: [],
                 filteredCity: [],
-                text: "Выберите город",
+                // text: "Выберите город",
                 count: 0,
                 mapVisible: false,
                 listVisible: false,
@@ -258,14 +262,20 @@
     }
 
     .itemMap {
-        width: 22%;
         padding: 0.5em;
         align-self: center;
         text-align: center;
     }
 
     .pharmacyContent {
-        width: calc(78% - 0.8em);
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .buttonGroup {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -299,5 +309,14 @@
     .content {
         font-size: calc(0.6em + 0.3vw);
     }
+
+
+    @media (max-width: 544px) {
+        .pharmacyContent {
+            justify-content: center;
+        }
+    }
+
+
 
 </style>

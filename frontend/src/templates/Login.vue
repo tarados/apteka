@@ -193,4 +193,8 @@
         font-weight: 600;
         font-style: italic;
     }
+
+    .form-row, .btn {
+        font-size: calc(0.65em + 0.3vw);
+    }
 </style>
