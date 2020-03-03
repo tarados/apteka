@@ -106,8 +106,6 @@
         },
         mounted() {
             this.checkQueryAndLoadProducts();
-            // eslint-disable-next-line no-console
-            console.log(this.$route.params.textseach);
         },
         updated() {
             if ((this.query === '') || (this.query === undefined)) {
