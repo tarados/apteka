@@ -1,9 +1,9 @@
 from django.urls import path
-from app.views import index, farmacy, orders
+from app.views import index, pharmacy, orders
 
 
 urlpatterns = [
     path('', index),
-    path('farmacy', farmacy),
+    path('pharmacy', pharmacy),
     path('orders', orders),
 ]

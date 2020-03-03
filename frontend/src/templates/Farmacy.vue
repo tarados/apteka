@@ -182,7 +182,7 @@
         },
         methods: {
             async getPayload() {
-                const response = await send.get('farmacy');
+                const response = await send.get('pharmacy');
                 this.payloads = response.pharmacyes;
 
                 this.payloads.forEach(pharmacy => {

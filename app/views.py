@@ -27,7 +27,7 @@ def index(request):
     return JsonResponse({'products': products_result})
 
 
-def farmacy(request):
+def pharmacy(request):
     payload = []
     pharmacyes = Farmacy.objects.all()
     for pharmacy in pharmacyes:
