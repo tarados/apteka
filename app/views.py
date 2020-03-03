@@ -12,7 +12,7 @@ def index(request):
     products_result = []
     if request.GET:
         query = request.GET.get('query').upper()
-        if query != 'EMPTY':
+        if query != '':
             products = Product.objects.filter(product_name__icontains=query)[:10]
         else:
             products = Product.objects.all()[:5]
