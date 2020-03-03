@@ -68,7 +68,7 @@
         methods: {
             async loadProducts(query) {
                 if (!query || !query.length) {
-                    query = 'empty'
+                    query = ''
                 }
                 const response = await send.get('', {
                         query: query
