@@ -60,14 +60,15 @@ def orders(request):
     order.save()
     order_total_sum = 0
     for order_item in order_content["order"]:
-        current_price = Product.objects.get(id=int(order_item["productId"])).price
+        product = Product.objects.get(id=int(order_item["productId"]))
+        current_price = product.price
         if current_price >= order_item["price"]:
             product_price = current_price
         else:
             product_price = order_item["price"]
         order_item = OrderItem(
             order=order,
-            product=Product.objects.get(id=order_item["productId"]),
+            product=product,
             quantity=order_item["quantity"],
             price=product_price,
             cost_product=product_price * order_item["quantity"],
