@@ -67,7 +67,7 @@ def orders(request):
         else:
             product_price = order_item["price"]
         order_item = OrderItem(
-            order=Order.objects.get(id=order.id),
+            order=order,
             product=product,
             quantity=order_item["quantity"],
             price=product_price,
