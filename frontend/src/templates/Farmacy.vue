@@ -147,7 +147,6 @@
                 pharmacyChoice: {},
                 pharmacyChoiceAll: [],
                 filteredCity: [],
-                // text: "Выберите город",
                 count: 0,
                 mapVisible: false,
                 listVisible: false,
