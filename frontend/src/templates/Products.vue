@@ -70,7 +70,7 @@
                 if (!query || !query.length) {
                     query = ''
                 }
-                const response = await send.get('', {
+                const response = await send.get('products', {
                         query: query
                     });
                 this.products = response.products;

@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from app.models import Product, Farmacy, Order, OrderItem
 
 
-def index(request):
+def products(request):
     # TODO: убрать дублирование кода
     # TODO: поставить ограничение при фильтрации 100-200 строк
     # TODO: если нет фильтра то выдавать какой-то набор популярных товаров
