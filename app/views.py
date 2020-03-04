@@ -5,10 +5,6 @@ from app.models import Product, Farmacy, Order, OrderItem
 
 
 def products(request):
-    # TODO: убрать дублирование кода
-    # TODO: поставить ограничение при фильтрации 100-200 строк
-    # TODO: если нет фильтра то выдавать какой-то набор популярных товаров
-
     products_result = []
     if request.GET:
         query = request.GET.get('query').upper()
@@ -77,4 +73,4 @@ def order(request):
         order_total_sum = order_total_sum + order_item.cost_product
     order.total_price = order_total_sum
     order.save()
-    return JsonResponse({'successful': 'successful'})
+    return JsonResponse({'success': True})
