@@ -134,7 +134,7 @@
                 });
                 this.form.order = this.productListOrder;
                 this.form.pharmacyId = this.pharmacyForOrder.pharmacyId;
-                const response = await send.post("orders", this.form);
+                const response = await send.post("order", this.form);
                 if (response) {
                     this.visible = !this.visible;
                 }
