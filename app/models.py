@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Farmacy(models.Model):
+class Pharmacy(models.Model):
     """Модель торговой точки"""
 
     pharmacy_name = models.CharField(max_length=255)
@@ -29,7 +29,7 @@ class Order(models.Model):
 
     date = models.DateTimeField(null=True, blank=True)
     total_price = models.FloatField(null=True, blank=True)
-    pharmacy = models.ForeignKey(Farmacy, on_delete=models.CASCADE, null=True, blank=True)
+    pharmacy = models.ForeignKey(Pharmacy, on_delete=models.CASCADE, null=True, blank=True)
     customer_name = models.CharField(max_length=12)
     customer_surname = models.CharField(max_length=20)
     customer_phone = models.CharField(max_length=20)
@@ -52,7 +52,7 @@ class ProductAvailability(models.Model):
         db_table = 'product_availability'
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="available")
-    farmacy = models.ForeignKey(Farmacy, on_delete=models.CASCADE)
+    farmacy = models.ForeignKey(Pharmacy, on_delete=models.CASCADE)
     number = models.FloatField(null=True, blank=True)
 
 
@@ -66,7 +66,7 @@ def test():
     ]
 
     for row in data:
-        farmacy = Farmacy.objects.get(pharmacy_name=row["farmacy"])
+        farmacy = Pharmacy.objects.get(pharmacy_name=row["farmacy"])
         product = Product.objects.get(product_name=row["name"])
 
         pa = ProductAvailability.objects.get_or_create(product=product, farmacy=farmacy)

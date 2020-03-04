@@ -1,7 +1,7 @@
 import json
 import datetime
 from django.http import JsonResponse
-from app.models import Product, Farmacy, Order, OrderItem
+from app.models import Product, Pharmacy, Order, OrderItem
 
 
 def products(request):
@@ -25,7 +25,7 @@ def products(request):
 
 def pharmacy(request):
     payload = []
-    pharmacyes = Farmacy.objects.all()
+    pharmacyes = Pharmacy.objects.all()
     for pharmacy in pharmacyes:
         payload.append(
             {
@@ -48,7 +48,7 @@ def order(request):
     order_content = json.loads(order_str)
     order = Order(
         date=datetime.datetime.now(),
-        pharmacy=Farmacy.objects.get(id=order_content["pharmacyId"]),
+        pharmacy=Pharmacy.objects.get(id=order_content["pharmacyId"]),
         customer_name=order_content["name"],
         customer_surname=order_content["surname"],
         customer_phone=order_content["phone"]

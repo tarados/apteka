@@ -154,7 +154,7 @@
                 this.form.phone = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] + '-' + x[4] : '');
             },
             backToMain() {
-                this.$router.go(-2);
+                this.$router.go(-3);
             }
         }
     }

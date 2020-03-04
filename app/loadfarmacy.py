@@ -2,7 +2,7 @@ import os
 import xlrd
 import xlwt
 from conf.settings import BASE_DIR
-from app.models import Farmacy
+from app.models import Pharmacy
 
 
 def loadfarmacy():
@@ -28,7 +28,7 @@ def loadfarmacy():
             house = int(vals[i][3])
         else:
             house = vals[i][3]
-        f = Farmacy(
+        f = Pharmacy(
             pharmacy_name=vals[i][0],
             city=vals[i][1],
             house=house,
@@ -43,7 +43,7 @@ def loadfarmacy():
 
 
 def deleteFarmacy():
-    Farmacy.objects.all().delete()
+    Pharmacy.objects.all().delete()
 
 
 """Загрузку списка аптек в БД производим по схеме:
