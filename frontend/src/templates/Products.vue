@@ -33,7 +33,8 @@
     import * as send from '../send';
     import Product from "./Product";
     import Sorting from "./Sorting";
-    import Filtration from "./Filter"
+    import Filtration from "./Filter";
+    // import {mapState} from 'vuex';
 
     export default {
         components: {
@@ -62,7 +63,10 @@
                 }
                 // eslint-disable-next-line vue/no-side-effects-in-computed-properties
                 this.count = this.products.length;
-                return this.products
+                return this.products;
+            },
+            basketProducts() {
+                return this.$store.state.basketProducts;
             }
         },
         methods: {
@@ -106,6 +110,8 @@
         },
         mounted() {
             this.checkQueryAndLoadProducts();
+            // eslint-disable-next-line no-console
+            console.log(this.basketProducts);
         },
         updated() {
             if ((this.query === '') || (this.query === undefined)) {

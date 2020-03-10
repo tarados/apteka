@@ -56,6 +56,7 @@
 <script>
     import customIcon from 'vue-icon/lib/vue-feather.esm'
     import * as basket from '../basket'
+    import {mapState, mapGetters} from 'vuex'
 
     export default {
         name: "Basket",
@@ -76,8 +77,13 @@
                     valueTotal.push(item.valueProduct);
                 });
                 let totalPrice = eval(valueTotal.join('+'));
-                return parseFloat(totalPrice).toFixed(1)
-            }
+                return parseFloat(totalPrice).toFixed(1);
+            },
+            ...mapState({
+                basketProducts: state => state.basketProducts,
+                basketProductsAlias: 'basketProducts'
+            }),
+            ...mapGetters(["allProducts"])
         },
         methods: {
             toHome() {
@@ -92,24 +98,36 @@
             loadBasket() {
                 this.productList = basket.getItems();
                 this.count = this.productList.length;
+
             },
             deleteOrder(index) {
+                this.$store.dispatch('deleteProduct', index);
                 basket.deleteItem(index);
                 this.loadBasket();
+                // eslint-disable-next-line no-console
+                console.log(this.allProducts);
             },
             minusQuantity(index) {
+                this.$store.dispatch('decrementProduct', index);
                 this.productList[index].quantity--;
                 this.productList[index].valueProduct = this.productList[index].price * this.productList[index].quantity;
                 basket.decrementItem(index);
+                // eslint-disable-next-line no-console
+                console.log(this.allProducts);
             },
             plusQuantity(index) {
+                this.$store.dispatch('incrementProduct', index);
                 this.productList[index].quantity++;
                 this.productList[index].valueProduct = this.productList[index].price * this.productList[index].quantity;
                 basket.incrementItem(index);
+                // eslint-disable-next-line no-console
+                console.log(this.allProducts);
             }
         },
         mounted() {
             this.loadBasket();
+            // eslint-disable-next-line no-console
+            console.log(this.allProducts);
         }
     }
 </script>

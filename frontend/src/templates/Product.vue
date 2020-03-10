@@ -37,6 +37,7 @@
                 this.product.quantity = 1;
                 this.product.valueProduct = this.product.quantity * this.product.price;
                 basket.addItem(this.product);
+                this.$store.dispatch('getProduct', this.product);
             }
         }
     }
