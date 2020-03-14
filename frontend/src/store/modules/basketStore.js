@@ -15,6 +15,9 @@ export default {
         decrementProduct(ctx, index) {
             // eslint-disable-next-line no-undef
             ctx.commit('decrement', index);
+        },
+        productsInBasket(ctx, products) {
+            ctx.commit('allProducts', products)
         }
     },
     mutations: {
@@ -33,6 +36,9 @@ export default {
         },
         delProduct(state, index) {
             state.basketProducts.splice(index, 1);
+        },
+        allProducts(state, products) {
+            state.basketProducts = products;
         }
     },
     state: {

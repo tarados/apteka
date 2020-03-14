@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="wrapper">
-            <div class="contentBasket" v-for="(product, index) in productList" :key="index">
+            <div class="contentBasket" v-for="(product, index) in allProducts" :key="index">
                 <div class="photo">
                     <img :src="product.photo" :alt="product.title">
                 </div>
@@ -56,7 +56,7 @@
 <script>
     import customIcon from 'vue-icon/lib/vue-feather.esm'
     import * as basket from '../basket'
-    import {mapState, mapGetters} from 'vuex'
+    import {mapGetters} from 'vuex'
 
     export default {
         name: "Basket",
@@ -79,14 +79,12 @@
                 let totalPrice = eval(valueTotal.join('+'));
                 return parseFloat(totalPrice).toFixed(1);
             },
-            ...mapState({
-                basketProducts: state => state.basketProducts,
-                basketProductsAlias: 'basketProducts'
-            }),
             ...mapGetters(["allProducts"])
         },
         methods: {
             toHome() {
+                // eslint-disable-next-line no-console
+                console.log(this.allProducts);
                 this.$router.go(-1);
             },
             toCheckout() {
@@ -104,30 +102,24 @@
                 this.$store.dispatch('deleteProduct', index);
                 basket.deleteItem(index);
                 this.loadBasket();
-                // eslint-disable-next-line no-console
-                console.log(this.allProducts);
             },
             minusQuantity(index) {
                 this.$store.dispatch('decrementProduct', index);
                 this.productList[index].quantity--;
                 this.productList[index].valueProduct = this.productList[index].price * this.productList[index].quantity;
                 basket.decrementItem(index);
-                // eslint-disable-next-line no-console
-                console.log(this.allProducts);
             },
             plusQuantity(index) {
                 this.$store.dispatch('incrementProduct', index);
                 this.productList[index].quantity++;
                 this.productList[index].valueProduct = this.productList[index].price * this.productList[index].quantity;
                 basket.incrementItem(index);
-                // eslint-disable-next-line no-console
-                console.log(this.allProducts);
             }
         },
         mounted() {
             this.loadBasket();
             // eslint-disable-next-line no-console
-            console.log(this.allProducts);
+            console.log(this.allProducts[0]);
         }
     }
 </script>
