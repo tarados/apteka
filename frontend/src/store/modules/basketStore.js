@@ -18,6 +18,9 @@ export default {
         decrementProduct(ctx, index) {
             // eslint-disable-next-line no-undef
             ctx.commit('decrement', index);
+        },
+        totalPriceToCheck(ctx) {
+            ctx.commit('addTotalPriceToCheck')
         }
     },
     mutations: {
@@ -42,6 +45,9 @@ export default {
         delProduct(state, index) {
             state.basketProducts.splice(index, 1);
             basket.deleteItem(index);
+        },
+        addTotalPriceToCheck(state) {
+            basket.addItemCheck(state.totalPrice);
         }
     },
     state: {

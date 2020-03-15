@@ -55,9 +55,7 @@
 
 <script>
     import customIcon from 'vue-icon/lib/vue-feather.esm'
-    import * as basket from '../basket'
     import {mapGetters, mapState} from 'vuex'
-    // import basketStore from "../store/modules/basketStore";
 
     export default {
         name: "Basket",
@@ -82,7 +80,7 @@
                 // eslint-disable-next-line no-unused-vars
                 this.$router.push('/basket/checkout').catch(err => {
                 });
-                basket.addItemCheck(this.getTotalPrice);
+                this.$store.dispatch('totalPriceToCheck');
             },
             deleteOrder(index) {
                 this.$store.dispatch('deleteProduct', index);
