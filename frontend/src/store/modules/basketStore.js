@@ -1,3 +1,6 @@
+import Vue from 'vue'
+import * as basket from '/home/sergey/projects/apteka/frontend/src/basket.js'
+
 export default {
     actions: {
         getProduct(ctx, item) {
@@ -15,9 +18,6 @@ export default {
         decrementProduct(ctx, index) {
             // eslint-disable-next-line no-undef
             ctx.commit('decrement', index);
-        },
-        productsInBasket(ctx, products) {
-            ctx.commit('allProducts', products)
         }
     },
     mutations: {
@@ -25,28 +25,41 @@ export default {
             state.basketProducts.push(product);
         },
         increment(state, index) {
-            state.basketProducts[index].quantity++;
-            state.basketProducts[index].valueProduct = state.basketProducts[index].price * state.basketProducts[index].quantity;
-
+            const item = state.basketProducts[index];
+            item.quantity++;
+            item.valueProduct = item.price * item.quantity;
+            Vue.set(state.basketProducts, index, item);
+            basket.incrementItem(index);
         },
         decrement(state, index) {
-            state.products[index].quantity--;
-            state.basketProducts[index].valueProduct = state.basketProducts[index].price * state.basketProducts[index].quantity;
+            const item = state.basketProducts[index];
+            item.quantity--;
+            item.valueProduct = item.price * item.quantity;
+            Vue.set(state.basketProducts, index, item);
+            basket.decrementItem(index);
 
         },
         delProduct(state, index) {
             state.basketProducts.splice(index, 1);
-        },
-        allProducts(state, products) {
-            state.basketProducts = products;
+            basket.deleteItem(index);
         }
     },
     state: {
-        basketProducts: []
+        basketProducts: [],
+        totalPrice: 0
     },
     getters: {
         allProducts(state) {
             return state.basketProducts;
+        },
+        getTotalPrice(state) {
+            let valueTotal = [];
+            state.basketProducts.forEach(function (item) {
+                valueTotal.push(item.valueProduct);
+            });
+            let totalPrice = eval(valueTotal.join('+'));
+            state.totalPrice = parseFloat(totalPrice).toFixed(1);
+            return state.totalPrice;
         }
     }
 }

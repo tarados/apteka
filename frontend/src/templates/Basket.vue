@@ -2,7 +2,7 @@
     <div class="container">
         <div id="header">
             <div class="titleBasket">
-                <i>Заказано наименований - {{count}}</i>
+                <i>Заказано наименований - {{getCount}}</i>
             </div>
             <div class="totalPrice">
                 <i>Всего к оплате: <span>{{getTotalPrice}} руб.</span></i>
@@ -56,7 +56,8 @@
 <script>
     import customIcon from 'vue-icon/lib/vue-feather.esm'
     import * as basket from '../basket'
-    import {mapGetters} from 'vuex'
+    import {mapGetters, mapState} from 'vuex'
+    // import basketStore from "../store/modules/basketStore";
 
     export default {
         name: "Basket",
@@ -64,27 +65,17 @@
             // eslint-disable-next-line vue/no-unused-components
             customIcon
         },
-        data() {
-            return {
-                productList: [],
-                count: Number,
-            }
-        },
         computed: {
-            getTotalPrice: function () {
-                let valueTotal = [];
-                this.productList.forEach(function (item) {
-                    valueTotal.push(item.valueProduct);
-                });
-                let totalPrice = eval(valueTotal.join('+'));
-                return parseFloat(totalPrice).toFixed(1);
-            },
-            ...mapGetters(["allProducts"])
+            ...mapGetters(["allProducts"]),
+            ...mapGetters(["getTotalPrice"]),
+            ...mapState(["basketProducts"]),
+            getCount() {
+                const count = this.allProducts.length ? this.allProducts.length : 0;
+                return count;
+            }
         },
         methods: {
             toHome() {
-                // eslint-disable-next-line no-console
-                console.log(this.allProducts);
                 this.$router.go(-1);
             },
             toCheckout() {
@@ -93,33 +84,18 @@
                 });
                 basket.addItemCheck(this.getTotalPrice);
             },
-            loadBasket() {
-                this.productList = basket.getItems();
-                this.count = this.productList.length;
-
-            },
             deleteOrder(index) {
                 this.$store.dispatch('deleteProduct', index);
-                basket.deleteItem(index);
-                this.loadBasket();
             },
             minusQuantity(index) {
                 this.$store.dispatch('decrementProduct', index);
-                this.productList[index].quantity--;
-                this.productList[index].valueProduct = this.productList[index].price * this.productList[index].quantity;
-                basket.decrementItem(index);
             },
             plusQuantity(index) {
                 this.$store.dispatch('incrementProduct', index);
-                this.productList[index].quantity++;
-                this.productList[index].valueProduct = this.productList[index].price * this.productList[index].quantity;
-                basket.incrementItem(index);
             }
         },
         mounted() {
-            this.loadBasket();
-            // eslint-disable-next-line no-console
-            console.log(this.allProducts[0]);
+            this.getCount;
         }
     }
 </script>

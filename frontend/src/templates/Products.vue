@@ -52,7 +52,6 @@
                 count: 0
             }
         },
-        // computed: mapState(["basketProducts"]),
         computed: {
             productsFiltered() {
                 if (this.manufacturerFilter && this.manufacturerFilter.length) {
