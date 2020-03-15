@@ -91,9 +91,6 @@
             plusQuantity(index) {
                 this.$store.dispatch('incrementProduct', index);
             }
-        },
-        mounted() {
-            this.getCount;
         }
     }
 </script>

@@ -30,14 +30,14 @@ export default {
         increment(state, index) {
             const item = state.basketProducts[index];
             item.quantity++;
-            item.valueProduct = item.price * item.quantity;
+            item.valueProduct = parseFloat((item.price * item.quantity).toFixed(1));
             Vue.set(state.basketProducts, index, item);
             basket.incrementItem(index);
         },
         decrement(state, index) {
             const item = state.basketProducts[index];
             item.quantity--;
-            item.valueProduct = item.price * item.quantity;
+            item.valueProduct = parseFloat((item.price * item.quantity).toFixed(1));
             Vue.set(state.basketProducts, index, item);
             basket.decrementItem(index);
 

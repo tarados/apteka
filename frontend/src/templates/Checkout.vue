@@ -15,14 +15,14 @@
                 <div class="title checkout"> Оформление заказа</div>
             </div>
             <div>
-                <b-table striped hover :items="productList" :fields="fields"></b-table>
+                <b-table striped hover :items="allProducts" :fields="fields"></b-table>
             </div>
             <hr>
             <div class="totalPrice">
                 <div>
                     <i>Всего к оплате:</i>
                 </div>
-                <div class="price" v-text="totalPrice + ' руб.'"></div>
+                <div class="price" v-text="getTotalPrice + ' руб.'"></div>
             </div>
             <hr>
         </div>
@@ -46,7 +46,7 @@
     import customIcon from 'vue-icon/lib/vue-feather.esm'
     import Farmacy from "./Farmacy";
     import Login from "./Login";
-    import * as basket from '../basket'
+    import {mapGetters} from 'vuex'
 
     export default {
         name: "Checkout",
@@ -58,29 +58,24 @@
         },
         data() {
             return {
-                productList: [],
                 fields: {
                     title: "Наименование",
                     manufacturer: 'Производитель',
                     price: 'Цена',
                     quantity: 'Количество',
-                    valueProductFixed: 'Сумма'
+                    valueProduct: 'Сумма'
                 },
-                totalPrice: 0,
                 pharmacyForOrder: Object,
                 stateChoice: false,
                 showMapVisible: false,
                 visibleButton: true
             }
         },
+        computed: {
+            ...mapGetters(["allProducts"]),
+            ...mapGetters(["getTotalPrice"]),
+        },
         methods: {
-            loadBasketContent() {
-                this.productList = basket.getItems();
-                this.productList.forEach(function (item) {
-                    item.valueProductFixed = item.valueProduct.toFixed(1);
-                });
-                this.totalPrice = basket.getItemsCheck();
-            },
             toBasket() {
                 this.$router.go(-1);
             },
@@ -97,9 +92,6 @@
             showMap(el) {
                 this.showMapVisible = el;
             }
-        },
-        mounted() {
-            this.loadBasketContent();
         }
     }
 </script>
