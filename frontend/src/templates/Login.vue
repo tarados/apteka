@@ -98,7 +98,7 @@
 
 <script>
     import * as send from '../send'
-    import * as basket from '../basket'
+    import {mapGetters} from 'vuex'
 
     export default {
         name: "Login",
@@ -109,8 +109,6 @@
         },
         data() {
             return {
-                productListOrder: [],
-                totalPrice: Object,
                 form: {
                     name: null,
                     surname: null,
@@ -119,20 +117,16 @@
                 visible: true
             };
         },
+        computed: {
+            ...mapGetters(["allProducts"]),
+            ...mapGetters(["orderProductList"])
+        },
         methods: {
             getValidationState({dirty, validated, valid = null}) {
                 return dirty || validated ? valid : null;
             },
             async onSubmit() {
-                this.productListOrder = basket.getItems();
-                this.totalPrice = basket.getItemsCheck();
-                this.productListOrder.forEach(function (item) {
-                    delete item.photo;
-                    delete item.title;
-                    delete item.manufacturer;
-                    delete item.valueProduct;
-                });
-                this.form.order = this.productListOrder;
+                this.form.order = this.orderProductList;
                 this.form.pharmacyId = this.pharmacyForOrder.pharmacyId;
                 const response = await send.post("order", this.form);
                 if (response) {

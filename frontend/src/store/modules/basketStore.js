@@ -66,6 +66,19 @@ export default {
             let totalPrice = eval(valueTotal.join('+'));
             state.totalPrice = parseFloat(totalPrice).toFixed(1);
             return state.totalPrice;
+        },
+        orderProductList(state) {
+            let orderList = [];
+
+            state.basketProducts.forEach(function (item) {
+                let order = {
+                    'price': item.price,
+                    'productId': item.productId,
+                    'quantity': item.quantity
+                };
+                orderList.push(order);
+            });
+            return orderList;
         }
     }
 }
