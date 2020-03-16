@@ -64,9 +64,6 @@
                 // eslint-disable-next-line vue/no-side-effects-in-computed-properties
                 this.count = this.products.length;
                 return this.products;
-            },
-            basketProducts() {
-                return this.$store.state.basketProducts;
             }
         },
         methods: {
@@ -110,8 +107,6 @@
         },
         mounted() {
             this.checkQueryAndLoadProducts();
-            // eslint-disable-next-line no-console
-            console.log(this.basketProducts);
         },
         updated() {
             if ((this.query === '') || (this.query === undefined)) {
