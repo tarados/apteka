@@ -38,7 +38,7 @@
                 // eslint-disable-next-line no-undef
                 this.product.valueProduct = parseFloat((this.product.quantity * this.product.price).toFixed(1));
                 basket.addItem(this.product);
-                this.$store.dispatch('getProduct', this.product);
+                this.$store.commit('addProduct', this.product);
             }
         }
     }

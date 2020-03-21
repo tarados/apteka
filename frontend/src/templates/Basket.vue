@@ -80,16 +80,16 @@
                 // eslint-disable-next-line no-unused-vars
                 this.$router.push('/basket/checkout').catch(err => {
                 });
-                this.$store.dispatch('totalPriceToCheck');
+                this.$store.commit('addTotalPriceToCheck')
             },
             deleteOrder(index) {
-                this.$store.dispatch('deleteProduct', index);
+                this.$store.commit('delProduct', index);
             },
             minusQuantity(index) {
-                this.$store.dispatch('decrementProduct', index);
+                this.$store.commit('decrement', index);
             },
             plusQuantity(index) {
-                this.$store.dispatch('incrementProduct', index);
+                this.$store.commit('increment', index);
             }
         }
     }
