@@ -42,7 +42,9 @@
       "eslint:recommended"
     ],
     "rules": {
-      "no-console": "off"
+      "no-console": "off",
+      "no-unused-vars": "off",
+      "vue/no-side-effects-in-computed-properties": "off"
     },
     "parserOptions": {
       "parser": "babel-eslint"

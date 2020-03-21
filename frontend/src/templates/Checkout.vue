@@ -51,7 +51,6 @@
     export default {
         name: "Checkout",
         components: {
-            // eslint-disable-next-line vue/no-unused-components
             customIcon,
             Farmacy,
             Login

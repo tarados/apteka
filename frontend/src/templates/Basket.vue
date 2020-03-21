@@ -60,7 +60,6 @@
     export default {
         name: "Basket",
         components: {
-            // eslint-disable-next-line vue/no-unused-components
             customIcon
         },
         computed: {
@@ -77,9 +76,7 @@
                 this.$router.go(-1);
             },
             toCheckout() {
-                // eslint-disable-next-line no-unused-vars
-                this.$router.push('/basket/checkout').catch(err => {
-                });
+                this.$router.push('/basket/checkout');
                 this.$store.commit('addTotalPriceToCheck')
             },
             deleteOrder(index) {

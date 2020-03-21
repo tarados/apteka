@@ -34,12 +34,10 @@
     import Product from "./Product";
     import Sorting from "./Sorting";
     import Filtration from "./Filter";
-    // import {mapState} from 'vuex';
 
     export default {
         components: {
             Product,
-            // eslint-disable-next-line vue/no-unused-components
             Filtration,
             Sorting
         },
@@ -57,11 +55,9 @@
                 if (this.manufacturerFilter && this.manufacturerFilter.length) {
                     const filter = this.manufacturerFilter.join('|');
                     const filteredList = this.products.filter(item => item.text.match(filter));
-                    // eslint-disable-next-line vue/no-side-effects-in-computed-properties
                     this.count = filteredList.length;
                     return filteredList
                 }
-                // eslint-disable-next-line vue/no-side-effects-in-computed-properties
                 this.count = this.products.length;
                 return this.products;
             }
@@ -114,7 +110,6 @@
             }
         },
         watch: {
-            // eslint-disable-next-line no-unused-vars
             $route() {
                 this.checkQueryAndLoadProducts()
             }
