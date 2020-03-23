@@ -53,13 +53,11 @@
                         return marker;
                     });
 
-                // eslint-disable-next-line no-new
                 new MarkerClusterer(map, markers, {
                     imagePath: `https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m`,
                 });
 
             } catch (error) {
-                // eslint-disable-next-line no-console
                 console.error(error);
             }
         },

@@ -1,44 +1,18 @@
 import Vue from 'vue'
-import * as basket from '/home/sergey/projects/apteka/frontend/src/basket.js'
+import * as basket from '../../basket.js'
 
 export default {
-    actions: {
-        getProduct(ctx, item) {
-            // eslint-disable-next-line no-undef
-            ctx.commit('addProduct', item);
-        },
-        deleteProduct(ctx, index) {
-            // eslint-disable-next-line no-undef
-            ctx.commit('delProduct', index);
-        },
-        incrementProduct(ctx, index) {
-            // eslint-disable-next-line no-undef
-            ctx.commit('increment', index);
-        },
-        decrementProduct(ctx, index) {
-            // eslint-disable-next-line no-undef
-            ctx.commit('decrement', index);
-        },
-        totalPriceToCheck(ctx) {
-            ctx.commit('addTotalPriceToCheck')
-        }
-    },
+    actions: {},
     mutations: {
         addProduct(state, product) {
             state.basketProducts.push(product);
         },
         increment(state, index) {
-            const item = state.basketProducts[index];
-            item.quantity++;
-            item.valueProduct = parseFloat((item.price * item.quantity).toFixed(1));
-            Vue.set(state.basketProducts, index, item);
+            changeQuantity(state, index, 1);
             basket.incrementItem(index);
         },
         decrement(state, index) {
-            const item = state.basketProducts[index];
-            item.quantity--;
-            item.valueProduct = parseFloat((item.price * item.quantity).toFixed(1));
-            Vue.set(state.basketProducts, index, item);
+            changeQuantity(state, index, -1);
             basket.decrementItem(index);
 
         },
@@ -81,4 +55,11 @@ export default {
             return orderList;
         }
     }
+}
+
+function changeQuantity(array, index, number) {
+    const item = array.basketProducts[index];
+    item.quantity = item.quantity + number;
+    item.valueProduct = parseFloat((item.price * item.quantity).toFixed(1));
+    Vue.set(array.basketProducts, index, item);
 }

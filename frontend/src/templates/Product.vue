@@ -20,7 +20,6 @@
     export default {
         name: "Product",
         components: {
-            // eslint-disable-next-line vue/no-unused-components
             customIcon
         },
         props: {
@@ -30,15 +29,12 @@
         },
         methods: {
             toBasket() {
-                // eslint-disable-next-line no-unused-vars
-                this.$router.push('/basket').catch(err => {
-                });
+                this.$router.push('/basket');
                 this.product.photo = document.getElementById("myImg").src;
                 this.product.quantity = 1;
-                // eslint-disable-next-line no-undef
                 this.product.valueProduct = parseFloat((this.product.quantity * this.product.price).toFixed(1));
                 basket.addItem(this.product);
-                this.$store.dispatch('getProduct', this.product);
+                this.$store.commit('addProduct', this.product);
             }
         }
     }
