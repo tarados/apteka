@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext as _
 
 
 class Pharmacy(models.Model):
@@ -47,6 +48,9 @@ class Order(models.Model):
     customer_name = models.CharField("Имя", max_length=12)
     customer_surname = models.CharField("Фамилия", max_length=20)
     customer_phone = models.CharField("Телефон", max_length=20)
+    status = models.IntegerField("Статус", choices=((1, _("Новый")),
+                                        (2, _("В обработке")),
+                                        (3, _("Выполнен"))), default=1)
 
     class Meta:
         verbose_name = "Заказ"
