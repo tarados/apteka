@@ -4,7 +4,7 @@ from django.db import models
 class Pharmacy(models.Model):
     """Модель торговой точки"""
 
-    pharmacy_name = models.CharField(max_length=255)
+    pharmacy_name = models.CharField("Аптека", max_length=255)
     city = models.CharField(max_length=50, null=True)
     house = models.TextField(null=True)
     street = models.CharField(null=True, max_length=50)
@@ -13,6 +13,13 @@ class Pharmacy(models.Model):
     phone = models.CharField(max_length=50, null=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Аптека"
+        verbose_name_plural = "Аптеки"
+
+    def __str__(self):
+        return self.pharmacy_name
 
 
 class Product(models.Model):
@@ -23,16 +30,27 @@ class Product(models.Model):
     price = models.FloatField(null=True, blank=True)
     product_photo = models.ImageField(upload_to='images', null=True, blank=True)
 
+    class Meta:
+        verbose_name = "Наименование"
+        verbose_name_plural = "Номенклатура"
+
+    def __str__(self):
+        return self.product_name
+
 
 class Order(models.Model):
     """Модель Заказ"""
 
-    date = models.DateTimeField(null=True, blank=True)
-    total_price = models.FloatField(null=True, blank=True)
-    pharmacy = models.ForeignKey(Pharmacy, on_delete=models.CASCADE, null=True, blank=True)
-    customer_name = models.CharField(max_length=12)
-    customer_surname = models.CharField(max_length=20)
-    customer_phone = models.CharField(max_length=20)
+    date = models.DateTimeField("Дата заказа", null=True, blank=True)
+    total_price = models.FloatField("Сумма заказа", null=True, blank=True)
+    pharmacy = models.ForeignKey(Pharmacy, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Аптека")
+    customer_name = models.CharField("Имя", max_length=12)
+    customer_surname = models.CharField("Фамилия", max_length=20)
+    customer_phone = models.CharField("Телефон", max_length=20)
+
+    class Meta:
+        verbose_name = "Заказ"
+        verbose_name_plural = "Заказы"
 
 
 class OrderItem(models.Model):
@@ -40,9 +58,9 @@ class OrderItem(models.Model):
 
     order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
-    price = models.FloatField(null=True, blank=True)
-    quantity = models.FloatField(null=True, blank=True)
-    cost_product = models.FloatField(null=True, blank=True)
+    price = models.FloatField("Цена", null=True, blank=True)
+    quantity = models.FloatField("Количество", null=True, blank=True)
+    cost_product = models.FloatField("Сумма", null=True, blank=True)
 
 
 class ProductAvailability(models.Model):
