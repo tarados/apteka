@@ -22,6 +22,9 @@ export default {
         },
         addTotalPriceToCheck(state) {
             basket.addItemCheck(state.totalPrice);
+        },
+        clearStore(state) {
+            state.basketProducts.splice(0, state.basketProducts.length)
         }
     },
     state: {

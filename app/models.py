@@ -6,12 +6,12 @@ class Pharmacy(models.Model):
     """Модель торговой точки"""
 
     pharmacy_name = models.CharField("Аптека", max_length=255)
-    city = models.CharField(max_length=50, null=True)
-    house = models.TextField(null=True)
-    street = models.CharField(null=True, max_length=50)
-    state_province = models.CharField(max_length=50, null=True)
-    manager = models.CharField(max_length=50, null=True)
-    phone = models.CharField(max_length=50, null=True)
+    city = models.CharField("Город", max_length=50, null=True)
+    house = models.CharField("Дом", max_length=50, null=True)
+    street = models.CharField("Улица", null=True, max_length=50)
+    state_province = models.CharField("Район", max_length=50, null=True, blank=True)
+    manager = models.CharField("Заведующая", max_length=50, null=True)
+    phone = models.CharField("Телефон", max_length=50, null=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
 

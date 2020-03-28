@@ -7,8 +7,10 @@ class OrderItemInline(admin.TabularInline):
 	extra = 0
 
 
+@admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
 	list_display = ("date", "pharmacy", "total_price", "customer_name", "customer_surname", "customer_phone", "status")
+	list_filter = ("status", "pharmacy",)
 	inlines = [
 		OrderItemInline,
 	]
@@ -16,5 +18,5 @@ class OrderAdmin(admin.ModelAdmin):
 
 admin.site.register(Product)
 admin.site.register(Pharmacy)
-admin.site.register(Order, OrderAdmin)
+# admin.site.register(Order, OrderAdmin)
 

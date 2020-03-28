@@ -60,7 +60,7 @@
                     </validation-provider>
                     <validation-provider
                             name="Phone"
-                            :rules="{ required: true, min: 14 }"
+                            :rules="{ required: true, min: 15 }"
                             v-slot="validationContext"
                     >
                         <b-form-group
@@ -149,6 +149,7 @@
             },
             backToMain() {
                 this.$router.go(-2);
+                this.$store.commit("clearStore");
             }
         }
     }
