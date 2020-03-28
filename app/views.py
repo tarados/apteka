@@ -55,6 +55,7 @@ def order(request):
         customer_phone=order_content["phone"]
     )
     order.save()
+    print(order.status)
     order_total_sum = 0
     for order_item in order_content["order"]:
         product = Product.objects.get(id=int(order_item["productId"]))

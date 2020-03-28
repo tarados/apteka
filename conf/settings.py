@@ -135,7 +135,7 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 
-# MEDIA_ROOT = env.get('MEDIA_ROOT', '')
+MEDIA_ROOT = env.get('MEDIA_ROOT', '')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'frontend'),

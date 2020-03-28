@@ -42,19 +42,23 @@ class Product(models.Model):
 class Order(models.Model):
     """Модель Заказ"""
 
+    STATUS_CHOICE = ((1, _("Новый")),
+                     (2, _("В обработке")),
+                     (3, _("Выполнен")))
     date = models.DateTimeField("Дата заказа", null=True, blank=True)
     total_price = models.FloatField("Сумма заказа", null=True, blank=True)
     pharmacy = models.ForeignKey(Pharmacy, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Аптека")
     customer_name = models.CharField("Имя", max_length=12)
     customer_surname = models.CharField("Фамилия", max_length=20)
     customer_phone = models.CharField("Телефон", max_length=20)
-    status = models.IntegerField("Статус", choices=((1, _("Новый")),
-                                        (2, _("В обработке")),
-                                        (3, _("Выполнен"))), default=1)
+    status = models.IntegerField("Статус", choices=STATUS_CHOICE, default=1)
 
     class Meta:
         verbose_name = "Заказ"
         verbose_name_plural = "Заказы"
+
+    def order_status(self):
+        return self.status
 
 
 class OrderItem(models.Model):
