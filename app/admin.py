@@ -10,22 +10,34 @@ class OrderItemInline(admin.TabularInline):
 
 
 class OrderItemResource(resources.ModelResource):
-
 	class Meta:
 		model = OrderItem
 
 
+def make_published(modeladmin, request, queryset):
+	queryset.update(status='2')
+	order_id = modeladmin.get_object(request, queryset[0].id).id
+	print(order_id)
+	order_contents = OrderItemInline.model.order.__init__('cost_product')
+	print(order_contents)
+
+
+make_published.short_description = "Mark selected stories as published"
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-	list_display = ("idOrder", "date", "pharmacy", "total_price", "customer_name", "customer_surname", "customer_phone", "status")
+	list_display = (
+	"idOrder", "date", "pharmacy", "total_price", "customer_name", "customer_surname", "customer_phone", "status")
 	list_filter = ("status",)
-	list_display_links = ("pharmacy",)
 	inlines = [
 		OrderItemInline,
 	]
+	actions = [make_published]
 
 	def idOrder(self, obj):
-		return obj.id
+		return 'Заказ № %s' % str(obj.id)
+
 	idOrder.short_description = "Номер заказа"
 
 	def save_model(self, request, obj, form, change):

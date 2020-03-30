@@ -57,8 +57,8 @@ class Order(models.Model):
         verbose_name = "Заказ"
         verbose_name_plural = "Заказы"
 
-    def __str__(self):
-        return self.pharmacy.pharmacy_name
+    # def __str__(self):
+    #     return 'Заказ № %s' % str(self.id)
 
 
 class OrderItem(models.Model):
