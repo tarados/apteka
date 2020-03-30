@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'app',
     'webpack_loader',
     'corsheaders',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -131,7 +132,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# STATIC_ROOT = env.get('STATIC_ROOT', '')
+STATIC_ROOT = env.get('STATIC_ROOT', '')
 
 MEDIA_URL = '/media/'
 

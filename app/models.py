@@ -57,8 +57,8 @@ class Order(models.Model):
         verbose_name = "Заказ"
         verbose_name_plural = "Заказы"
 
-    def order_status(self):
-        return self.status
+    def __str__(self):
+        return self.pharmacy.pharmacy_name
 
 
 class OrderItem(models.Model):
@@ -69,6 +69,14 @@ class OrderItem(models.Model):
     price = models.FloatField("Цена", null=True, blank=True)
     quantity = models.FloatField("Количество", null=True, blank=True)
     cost_product = models.FloatField("Сумма", null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Контент заказа"
+        verbose_name_plural = "Контент заказов"
+
+    def __str__(self):
+        return 'Заказ № %s для %s' % (self.order.id , self.order.pharmacy.pharmacy_name)
+
 
 
 class ProductAvailability(models.Model):
