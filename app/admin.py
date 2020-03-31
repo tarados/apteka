@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.core.mail import send_mail
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from app.models import Product, Pharmacy, Order, OrderItem
@@ -15,11 +16,16 @@ class OrderItemResource(resources.ModelResource):
 
 
 def make_published(modeladmin, request, queryset):
-	queryset.update(status='2')
-	order_id = modeladmin.get_object(request, queryset[0].id).id
+	queryset.update(status='1')
+	send_mail(
+		'Subject here',
+		'Here is the message.',
+		'lith2009@mail.ru',
+		['zvadaserg@yandex.ru'],
+		fail_silently=False,
+	)
+	order_id = queryset[0].item.all()[0].product.product_name
 	print(order_id)
-	order_contents = OrderItemInline.model.order.__init__('cost_product')
-	print(order_contents)
 
 
 make_published.short_description = "Mark selected stories as published"
@@ -41,6 +47,7 @@ class OrderAdmin(admin.ModelAdmin):
 	idOrder.short_description = "Номер заказа"
 
 	def save_model(self, request, obj, form, change):
+		print('sdfasdg')
 		obj.save()
 
 

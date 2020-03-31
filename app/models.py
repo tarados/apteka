@@ -57,14 +57,14 @@ class Order(models.Model):
         verbose_name = "Заказ"
         verbose_name_plural = "Заказы"
 
-    # def __str__(self):
-    #     return 'Заказ № %s' % str(self.id)
+    def __str__(self):
+        return 'Заказ № %s' % str(self.id)
 
 
 class OrderItem(models.Model):
     """Модель Контент заказа"""
 
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True, blank=True)
+    order = models.ForeignKey(Order, related_name='item', on_delete=models.CASCADE, null=True, blank=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
     price = models.FloatField("Цена", null=True, blank=True)
     quantity = models.FloatField("Количество", null=True, blank=True)
