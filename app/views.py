@@ -1,5 +1,7 @@
 import json
 import datetime
+import csv
+from django.http import  HttpResponse
 from django.http import JsonResponse
 from app.models import Product, Pharmacy, Order, OrderItem
 
@@ -76,3 +78,15 @@ def order(request):
     order.total_price = order_total_sum
     order.save()
     return JsonResponse({'success': True})
+
+
+def file_order_create(request, order_id):
+    print(order_id)
+    response = HttpResponse(content_type='txt/csv')
+    response['Content-Disposition'] = 'attachment; filename=order.csv'
+
+    writer = csv.writer(response)
+    writer.writerow(['First row', 'Foo', 'Bar', 'Baz'])
+    writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here is a quote"])
+
+    return response
