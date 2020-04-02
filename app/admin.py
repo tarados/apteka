@@ -16,16 +16,16 @@ class OrderItemResource(resources.ModelResource):
 
 
 def make_published(modeladmin, request, queryset):
-	queryset.update(status='1')
-	send_mail(
-		'Subject here',
-		'Here is the message.',
-		'lith2009@mail.ru',
-		['zvadaserg@yandex.ru'],
-		fail_silently=False,
-	)
-	order_id = queryset[0].item.all()[0].product.product_name
-	print(order_id)
+	queryset.update(status='2')
+	for i in range(len(queryset)):
+		order_id = queryset[i].id
+		send_mail(
+			'Subject here',
+			'http://localhost:8000/app/order/ %d' % order_id,
+			'lith2009@mail.ru',
+			['zvadaserg@yandex.ru', 'zvada53@gmail.com'],
+			fail_silently=False,
+		)
 
 
 make_published.short_description = "Mark selected stories as published"
@@ -47,7 +47,6 @@ class OrderAdmin(admin.ModelAdmin):
 	idOrder.short_description = "Номер заказа"
 
 	def save_model(self, request, obj, form, change):
-		print('sdfasdg')
 		obj.save()
 
 

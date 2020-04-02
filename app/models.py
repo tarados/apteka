@@ -12,12 +12,17 @@ class Pharmacy(models.Model):
     state_province = models.CharField("Район", max_length=50, null=True, blank=True)
     manager = models.CharField("Заведующая", max_length=50, null=True)
     phone = models.CharField("Телефон", max_length=50, null=True)
+    email = models.EmailField(max_length=254, null=True, blank=True)
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
 
     class Meta:
         verbose_name = "Аптека"
         verbose_name_plural = "Аптеки"
+
+    def add_adress(self, emal_pharmacy):
+        self.email = emal_pharmacy
+        self.save()
 
     def __str__(self):
         return self.pharmacy_name

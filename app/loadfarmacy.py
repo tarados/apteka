@@ -46,7 +46,14 @@ def deleteFarmacy():
     Pharmacy.objects.all().delete()
 
 
+def add_email():
+    pharmacyes = Pharmacy.objects.all()
+    for pharmacy in pharmacyes:
+        pharmacy.email = "zvada53@gmail.com"
+        pharmacy.save()
+
+
 """Загрузку списка аптек в БД производим по схеме:
  1. Загружаем список аптек с именем farmacy.xlsx в папку static
- 5. В терминале выполяем  python manage.py farmacy
+ 2. В терминале выполяем  python manage.py farmacy
   """
