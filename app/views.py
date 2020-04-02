@@ -81,12 +81,17 @@ def order(request):
 
 
 def file_order_create(request, order_id):
-    print(order_id)
     response = HttpResponse(content_type='txt/csv')
-    response['Content-Disposition'] = 'attachment; filename=order.csv'
+    order = Order.objects.get(id=order_id)
+    # print(order)
+    for order_content in OrderItem.objects.filter(order=order_id):
+        print(order_content.product)
+    response['Content-Disposition'] = 'attachment; filename="%s.csv"' % order.pharmacy.pharmacy_name
 
     writer = csv.writer(response)
-    writer.writerow(['First row', 'Foo', 'Bar', 'Baz'])
-    writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here is a quote"])
+    writer.writerow([order.date])
+    writer.writerow([order.pharmacy.pharmacy_name])
+    writer.writerow(['Наименование', 'Количество', 'Цена', 'Сумма'])
+    writer.writerow(['Наименование', 'Количество', 'Цена', 'Сумма'])
 
     return response

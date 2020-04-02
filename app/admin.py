@@ -22,8 +22,8 @@ def make_published(modeladmin, request, queryset):
 		send_mail(
 			'Subject here',
 			'http://localhost:8000/app/order/ %d' % order_id,
-			'lith2009@mail.ru',
-			['zvadaserg@yandex.ru', 'zvada53@gmail.com'],
+			'admin@localhost',
+			['lith2009@mail.ru'],
 			fail_silently=False,
 		)
 
