@@ -137,8 +137,8 @@ WEBPACK_LOADER = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'avaloid'
-EMAIL_HOST_PASSWORD = 'first23;laud'
-EMAIL_PORT = 587
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = "lith2009@mail.ru"
+EMAIL_HOST_PASSWORD = "zvada1601"
 EMAIL_USE_TLS = True
