@@ -90,18 +90,22 @@ def file_order_create(request, order_id):
     bold = workbook.add_format({'bold': True})
     no_bold = workbook.add_format({'bold': False})
     no_border = workbook.add_format({'bold': True})
+    merge_format = workbook.add_format({'bold': True})
     bold.set_border(1)
     no_bold.set_border(1)
+    merge_format.set_align('center')
+    merge_format.set_align('vcenter')
     worksheet = workbook.add_worksheet()
-    worksheet.write(0, 0, 'Наименование', bold)
 
-    worksheet.write(0, 1, 'Количество', bold)
-    worksheet.set_column('B:B', 12)
-    worksheet.write(0, 2, 'Цена', bold)
-    worksheet.set_column('C:C', 8)
-    worksheet.write(0, 3, 'Сумма', bold)
-    worksheet.set_column('D:D', 10)
-    i = 1
+    worksheet.merge_range('A1:D1', 'Заказ №%d' % order_id, merge_format)
+    worksheet.merge_range('A2:D2', 'Дата: %s' % str(order.date)[:10], no_border)
+    worksheet.merge_range('A3:D3', 'Заказчик: %s %s, тел: %s' % (order.customer_surname, order.customer_name, order.customer_phone, ), no_border)
+    worksheet.write(4, 0, 'Наименование', bold)
+    worksheet.write(4, 1, 'Количество', bold)
+    worksheet.write(4, 2, 'Цена', bold)
+    worksheet.write(4, 3, 'Сумма', bold)
+
+    i = 5
     width_column = []
     for order_content in OrderItem.objects.filter(order=order_id):
         worksheet.write(i, 0, str(order_content.product), no_bold)
@@ -111,7 +115,13 @@ def file_order_create(request, order_id):
         width_column.append(len(str(order_content.product)))
         i += 1
     width = sorted(width_column)
+
     worksheet.set_column('A:A', width[len(width) - 1] + 4)
+    worksheet.set_column('B:B', 12)
+    worksheet.set_column('C:C', 8)
+    worksheet.set_column('D:D', 10)
+    worksheet.set_row(0, 30)
+
     worksheet.write(i, 0, 'Всего:', no_border)
     worksheet.write(i, 3, float(order.total_price), no_border)
     workbook.close()
