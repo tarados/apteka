@@ -102,14 +102,13 @@
                             </b-button>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
         <Map
                 v-if="mapVisible"
                 :locations="state ? selectedLocationsAll:selectedLocations"
+                @clickMarker="clickMarker"
         />
     </div>
 </template>
@@ -143,6 +142,7 @@
                 payloads: [],
                 cities: [],
                 state: true,
+                stateMap: false,
                 class: '',
                 pharmacyChoice: {},
                 pharmacyChoiceAll: [],
@@ -228,6 +228,20 @@
                 this.mapVisible = !this.mapVisible;
                 this.mapClose = !this.mapClose;
                 this.$emit("showMap", ev);
+            },
+            clickMarker(pos) {
+                let lat = pos.lat();
+                let lng = pos.lng();
+                let pharmacyFromMap = {};
+                this.payloads.forEach(function (item) {
+                    if (item.latitude == lat && item.longitude == lng) {
+                        pharmacyFromMap = item;
+                    }
+                });
+                // this.state = !this.state;
+                this.mapVisible = !this.mapVisible;
+                this.mapClose = !this.mapClose;
+                this.$emit("choiceFarmacyFromMap", pharmacyFromMap);
             }
         },
         mounted() {

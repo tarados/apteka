@@ -29,6 +29,7 @@
 
         <Farmacy
                 @choiceFarmacy="choiceFarmacy"
+                @choiceFarmacyFromMap="choiceFarmacyFromMap"
                 @showMap="showMap"
                 @choiceFarmacyBack="choiceFarmacyBack"
                 :visibleButton="!visibleButton"
@@ -90,6 +91,11 @@
             },
             showMap(el) {
                 this.showMapVisible = el;
+            },
+            choiceFarmacyFromMap(pharmacyFromMap) {
+                this.pharmacyForOrder = pharmacyFromMap;
+                this.stateChoice = true;
+                console.log(pharmacyFromMap)
             }
         }
     }

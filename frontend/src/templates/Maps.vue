@@ -7,6 +7,7 @@
 <script>
     import MarkerClusterer from '@google/markerclusterer';
     import gmapsInit from '../utils/gmaps.js';
+    import gmaps from "../utils/gmaps";
 
     export default {
         props: {
@@ -16,7 +17,7 @@
         },
         data() {
             return {
-                count: 0
+                count: 0,
             }
         },
         methods: {},
@@ -37,11 +38,15 @@
                     }
 
                     map.setCenter(this.locations[0].position);
-                    this.locations.length < 2 ? map.setZoom(15) : map.setZoom(12);
+                    this.locations.length <= 2 ? map.setZoom(15) : map.setZoom(12);
                 });
 
                 const markerClickHandler = (marker) => {
-                    map.setZoom(13);
+
+                    console.log('нажали на левую кнопку мыши');
+                    let p = marker.getPosition();
+                    this.$emit("clickMarker", p);
+                    // map.setZoom(13);
                     map.setCenter(marker.getPosition());
                 };
 
