@@ -95,7 +95,7 @@
             choiceFarmacyFromMap(pharmacyFromMap) {
                 this.pharmacyForOrder = pharmacyFromMap;
                 this.stateChoice = true;
-                console.log(pharmacyFromMap)
+                this.showMapVisible = !this.showMapVisible;
             }
         }
     }

@@ -92,7 +92,11 @@
                                 <i> Посмотреть на карте</i>
                             </b-button>
                         </div>
-                        <div class="itemMap" v-else>
+                        <div
+                                class="itemMap"
+                                :class="{ isActive: !mapVisible }"
+                                v-else
+                        >
                             <b-button
                                     variant="outline-primary"
                                     @click="showOnMap('cl')"
@@ -215,6 +219,7 @@
             },
             choiceFarmacyBack() {
                 this.state = !this.state;
+                this.mapClose = !this.mapClose;
                 this.$emit("choiceFarmacyBack", false);
             },
             showOnMap(ev) {
@@ -238,9 +243,9 @@
                         pharmacyFromMap = item;
                     }
                 });
-                // this.state = !this.state;
+                this.pharmacyChoice = pharmacyFromMap;
+                this.state = !this.state;
                 this.mapVisible = !this.mapVisible;
-                this.mapClose = !this.mapClose;
                 this.$emit("choiceFarmacyFromMap", pharmacyFromMap);
             }
         },
