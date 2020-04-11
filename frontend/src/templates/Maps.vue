@@ -38,12 +38,11 @@
                     }
 
                     map.setCenter(this.locations[0].position);
-                    this.locations.length <= 2 ? map.setZoom(15) : map.setZoom(12);
+                    this.locations.length < 2 ? map.setZoom(15) : map.setZoom(12);
                 });
 
-                const markerClickHandler = (marker) => {
 
-                    console.log('нажали на левую кнопку мыши');
+                const markerClickHandler = (marker) => {
                     let p = marker.getPosition();
                     this.$emit("clickMarker", p);
                     // map.setZoom(13);
@@ -52,11 +51,17 @@
 
                 const markers = this.locations
                     .map((location) => {
-                        const marker = new google.maps.Marker({...location, map});
+                        const pharmacyId = location.position.pharmacyId;
+                        const marker = new google.maps.Marker({
+                            ...location,
+                            map,
+                            title: location.position.title
+                        });
                         marker.addListener(`click`, () => markerClickHandler(marker));
-
                         return marker;
                     });
+
+
 
                 new MarkerClusterer(map, markers, {
                     imagePath: `https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m`,
