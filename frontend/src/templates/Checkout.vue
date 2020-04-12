@@ -89,8 +89,8 @@
             visibleAfterOrder(visibleState) {
                 this.visibleButton = visibleState;
             },
-            showMap(el) {
-                this.showMapVisible = el;
+            showMap() {
+                this.showMapVisible = !this.showMapVisible;
             },
             choiceFarmacyFromMap(pharmacyFromMap) {
                 this.pharmacyForOrder = pharmacyFromMap;
