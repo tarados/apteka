@@ -5,7 +5,7 @@
                 <i>Заказано наименований - {{getCount}}</i>
             </div>
             <div class="totalPrice">
-                <i>Всего к оплате: <span>{{getTotalPrice}} руб.</span></i>
+                <i>Всего к оплате: <span>{{totalValue}} руб.</span></i>
             </div>
         </div>
         <div class="wrapper">
@@ -69,6 +69,13 @@
             getCount() {
                 const count = this.allProducts.length ? this.allProducts.length : 0;
                 return count;
+            },
+            totalValue() {
+                if (this.getTotalPrice > 0) {
+                    return this.getTotalPrice;
+                } else {
+                    return 0
+                }
             }
         },
         methods: {
