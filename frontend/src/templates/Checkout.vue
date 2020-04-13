@@ -14,32 +14,32 @@
                 </b-button>
                 <div class="title checkout"> Оформление заказа</div>
             </div>
-            <div>
+            <div v-if="!emptyBasket">
                 <b-table striped hover :items="allProducts" :fields="fields"></b-table>
-            </div>
-            <hr>
-            <div class="totalPrice">
-                <div>
-                    <i>Всего к оплате:</i>
+                <hr>
+                <div class="totalPrice">
+                    <div>
+                        <i>Всего к оплате:</i>
+                    </div>
+                    <div class="price" v-text="getTotalPrice + ' руб.'"></div>
                 </div>
-                <div class="price" v-text="getTotalPrice + ' руб.'"></div>
-            </div>
-            <hr>
-        </div>
-
-        <Farmacy
+                <hr>
+                <Farmacy
                 @choiceFarmacy="choiceFarmacy"
                 @choiceFarmacyFromMap="choiceFarmacyFromMap"
                 @showMap="showMap"
                 @choiceFarmacyBack="choiceFarmacyBack"
                 :visibleButton="!visibleButton"
                 :visibleAfterOrder="visibleButton"
-        />
-        <Login
-                v-if="stateChoice"
-                :pharmacyForOrder="pharmacyForOrder"
-                @visibleAfterOrder="visibleAfterOrder"
-        />
+                />
+                <Login
+                        v-if="stateChoice"
+                        :pharmacyForOrder="pharmacyForOrder"
+                        @visibleAfterOrder="visibleAfterOrder"
+                />
+            </div>
+            <div class="price empty" v-else><p>Корзина пуста!</p></div>
+        </div>
     </div>
 </template>
 
@@ -74,6 +74,13 @@
         computed: {
             ...mapGetters(["allProducts"]),
             ...mapGetters(["getTotalPrice"]),
+            emptyBasket() {
+                if (this.allProducts.length === 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         },
         methods: {
             toBasket() {
@@ -137,6 +144,10 @@
 
     .table {
         font-size: calc(0.49em + 0.3vw);
+    }
+
+    .empty {
+        text-align: center;
     }
 
 
