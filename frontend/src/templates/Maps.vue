@@ -28,8 +28,6 @@
                 const map = new google.maps.Map(this.$el);
 
                 this.locations.forEach(function (item) {
-                    item.position.title = "item.pharmacyId";
-                    console.log(item.position);
                     delete item.pharmacyId;
                 });
 
@@ -55,7 +53,11 @@
 
                 const markers = this.locations
                     .map((location) => {
-                        const marker = new google.maps.Marker({...location, map});
+                        const marker = new google.maps.Marker({
+                            ...location,
+                            map,
+                            title: location.position.title
+                        });
                         marker.addListener(`click`, () => markerClickHandler(marker));
                         return marker;
                     });

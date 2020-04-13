@@ -24,22 +24,24 @@
                     <div class="price" v-text="getTotalPrice + ' руб.'"></div>
                 </div>
                 <hr>
-                <Farmacy
+
+            </div>
+            <div class="price empty" v-else><p>Корзина пуста!</p></div>
+        </div>
+        <Farmacy
+                v-show="!emptyBasket"
                 @choiceFarmacy="choiceFarmacy"
                 @choiceFarmacyFromMap="choiceFarmacyFromMap"
                 @showMap="showMap"
                 @choiceFarmacyBack="choiceFarmacyBack"
                 :visibleButton="!visibleButton"
                 :visibleAfterOrder="visibleButton"
-                />
-                <Login
-                        v-if="stateChoice"
-                        :pharmacyForOrder="pharmacyForOrder"
-                        @visibleAfterOrder="visibleAfterOrder"
-                />
-            </div>
-            <div class="price empty" v-else><p>Корзина пуста!</p></div>
-        </div>
+        />
+        <Login
+                v-if="stateChoice"
+                :pharmacyForOrder="pharmacyForOrder"
+                @visibleAfterOrder="visibleAfterOrder"
+        />
     </div>
 </template>
 
