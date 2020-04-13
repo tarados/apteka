@@ -190,7 +190,7 @@
 
                 this.payloads.forEach(pharmacy => {
                     const position = {};
-                    const titleContent = pharmacy.pharmacy_name + ', ул. ' + pharmacy.street + ', ' + pharmacy.house
+                    const titleContent = pharmacy.pharmacy_name + " , ул. " + pharmacy.street + ". " + pharmacy.house;
                     position['lat'] = pharmacy.latitude;
                     position['lng'] = pharmacy.longitude;
                     position['pharmacyId'] = pharmacy.pharmacyId;

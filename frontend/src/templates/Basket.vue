@@ -2,10 +2,14 @@
     <div class="container">
         <div id="header">
             <div class="titleBasket">
-                <i>Заказано наименований - {{getCount}}</i>
+                <i>Заказано наименований - {{ getCount }}</i>
             </div>
             <div class="totalPrice">
+<<<<<<< HEAD
                 <i>Всего к оплате: <span>{{totalValue}} руб.</span></i>
+=======
+                <i>Всего к оплате: <span>{{ totalPrice }} руб.</span></i>
+>>>>>>> a8bc07c261ebc46455554bf7611f162c6eed9c7e
             </div>
         </div>
         <div class="wrapper">
@@ -70,11 +74,11 @@
                 const count = this.allProducts.length ? this.allProducts.length : 0;
                 return count;
             },
-            totalValue() {
-                if (this.getTotalPrice > 0) {
-                    return this.getTotalPrice;
+            totalPrice() {
+                if (this.allProducts.length === 0) {
+                    return 0;
                 } else {
-                    return 0
+                    return this.getTotalPrice;
                 }
             }
         },

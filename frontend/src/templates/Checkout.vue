@@ -14,20 +14,22 @@
                 </b-button>
                 <div class="title checkout"> Оформление заказа</div>
             </div>
-            <div>
+            <div v-if="!emptyBasket">
                 <b-table striped hover :items="allProducts" :fields="fields"></b-table>
-            </div>
-            <hr>
-            <div class="totalPrice">
-                <div>
-                    <i>Всего к оплате:</i>
+                <hr>
+                <div class="totalPrice">
+                    <div>
+                        <i>Всего к оплате:</i>
+                    </div>
+                    <div class="price" v-text="getTotalPrice + ' руб.'"></div>
                 </div>
-                <div class="price" v-text="getTotalPrice + ' руб.'"></div>
-            </div>
-            <hr>
-        </div>
+                <hr>
 
+            </div>
+            <div class="price empty" v-else><p>Корзина пуста!</p></div>
+        </div>
         <Farmacy
+                v-show="!emptyBasket"
                 @choiceFarmacy="choiceFarmacy"
                 @choiceFarmacyFromMap="choiceFarmacyFromMap"
                 @showMap="showMap"
@@ -74,6 +76,13 @@
         computed: {
             ...mapGetters(["allProducts"]),
             ...mapGetters(["getTotalPrice"]),
+            emptyBasket() {
+                if (this.allProducts.length === 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         },
         methods: {
             toBasket() {
@@ -89,13 +98,13 @@
             visibleAfterOrder(visibleState) {
                 this.visibleButton = visibleState;
             },
-            showMap() {
-                this.showMapVisible = !this.showMapVisible;
+            showMap(el) {
+                this.showMapVisible = el;
             },
             choiceFarmacyFromMap(pharmacyFromMap) {
                 this.pharmacyForOrder = pharmacyFromMap;
                 this.stateChoice = true;
-
+                this.showMapVisible = !this.showMapVisible;
             }
         }
     }
@@ -137,6 +146,10 @@
 
     .table {
         font-size: calc(0.49em + 0.3vw);
+    }
+
+    .empty {
+        text-align: center;
     }
 
 
