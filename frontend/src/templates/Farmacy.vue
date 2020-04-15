@@ -39,76 +39,66 @@
             </div>
         </div>
         <div class="filteredCity"
-             v-for="(farmacy, ind) in filteredCity" :key="ind"
+             v-for="pharmacy in filteredPharmacies" :key="pharmacy.pharmacyId"
              v-show="state"
              :class="{ isActive: mapVisible }"
         >
-            <div class="row city" v-for="(city, index) in farmacy" :key="index">
-                <div
-                        class="pharmacyContent"
-                        :class="{ mapVisible: !mapVisible }"
-                >
+            <div class="row city">
+                <div class="pharmacyContent" :class="{ mapVisible: !mapVisible }">
                     <div class="content">
-                        {{city.pharmacy_name}}, ул.
-                        {{city.street}},
-                        {{city.house}}, тел.
-                        {{city.phone}}
+                        {{pharmacy.pharmacy_name}}, ул.
+                        {{pharmacy.street}},
+                        {{pharmacy.house}}, тел.
+                        {{pharmacy.phone}}
                     </div>
                     <div class="pharmacyChoice">
-                        <b-button variant="outline-primary" @click="choiceFarmacy(index)">Выберите аптеку</b-button>
+                        <b-button variant="outline-primary" @click="choiceFarmacy(pharmacy.pharmacyId)">Выберите аптеку</b-button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="filteredCity" v-show="!state">
-            <div class="row city">
-                <div class="pharmacyContent">
-                    <div class="content">
-                        {{pharmacyChoice.pharmacy_name}}, ул.
-                        {{pharmacyChoice.street}},
-                        {{pharmacyChoice.house}}, тел.
-                        {{pharmacyChoice.phone}}
-                    </div>
-                    <div class="buttonGroup">
-                        <div class="pharmacyChoice">
-                            <b-button
-                                    variant="outline-primary"
-                                    @click="choiceFarmacyBack()"
-                                    :disabled="visibleButton"
-                            >
-                                <custom-icon name="check" class="custom-icon"/>
-                            </b-button>
-                        </div>
-                        <div
-                                class="itemMap"
-                                v-if="mapClose"
-                        >
-                            <b-button
-                                    variant="outline-primary"
-                                    @click="showOnMap('se')"
-                                    :disabled="visibleButton"
-                            >
-                                <custom-icon name="map-pin" class="custom-icon"/>
-                                <i> Посмотреть на карте</i>
-                            </b-button>
-                        </div>
-                        <div
-                                class="itemMap"
-                                :class="{ isActive: !mapVisible }"
-                                v-else
-                        >
-                            <b-button
-                                    variant="outline-primary"
-                                    @click="showOnMap('cl')"
-                            >
-                                <custom-icon name="map-pin" class="custom-icon"/>
-                                <i> Закрыть карту</i>
-                            </b-button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--        <div class="filteredCity" v-show="!state">-->
+<!--            <div class="row city">-->
+<!--                <div class="pharmacyContent">-->
+<!--                    <div class="content">-->
+<!--                        {{pharmacyChoice.pharmacy_name}}, ул.-->
+<!--                        {{pharmacyChoice.street}},-->
+<!--                        {{pharmacyChoice.house}}, тел.-->
+<!--                        {{pharmacyChoice.phone}}-->
+<!--                    </div>-->
+<!--                    <div class="buttonGroup">-->
+<!--                        <div class="pharmacyChoice">-->
+<!--                            <b-button-->
+<!--                                    variant="outline-primary"-->
+<!--                                    @click="choiceFarmacyBack()"-->
+<!--                                    :disabled="visibleButton"-->
+<!--                            >-->
+<!--                                <custom-icon name="check" class="custom-icon"/>-->
+<!--                            </b-button>-->
+<!--                        </div>-->
+<!--                        <div class="itemMap" v-if="mapClose">-->
+<!--                            <b-button-->
+<!--                                    variant="outline-primary"-->
+<!--                                    @click="showOnMap('se')"-->
+<!--                                    :disabled="visibleButton"-->
+<!--                            >-->
+<!--                                <custom-icon name="map-pin" class="custom-icon"/>-->
+<!--                                <i> Посмотреть на карте</i>-->
+<!--                            </b-button>-->
+<!--                        </div>-->
+<!--                        <div class="itemMap" :class="{ isActive: !mapVisible }" v-else>-->
+<!--                            <b-button-->
+<!--                                    variant="outline-primary"-->
+<!--                                    @click="showOnMap('cl')"-->
+<!--                            >-->
+<!--                                <custom-icon name="map-pin" class="custom-icon"/>-->
+<!--                                <i> Закрыть карту</i>-->
+<!--                            </b-button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
         <Map
                 v-if="mapVisible"
                 :locations="state ? selectedLocationsAll:selectedLocations"
@@ -134,7 +124,6 @@
             }
         },
         components: {
-            // eslint-disable-next-line vue/no-unused-components
             customIcon,
             Map
         },
@@ -176,10 +165,16 @@
                 });
                 return locdata;
             },
-            // eslint-disable-next-line vue/return-in-computed-property
             choiceCity() {
                 if (this.pharmacyChoiceAll.length !== 0) {
                     return true;
+                }
+            },
+            filteredPharmacies() {
+                if (this.pharmacyChoice.pharmacyId) {
+                    return this.pharmacyChoiceAll.filter(item => item.pharmacyId === this.pharmacyChoice.pharmacyId);
+                } else {
+                    return this.pharmacyChoiceAll;
                 }
             }
         },
@@ -206,17 +201,11 @@
                 this.cities = this.cities.concat(keys).sort();
             },
             getCity(index) {
-                this.filteredCity = [];
                 const filter = this.cities[index];
-                const filteredList = this.payloads.filter(item => item.city.match(filter));
-                this.filteredCity.push(filteredList);
-                this.pharmacyChoiceAll = filteredList;
+                this.pharmacyChoiceAll = this.payloads.filter(item => item.city.match(filter));
             },
             choiceFarmacy(index) {
-                this.state = !this.state;
-                this.filteredCity.forEach((item) => {
-                    this.pharmacyChoice = item[index];
-                });
+                this.pharmacyChoice = this.pharmacyChoiceAll.filter(item => item.pharmacyId === index)[0];
                 this.$emit("choiceFarmacy", this.pharmacyChoice);
             },
             choiceFarmacyBack() {
