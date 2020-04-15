@@ -7,7 +7,7 @@
                         split-variant="outline-info"
                         text="Выберите город"
                         variant="info"
-                        class="m-2"
+                        class="my"
                         :class="{ isActive: !state }"
                 >
                     <b-dropdown-item v-for="(city, index) in cities" :key="index" @click="getCity(index)">{{ city }}
@@ -16,7 +16,6 @@
             </div>
             <div class="choiceChild"
                  v-if="choiceCity"
-                 :class="{ isActive: !state }"
             >
                 <div v-if="mapClose">
                     <b-button
@@ -40,7 +39,6 @@
         </div>
         <div class="filteredCity"
              v-for="pharmacy in filteredPharmacies" :key="pharmacy.pharmacyId"
-             v-show="state"
              :class="{ isActive: mapVisible }"
         >
             <div class="row city">
@@ -57,48 +55,6 @@
                 </div>
             </div>
         </div>
-<!--        <div class="filteredCity" v-show="!state">-->
-<!--            <div class="row city">-->
-<!--                <div class="pharmacyContent">-->
-<!--                    <div class="content">-->
-<!--                        {{pharmacyChoice.pharmacy_name}}, ул.-->
-<!--                        {{pharmacyChoice.street}},-->
-<!--                        {{pharmacyChoice.house}}, тел.-->
-<!--                        {{pharmacyChoice.phone}}-->
-<!--                    </div>-->
-<!--                    <div class="buttonGroup">-->
-<!--                        <div class="pharmacyChoice">-->
-<!--                            <b-button-->
-<!--                                    variant="outline-primary"-->
-<!--                                    @click="choiceFarmacyBack()"-->
-<!--                                    :disabled="visibleButton"-->
-<!--                            >-->
-<!--                                <custom-icon name="check" class="custom-icon"/>-->
-<!--                            </b-button>-->
-<!--                        </div>-->
-<!--                        <div class="itemMap" v-if="mapClose">-->
-<!--                            <b-button-->
-<!--                                    variant="outline-primary"-->
-<!--                                    @click="showOnMap('se')"-->
-<!--                                    :disabled="visibleButton"-->
-<!--                            >-->
-<!--                                <custom-icon name="map-pin" class="custom-icon"/>-->
-<!--                                <i> Посмотреть на карте</i>-->
-<!--                            </b-button>-->
-<!--                        </div>-->
-<!--                        <div class="itemMap" :class="{ isActive: !mapVisible }" v-else>-->
-<!--                            <b-button-->
-<!--                                    variant="outline-primary"-->
-<!--                                    @click="showOnMap('cl')"-->
-<!--                            >-->
-<!--                                <custom-icon name="map-pin" class="custom-icon"/>-->
-<!--                                <i> Закрыть карту</i>-->
-<!--                            </b-button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
         <Map
                 v-if="mapVisible"
                 :locations="state ? selectedLocationsAll:selectedLocations"
@@ -201,6 +157,7 @@
                 this.cities = this.cities.concat(keys).sort();
             },
             getCity(index) {
+                this.state = !this.state;
                 const filter = this.cities[index];
                 this.pharmacyChoiceAll = this.payloads.filter(item => item.city.match(filter));
             },
@@ -213,17 +170,15 @@
                 this.mapClose = !this.mapClose;
                 this.$emit("choiceFarmacyBack", false);
             },
-            showOnMap(ev) {
-                if (ev === 'se') {
-                    ev = true;
-                } else if (ev == 'cl') {
-                    ev = false;
-                } else {
-                    ev = !this.mapVisible;
-                }
+            showOnMap() {
+                this.state = !this.state;
                 this.mapVisible = !this.mapVisible;
                 this.mapClose = !this.mapClose;
-                this.$emit("showMap", ev);
+                if (this.state) {
+                    this.$emit("showMap", true);
+                } else {
+                    this.$emit("showMap", false);
+                }
             },
             clickMarker(pos) {
                 let lat = pos.lat();
@@ -317,6 +272,10 @@
 
     .content {
         font-size: calc(0.6em + 0.3vw);
+    }
+
+    .my {
+        margin: 0.5rem 0;
     }
 
 
