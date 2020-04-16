@@ -7,7 +7,7 @@
                         split-variant="outline-info"
                         text="Выберите город"
                         variant="info"
-                        class="m-2"
+                        class="my"
                         :class="{ isActive: !state }"
                 >
                     <b-dropdown-item v-for="(city, index) in cities" :key="index" @click="getCity(index)">{{ city }}
@@ -16,7 +16,6 @@
             </div>
             <div class="choiceChild"
                  v-if="choiceCity"
-                 :class="{ isActive: !state }"
             >
                 <div v-if="mapClose">
                     <b-button
@@ -39,31 +38,23 @@
             </div>
         </div>
         <div class="filteredCity"
-             v-for="(pharmacy) in pharmaciesFiltered" :key="pharmacy.pharmacyId"
-             v-show="state"
+             v-for="pharmacy in filteredPharmacies" :key="pharmacy.pharmacyId"
              :class="{ isActive: mapVisible }"
         >
             <div class="row city">
-
-                <div
-                        class="pharmacyContent"
-                        :class="{ mapVisible: !mapVisible }"
-                >
-                    {{pharmacy}}
-<!--                    <div class="content">-->
-<!--                        {{city.pharmacy_name}}, ул.-->
-<!--                        {{city.street}},-->
-<!--                        {{city.house}}, тел.-->
-<!--                        {{city.phone}}-->
-<!--                    </div>-->
+                <div class="pharmacyContent" :class="{ mapVisible: !mapVisible }">
+                    <div class="content">
+                        {{pharmacy.pharmacy_name}}, ул.
+                        {{pharmacy.street}},
+                        {{pharmacy.house}}, тел.
+                        {{pharmacy.phone}}
+                    </div>
                     <div class="pharmacyChoice">
-                        <b-button variant="outlineoutline-primary" @click="choiceFarmacy(pharmacy.pharmacyId)">Выберите аптеку</b-button>
-                        <b-button variant="outlineoutline-primary" @click="showOnMap('se')">те аптеку</b-button>
+                        <b-button variant="outline-primary" @click="choiceFarmacy(pharmacy.pharmacyId)">Выберите аптеку</b-button>
                     </div>
                 </div>
             </div>
         </div>
-<
         <Map
                 v-if="mapVisible"
                 :locations="state ? selectedLocationsAll:selectedLocations"
@@ -89,7 +80,6 @@
             }
         },
         components: {
-            // eslint-disable-next-line vue/no-unused-components
             customIcon,
             Map
         },
@@ -131,13 +121,12 @@
                 });
                 return locdata;
             },
-            // eslint-disable-next-line vue/return-in-computed-property
             choiceCity() {
                 if (this.pharmacyChoiceAll.length !== 0) {
                     return true;
                 }
             },
-            pharmaciesFiltered() {
+            filteredPharmacies() {
                 if (this.pharmacyChoice.pharmacyId) {
                     return this.pharmacyChoiceAll.filter(item => item.pharmacyId === this.pharmacyChoice.pharmacyId);
                 } else {
@@ -168,17 +157,12 @@
                 this.cities = this.cities.concat(keys).sort();
             },
             getCity(index) {
-                this.filteredCity = [];
+                this.state = !this.state;
                 const filter = this.cities[index];
-                const filteredList = this.payloads.filter(item => item.city.match(filter));
-                this.filteredCity.push(filteredList);
-                this.pharmacyChoiceAll = filteredList;
+                this.pharmacyChoiceAll = this.payloads.filter(item => item.city.match(filter));
             },
             choiceFarmacy(index) {
-                this.state = !this.state;
-                this.filteredCity.forEach((item) => {
-                    this.pharmacyChoice = item[index];
-                });
+                this.pharmacyChoice = this.pharmacyChoiceAll.filter(item => item.pharmacyId === index)[0];
                 this.$emit("choiceFarmacy", this.pharmacyChoice);
             },
             choiceFarmacyBack() {
@@ -186,17 +170,15 @@
                 this.mapClose = !this.mapClose;
                 this.$emit("choiceFarmacyBack", false);
             },
-            showOnMap(ev) {
-                if (ev === 'se') {
-                    ev = true;
-                } else if (ev == 'cl') {
-                    ev = false;
-                } else {
-                    ev = !this.mapVisible;
-                }
+            showOnMap() {
+                this.state = !this.state;
                 this.mapVisible = !this.mapVisible;
                 this.mapClose = !this.mapClose;
-                this.$emit("showMap", ev);
+                if (this.state) {
+                    this.$emit("showMap", true);
+                } else {
+                    this.$emit("showMap", false);
+                }
             },
             clickMarker(pos) {
                 let lat = pos.lat();
@@ -290,6 +272,10 @@
 
     .content {
         font-size: calc(0.6em + 0.3vw);
+    }
+
+    .my {
+        margin: 0.5rem 0;
     }
 
 
