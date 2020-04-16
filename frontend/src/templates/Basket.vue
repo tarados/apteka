@@ -5,11 +5,7 @@
                 <i>Заказано наименований - {{ getCount }}</i>
             </div>
             <div class="totalPrice">
-<<<<<<< HEAD
-                <i>Всего к оплате: <span>{{totalValue}} руб.</span></i>
-=======
                 <i>Всего к оплате: <span>{{ totalPrice }} руб.</span></i>
->>>>>>> a8bc07c261ebc46455554bf7611f162c6eed9c7e
             </div>
         </div>
         <div class="wrapper">
