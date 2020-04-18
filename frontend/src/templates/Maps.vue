@@ -38,7 +38,7 @@
                     }
 
                     map.setCenter(this.locations[0].position);
-                    this.locations.length <= 2 ? map.setZoom(15) : map.setZoom(12);
+                    this.locations.length < 2 ? map.setZoom(15) : map.setZoom(12);
 
                 });
 

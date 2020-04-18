@@ -8,7 +8,7 @@
                         text="Выберите город"
                         variant="info"
                         class="my"
-                        :class="{ isActive: !state }"
+                        :class="{ isActive: mapVisible }"
                 >
                     <b-dropdown-item v-for="(city, index) in cities" :key="index" @click="getCity(index)">{{ city }}
                     </b-dropdown-item>
@@ -17,22 +17,22 @@
             <div class="choiceChild"
                  v-if="choiceCity"
             >
-                <div v-if="mapClose">
+                <div v-if="!mapVisible">
                     <b-button
                             @click="showOnMap()"
                             variant="outline-primary"
+                            title="Посмотреть на карте"
                     >
                         <custom-icon name="map-pin" class="custom-icon"/>
-                        <i> Посмотреть на карте</i>
                     </b-button>
                 </div>
                 <div v-else>
                     <b-button
-                            @click="showOnMap()"
+                            @click="showOnMapClose()"
                             variant="outline-primary"
+                            title="Закрыть карту"
                     >
                         <custom-icon name="map-pin" class="custom-icon"/>
-                        <i>Закрыть карту</i>
                     </b-button>
                 </div>
             </div>
@@ -50,7 +50,12 @@
                         {{pharmacy.phone}}
                     </div>
                     <div class="pharmacyChoice">
-                        <b-button variant="outline-primary" @click="choiceFarmacy(pharmacy.pharmacyId)">Выберите аптеку</b-button>
+                        <b-button variant="outline-primary" @click="choiceFarmacy(pharmacy.pharmacyId)">Выберите
+                            аптеку
+                        </b-button>
+                        <b-button variant="outline-primary" @click="showOnMapPharmacy(pharmacy.pharmacyId)">
+                            <custom-icon name="map-pin" class="custom-icon"/>
+                        </b-button>
                     </div>
                 </div>
             </div>
@@ -91,7 +96,6 @@
                 payloads: [],
                 cities: [],
                 state: true,
-                stateMap: false,
                 class: '',
                 pharmacyChoice: {},
                 pharmacyChoiceAll: [],
@@ -99,7 +103,6 @@
                 count: 0,
                 mapVisible: false,
                 listVisible: false,
-                mapClose: true,
                 locations: []
             }
         },
@@ -157,9 +160,9 @@
                 this.cities = this.cities.concat(keys).sort();
             },
             getCity(index) {
-                this.state = !this.state;
                 const filter = this.cities[index];
                 this.pharmacyChoiceAll = this.payloads.filter(item => item.city.match(filter));
+
             },
             choiceFarmacy(index) {
                 this.pharmacyChoice = this.pharmacyChoiceAll.filter(item => item.pharmacyId === index)[0];
@@ -167,13 +170,21 @@
             },
             choiceFarmacyBack() {
                 this.state = !this.state;
-                this.mapClose = !this.mapClose;
                 this.$emit("choiceFarmacyBack", false);
             },
             showOnMap() {
-                this.state = !this.state;
                 this.mapVisible = !this.mapVisible;
-                this.mapClose = !this.mapClose;
+                this.$emit("showMap", true);
+            },
+            showOnMapClose() {
+                this.mapVisible = !this.mapVisible;
+                this.$emit("showMap", false);
+
+            },
+            showOnMapPharmacy(pharmacyId) {
+                this.pharmacyChoice = this.pharmacyChoiceAll.filter(item => item.pharmacyId === pharmacyId)[0]
+                this.state = false;
+                this.mapVisible = !this.mapVisible;
                 if (this.state) {
                     this.$emit("showMap", true);
                 } else {
@@ -284,7 +295,6 @@
             justify-content: center;
         }
     }
-
 
 
 </style>
