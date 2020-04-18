@@ -50,10 +50,17 @@
                         {{pharmacy.phone}}
                     </div>
                     <div class="pharmacyChoice">
-                        <b-button variant="outline-primary" @click="choiceFarmacy(pharmacy.pharmacyId)">Выберите
-                            аптеку
+                        <b-button
+                                variant="outline-primary"
+                                @click="choiceFarmacy(pharmacy.pharmacyId)"
+                        >
+                            Выберите аптеку
                         </b-button>
-                        <b-button variant="outline-primary" @click="showOnMapPharmacy(pharmacy.pharmacyId)">
+                        <b-button
+                                variant="outline-primary"
+                                @click="showOnMapPharmacy(pharmacy.pharmacyId)"
+                                title="Показать на карте"
+                        >
                             <custom-icon name="map-pin" class="custom-icon"/>
                         </b-button>
                     </div>
@@ -185,7 +192,7 @@
                 this.pharmacyChoice = this.pharmacyChoiceAll.filter(item => item.pharmacyId === pharmacyId)[0]
                 this.state = false;
                 this.mapVisible = !this.mapVisible;
-                if (this.state) {
+                if (this.mapVisible) {
                     this.$emit("showMap", true);
                 } else {
                     this.$emit("showMap", false);
