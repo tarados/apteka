@@ -8,7 +8,7 @@
                         text="Выберите город"
                         variant="info"
                         class="my"
-                        :class="{ isActive: mapVisible }"
+                        :class="{ isActive: mapVisible, choicePharmacy: !listVisible }"
                 >
                     <b-dropdown-item v-for="(city, index) in cities" :key="index" @click="getCity(index)">{{ city }}
                     </b-dropdown-item>
@@ -22,6 +22,7 @@
                             @click="showOnMap()"
                             variant="outline-primary"
                             title="Посмотреть на карте"
+                            :class="{ choicePharmacy: !listVisible}"
                     >
                         <custom-icon name="map-pin" class="custom-icon"/>
                     </b-button>
@@ -53,12 +54,7 @@
                         <b-button
                                 variant="outline-primary"
                                 @click="choiceFarmacy(pharmacy.pharmacyId)"
-                        >
-                            Выберите аптеку
-                        </b-button>
-                        <b-button
-                                variant="outline-primary"
-                                @click="choiceFarmacy(pharmacy.pharmacyId)"
+                                :class="{ choicePharmacy: !listVisible}"
                         >
                             Выберите аптеку
                         </b-button>
@@ -109,13 +105,12 @@
                 payloads: [],
                 cities: [],
                 state: true,
-                class: '',
                 pharmacyChoice: {},
                 pharmacyChoiceAll: [],
                 filteredCity: [],
                 count: 0,
                 mapVisible: false,
-                listVisible: false,
+                listVisible: true,
                 locations: []
             }
         },
@@ -180,6 +175,7 @@
             choiceFarmacy(index) {
                 this.pharmacyChoice = this.pharmacyChoiceAll.filter(item => item.pharmacyId === index)[0];
                 this.$emit("choiceFarmacy", this.pharmacyChoice);
+                this.listVisible = !this.listVisible;
             },
             choiceFarmacyBack() {
                 this.state = !this.state;
@@ -216,6 +212,7 @@
                 this.pharmacyChoice = pharmacyFromMap;
                 this.state = !this.state;
                 this.mapVisible = !this.mapVisible;
+                this.listVisible = false;
                 this.$emit("choiceFarmacyFromMap", pharmacyFromMap);
             }
         },
@@ -282,7 +279,7 @@
         width: 24px;
     }
 
-    .isActive {
+    .isActive, .choicePharmacy {
         display: none;
     }
 

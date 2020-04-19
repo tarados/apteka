@@ -44,10 +44,8 @@
 
                 const markerClickHandler = (marker) => {
 
-                    console.log('нажали на левую кнопку мыши');
                     let p = marker.getPosition();
                     this.$emit("clickMarker", p);
-                    // map.setZoom(13);
                     map.setCenter(marker.getPosition());
                 };
 
