@@ -58,6 +58,12 @@
                         </b-button>
                         <b-button
                                 variant="outline-primary"
+                                @click="choiceFarmacy(pharmacy.pharmacyId)"
+                        >
+                            Выберите аптеку
+                        </b-button>
+                        <b-button
+                                variant="outline-primary"
                                 @click="showOnMapPharmacy(pharmacy.pharmacyId)"
                                 title="Показать на карте"
                         >

@@ -8,9 +8,10 @@
                         variant="outline-primary"
                         @click="toBasket"
                         :disabled="!visibleButton"
+                        title="Вернуться в корзину"
                 >
                     <custom-icon name="chevron-left" class="custom-icon"/>
-                    Вернуться в корзину
+                    <custom-icon name="shopping-cart" link="ddd" class="custom-icon"/>
                 </b-button>
                 <div class="title checkout"> Оформление заказа</div>
             </div>

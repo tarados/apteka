@@ -2,8 +2,12 @@
     <div class="container">
         <div id="header">
             <div class="titleBasket">
-                <i>Заказано наименований - {{ getCount }}</i>
+                <div>
+                    <custom-icon name="shopping-cart" class="custom-icon"/>
+                    <div class="basket-icon">{{ getCount }}</div>
+                </div>
             </div>
+
             <div class="totalPrice">
                 <i>Всего к оплате: <span>{{ totalPrice }} руб.</span></i>
             </div>
@@ -113,7 +117,7 @@
 
     #header {
         width: 100%;
-        height: 3em;
+        height: 5em;
         border: 1px solid grey;
         padding: 0 10px;
         display: flex;
@@ -163,6 +167,11 @@
         font-size: calc(0.65em + 0.3vw);
     }
 
+    .custom-icon, .basket-icon{
+        width: 30px;
+        display: inline-block;
+    }
+
     .quantity, .total {
         place-self: center;
     }
@@ -201,8 +210,12 @@
         font-size: calc(0.65em + 0.3vw);
     }
 
-    .custom-icon {
-        width: 24px;
+    .basket-icon {
+        border-radius: 50%;
+        background-color: #3aa744;
+        text-align: center;
+        vertical-align: super;
+        color: white;
+        padding: 3px;
     }
-
 </style>
