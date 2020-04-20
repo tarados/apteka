@@ -9,6 +9,7 @@
                         variant="info"
                         class="my"
                         :class="{ isActive: mapVisible }"
+                        :disabled="!listVisible"
                 >
                     <b-dropdown-item v-for="(city, index) in cities" :key="index" @click="getCity(index)">{{ city }}
                     </b-dropdown-item>
