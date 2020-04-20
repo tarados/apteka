@@ -5,10 +5,10 @@
                 <b-dropdown
                         split
                         split-variant="outline-info"
-                        text="Выберите город"
+                        :text="choiceCity ? city: 'Выберите город'"
                         variant="info"
                         class="my"
-                        :class="{ isActive: mapVisible, choicePharmacy: !listVisible }"
+                        :class="{ isActive: mapVisible }"
                 >
                     <b-dropdown-item v-for="(city, index) in cities" :key="index" @click="getCity(index)">{{ city }}
                     </b-dropdown-item>
@@ -60,6 +60,13 @@
                         </b-button>
                         <b-button
                                 variant="outline-primary"
+                                @click="choiceFarmacyBack()"
+                                :class="{ choicePharmacy: listVisible}"
+                        >
+                            Выбрaть другую аптеку
+                        </b-button>
+                        <b-button
+                                variant="outline-primary"
                                 @click="showOnMapPharmacy(pharmacy.pharmacyId)"
                                 title="Показать на карте"
                         >
@@ -102,6 +109,7 @@
                 firstName: '',
                 lastName: '',
                 phoneOrder: '',
+                city: '',
                 payloads: [],
                 cities: [],
                 state: true,
@@ -170,23 +178,34 @@
             getCity(index) {
                 const filter = this.cities[index];
                 this.pharmacyChoiceAll = this.payloads.filter(item => item.city.match(filter));
+                this.city = filter;
+                this.listVisible = true;
 
             },
             choiceFarmacy(index) {
                 this.pharmacyChoice = this.pharmacyChoiceAll.filter(item => item.pharmacyId === index)[0];
                 this.$emit("choiceFarmacy", this.pharmacyChoice);
-                this.listVisible = !this.listVisible;
+                this.listVisible = false;
+                console.log('listVisible= ', this.listVisible);
+                console.log('mapVisible= ', this.mapVisible);
+                console.log('state= ', this.state);
             },
             choiceFarmacyBack() {
+                this.pharmacyChoice = {};
                 this.state = !this.state;
+                this.listVisible = true;
                 this.$emit("choiceFarmacyBack", false);
+                console.log('listVisible= ', this.listVisible);
+                console.log('mapVisible= ', this.mapVisible);
+                console.log('state= ', this.state);
+
             },
             showOnMap() {
                 this.mapVisible = !this.mapVisible;
                 this.$emit("showMap", true);
             },
             showOnMapClose() {
-                this.mapVisible = !this.mapVisible;
+                this.mapVisible = false;
                 this.$emit("showMap", false);
 
             },
@@ -218,6 +237,9 @@
         },
         mounted() {
             this.getPayload();
+            console.log('listVisible= ', this.listVisible);
+            console.log('mapVisible= ', this.mapVisible);
+            console.log('state= ', this.state);
         }
     }
 </script>

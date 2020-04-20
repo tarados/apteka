@@ -32,7 +32,7 @@
             }
             ,
             getParamOut() {
-                this.$router.push({path: '/', params: 'empty'}).catch(миerr => {
+                this.$router.push({path: '/', params: 'empty'}).catch(err => {
                 });
             }
         },
