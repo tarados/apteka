@@ -26,6 +26,7 @@
                             :class="{ choicePharmacy: !listVisible}"
                     >
                         <custom-icon name="map-pin" class="custom-icon"/>
+                        Выбрать на карте
                     </b-button>
                 </div>
                 <div v-else>
@@ -35,6 +36,7 @@
                             title="Закрыть карту"
                     >
                         <custom-icon name="map-pin" class="custom-icon"/>
+                        Закрыть карту
                     </b-button>
                 </div>
             </div>
@@ -256,6 +258,7 @@
     }
 
     .city {
+        padding: 5px;
         margin: 5px 0;
         border: 1px solid gray;
         text-align: center;
@@ -285,10 +288,17 @@
 
     .content {
         margin-left: 1em;
+        width: 70%;
+        text-align: left;
     }
 
     .pharmacyChoice {
+        width: 24%;
         margin-right: 1em;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .custom-icon {

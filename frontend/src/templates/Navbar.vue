@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <div class="container">
         <b-navbar toggleable="lg" type="light" variant="light">
             <b-navbar-brand href="#">
                 <img src="../assets/logo.png" alt="brand">
             </b-navbar-brand>
             <b-navbar-toggle target="nav-collapse"/>
             <b-collapse id="nav-collapse" is-nav>
-                <b-navbar-nav class="mx-auto">
+                <b-navbar-nav class="ml-auto">
                     <b-nav-form>
                         <b-input-group size="sm" class="seachInput">
                             <b-form-input v-model="texts" placeholder="Search"/>
@@ -15,9 +15,10 @@
                     <b-nav-item
                             :class="{ countVisible: !isCount }"
                             :to="{ path: '/basket'}" append
+                            class="ml-4"
                     >
-                        <custom-icon name="shopping-cart" class="custom-icon"/>
-                        <b-nav-text>{{getCount}}</b-nav-text>
+                        <custom-icon name="shopping-cart" class="custom-icon cart"/>
+                        <span class="count">{{getCount}}</span>
                     </b-nav-item>
                 </b-navbar-nav>
             </b-collapse>
@@ -88,12 +89,32 @@
         margin: 0 auto;
     }
 
-    .custom-icon, .basket-icon{
+    .custom-icon, .basket-icon {
         width: 30px;
         display: inline-block;
     }
 
     .countVisible {
         display: none;
+    }
+
+    .cart {
+        display: inline-block;
+        vertical-align: bottom;
+        margin-top: 0.2em;
+    }
+
+    .count {
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: 0.55em;
+        width: 1.35em;
+        height: 1.35em;
+        font-size: 10px;
+        text-align: center;
+        padding: 0px;
+        border-radius: 50%;
+        color: white;
+        background-color: red;
     }
 </style>
