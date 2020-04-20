@@ -187,33 +187,29 @@
                 this.pharmacyChoice = this.pharmacyChoiceAll.filter(item => item.pharmacyId === index)[0];
                 this.$emit("choiceFarmacy", this.pharmacyChoice);
                 this.listVisible = false;
-                console.log('listVisible= ', this.listVisible);
-                console.log('mapVisible= ', this.mapVisible);
-                console.log('state= ', this.state);
             },
             choiceFarmacyBack() {
                 this.pharmacyChoice = {};
                 this.state = !this.state;
                 this.listVisible = true;
                 this.$emit("choiceFarmacyBack", false);
-                console.log('listVisible= ', this.listVisible);
-                console.log('mapVisible= ', this.mapVisible);
-                console.log('state= ', this.state);
-
             },
             showOnMap() {
-                this.mapVisible = !this.mapVisible;
+                this.state = true;
+                this.mapVisible = true;
                 this.$emit("showMap", true);
             },
             showOnMapClose() {
                 this.mapVisible = false;
+                this.state = true;
+                this.pharmacyChoice = {};
                 this.$emit("showMap", false);
 
             },
             showOnMapPharmacy(pharmacyId) {
                 this.pharmacyChoice = this.pharmacyChoiceAll.filter(item => item.pharmacyId === pharmacyId)[0]
                 this.state = false;
-                this.mapVisible = !this.mapVisible;
+                this.mapVisible = true;
                 if (this.mapVisible) {
                     this.$emit("showMap", true);
                 } else {
@@ -230,17 +226,14 @@
                     }
                 });
                 this.pharmacyChoice = pharmacyFromMap;
-                this.state = !this.state;
-                this.mapVisible = !this.mapVisible;
+                this.state = false;
+                this.mapVisible = true;
                 this.listVisible = false;
                 this.$emit("choiceFarmacyFromMap", pharmacyFromMap);
             }
         },
         mounted() {
             this.getPayload();
-            console.log('listVisible= ', this.listVisible);
-            console.log('mapVisible= ', this.mapVisible);
-            console.log('state= ', this.state);
         }
     }
 </script>
