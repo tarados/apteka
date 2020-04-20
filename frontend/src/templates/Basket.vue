@@ -1,13 +1,6 @@
 <template>
     <div class="container">
         <div id="header">
-            <div class="titleBasket">
-                <div>
-                    <custom-icon name="shopping-cart" class="custom-icon"/>
-                    <div class="basket-icon">{{ getCount }}</div>
-                </div>
-            </div>
-
             <div class="totalPrice">
                 <i>Всего к оплате: <span>{{ totalPrice }} руб.</span></i>
             </div>
@@ -70,10 +63,6 @@
             ...mapGetters(["allProducts"]),
             ...mapGetters(["getTotalPrice"]),
             ...mapState(["basketProducts"]),
-            getCount() {
-                const count = this.allProducts.length ? this.allProducts.length : 0;
-                return count;
-            },
             totalPrice() {
                 if (this.allProducts.length === 0) {
                     return 0;
@@ -122,7 +111,7 @@
         padding: 0 10px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-around;
     }
 
     span {

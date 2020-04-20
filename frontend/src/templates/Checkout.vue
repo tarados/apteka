@@ -11,7 +11,7 @@
                         title="Вернуться в корзину"
                 >
                     <custom-icon name="chevron-left" class="custom-icon"/>
-                    <custom-icon name="shopping-cart" link="ddd" class="custom-icon"/>
+                    <custom-icon name="shopping-cart" class="custom-icon"/>
                 </b-button>
                 <div class="title checkout"> Оформление заказа</div>
             </div>
