@@ -4,7 +4,6 @@
             <h3 v-if="query">
                 Результаты поиска по запросу "{{ query }}"
             </h3>
-            <h3 v-else>Первые пять позиций прайса</h3>
         </div>
         <Sorting
                 :count="count"

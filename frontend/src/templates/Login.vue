@@ -149,7 +149,7 @@
             },
             backToMain() {
                 this.$router.go(-2);
-                this.$store.commit("clearStore");
+                // this.$store.commit("clearStore");
             }
         }
     }
