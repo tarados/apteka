@@ -42,6 +42,12 @@ export default new Router({
             name: 'checkout',
             meta: {layout: 'EmptyLayout'},
             component: () => import('./templates/Checkout')
+        },
+        {
+            path: '/successful',
+            name: 'successful',
+            meta: {layout: 'EmptyLayout'},
+            component: () => import('./templates/Successful')
         }
 
     ]

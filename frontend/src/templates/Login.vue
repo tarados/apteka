@@ -89,10 +89,7 @@
                 </div>
             </b-form>
         </validation-observer>
-        <div class="orderSuccessful" v-if="!visible">
-            <p>Ваша заявка принята! Спасибо за покупку!</p>
-            <b-button variant="outline-primary" @click="backToMain">Вернуться на главную страницу</b-button>
-        </div>
+
     </div>
 </template>
 
@@ -142,14 +139,11 @@
                     this.$refs.observer.reset();
                 });
                 this.$emit('visibleAfterOrder', this.visible);
+                this.$router.push('/successful');
             },
             acceptNumber() {
                 let x = this.form.phone.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
                 this.form.phone = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] + '-' + x[4] : '');
-            },
-            backToMain() {
-                this.$router.go(-2);
-                // this.$store.commit("clearStore");
             }
         }
     }
