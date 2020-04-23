@@ -25,6 +25,9 @@ export default {
         },
         clearStore(state) {
             state.basketProducts.splice(0, state.basketProducts.length)
+        },
+        addProductsFromBasket(state) {
+            state.basketProducts = basket.getItems();
         }
     },
     state: {

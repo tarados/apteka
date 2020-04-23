@@ -11,8 +11,11 @@
         name: "Home",
         components: {
             Products
+        },
+        mounted() {
+            this.$store.commit("addProductsFromBasket");
         }
-    }
+       }
 </script>
 
 <style scoped>

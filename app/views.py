@@ -14,7 +14,7 @@ def products(request):
         if query != '':
             products = Product.objects.filter(product_name__icontains=query)[:10]
         else:
-            products = Product.objects.all()[:5]
+            products = Product.objects.all()[:6]
         for product in products:
             products_result.append(
                 {'title': product.product_name,
@@ -58,7 +58,6 @@ def order(request):
         customer_phone=order_content["phone"]
     )
     order.save()
-    print(order.status)
     order_total_sum = 0
     for order_item in order_content["order"]:
         product = Product.objects.get(id=int(order_item["productId"]))
