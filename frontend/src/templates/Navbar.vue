@@ -13,12 +13,12 @@
                         </b-input-group>
                     </b-nav-form>
                     <b-nav-item
-                            :class="{ countVisible: !isCount }"
+                            v-if="getCount > 0"
                             :to="{ path: '/basket'}" append
                             class="ml-4"
                     >
                         <custom-icon name="shopping-cart" class="custom-icon cart"/>
-                        <span class="count" v-show="isCount">{{getCount}}</span>
+                        <span class="count">{{getCount}}</span>
                     </b-nav-item>
                 </b-navbar-nav>
             </b-collapse>
@@ -37,12 +37,15 @@
         },
         data() {
             return {
-                texts: '',
-                isCount: false
+                texts: ''
             }
         },
         computed: {
             ...mapGetters(["allProducts"]),
+            getCount() {
+                const count = this.allProducts.length ? this.allProducts.length : 0;
+                return count
+            }
         },
         methods: {
             getParam(texts) {
@@ -55,10 +58,6 @@
             },
             toBasket() {
                 this.$router.push('/basket');
-            },
-            getCount() {
-                const count = this.allProducts.length ? this.allProducts.length : 0;
-                this.isCount = count > 0;
             }
         },
         mounted() {
@@ -89,10 +88,6 @@
     .custom-icon, .basket-icon {
         width: 30px;
         display: inline-block;
-    }
-
-    .countVisible {
-        display: none;
     }
 
     .cart {
