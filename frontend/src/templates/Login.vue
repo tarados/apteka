@@ -95,6 +95,7 @@
 
 <script>
     import * as send from '../send'
+    import * as basket from '../basket'
     import {mapGetters} from 'vuex'
 
     export default {
@@ -128,6 +129,7 @@
                 const response = await send.post("order", this.form);
                 if (response) {
                     this.visible = !this.visible;
+                    basket.clearLocalStorage();
                 }
                 this.form = {
                     name: null,

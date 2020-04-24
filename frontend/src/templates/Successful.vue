@@ -13,7 +13,7 @@
         name: "Successful",
         methods: {
             backToMain() {
-                this.$router.go(-3);
+                this.$router.push('/');
             }
         }
     }

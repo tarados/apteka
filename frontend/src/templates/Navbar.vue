@@ -18,7 +18,7 @@
                             class="ml-4"
                     >
                         <custom-icon name="shopping-cart" class="custom-icon cart"/>
-                        <span class="count">{{getCount}}</span>
+                        <span class="count" v-show="isCount">{{getCount}}</span>
                     </b-nav-item>
                 </b-navbar-nav>
             </b-collapse>
@@ -43,13 +43,6 @@
         },
         computed: {
             ...mapGetters(["allProducts"]),
-            getCount() {
-                const count = this.allProducts.length ? this.allProducts.length : 0;
-                if (count > 0) {
-                    this.isCount = true;
-                }
-                return count;
-            },
         },
         methods: {
             getParam(texts) {
@@ -62,6 +55,10 @@
             },
             toBasket() {
                 this.$router.push('/basket');
+            },
+            getCount() {
+                const count = this.allProducts.length ? this.allProducts.length : 0;
+                this.isCount = count > 0;
             }
         },
         mounted() {

@@ -49,6 +49,10 @@ export function deleteItem(index) {
     setItems(items);
 }
 
+export function clearLocalStorage() {
+    localStorage.clear();
+}
+
 function setItems(items) {
     items = JSON.stringify(items);
     localStorage.setItem('basket', items);
