@@ -229,7 +229,7 @@
                 });
                 this.pharmacyChoice = pharmacyFromMap;
                 this.state = false;
-                this.mapVisible = true;
+                this.mapVisible = false;
                 this.listVisible = false;
                 this.$emit("choiceFarmacyFromMap", pharmacyFromMap);
             }
