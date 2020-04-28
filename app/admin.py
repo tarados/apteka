@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.core.mail import send_mail
 from import_export import resources
+from conf.settings import ORDER_URL
 from import_export.admin import ImportExportModelAdmin
 from app.models import Product, Pharmacy, Order, OrderItem
 
@@ -19,9 +20,10 @@ def make_published(modeladmin, request, queryset):
 	queryset.update(status='2')
 	for i in range(len(queryset)):
 		order_id = queryset[i].id
+		message = ORDER_URL + str(order_id)
 		send_mail(
 			'Subject here',
-			'http://localhost:8000/app/order/%d' % order_id,
+			message,
 			'lith2009@mail.ru',
 			['zvadaserg@yandex.ru', 'zvada53@gmail.com'],
 			fail_silently=False,
