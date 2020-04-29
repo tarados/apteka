@@ -137,9 +137,9 @@
                     phone: null
                 };
 
-                // this.$nextTick(() => {
-                //     this.$refs.observer.reset();
-                // });
+                this.$nextTick(() => {
+                    this.$refs.observer.reset();
+                });
                 this.$emit('visibleAfterOrder', this.visible);
                 this.$router.push('/successful');
             },
