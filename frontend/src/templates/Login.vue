@@ -96,6 +96,7 @@
 <script>
     import * as send from '../send'
     import * as basket from '../basket'
+    import * as saveLogin from '../login'
     import {mapGetters} from 'vuex'
 
     export default {
@@ -107,11 +108,7 @@
         },
         data() {
             return {
-                form: {
-                    name: null,
-                    surname: null,
-                    phone: null
-                },
+                form: saveLogin.getLogin(),
                 visible: true
             };
         },
@@ -130,6 +127,8 @@
                 if (response) {
                     this.visible = !this.visible;
                     basket.clearLocalStorage();
+                    saveLogin.setLogin(this.form);
+
                 }
                 this.form = {
                     name: null,
@@ -137,9 +136,9 @@
                     phone: null
                 };
 
-                this.$nextTick(() => {
-                    this.$refs.observer.reset();
-                });
+                // this.$nextTick(() => {
+                //     this.$refs.observer.reset();
+                // });
                 this.$emit('visibleAfterOrder', this.visible);
                 this.$router.push('/successful');
             },

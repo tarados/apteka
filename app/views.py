@@ -49,7 +49,6 @@ def pharmacy(request):
 def order(request):
     order_str = request.body.decode()
     order_content = json.loads(order_str)
-    print(order_content)
     order = Order(
         date=datetime.datetime.now(),
         pharmacy=Pharmacy.objects.get(id=order_content["pharmacyId"]),
