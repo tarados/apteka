@@ -136,9 +136,9 @@
                     phone: null
                 };
 
-                // this.$nextTick(() => {
-                //     this.$refs.observer.reset();
-                // });
+                this.$nextTick(() => {
+                    this.$refs.observer.reset();
+                });
                 this.$emit('visibleAfterOrder', this.visible);
                 this.$router.push('/successful');
             },
@@ -159,32 +159,15 @@
         border-radius: 3px;
     }
 
-    .labelLogin {
-        margin: 20px 0;
-        text-align: center;
-    }
-
     .buttonLogin {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
     }
 
-    .d-block {
-        padding-left: 5px;
-    }
-
-    .orderSuccessful {
-        text-align: center;
-    }
-
     p {
         font-size: 25px;
         font-weight: 600;
         font-style: italic;
-    }
-
-    .form-row, .btn {
-        font-size: calc(0.65em + 0.3vw);
     }
 </style>
