@@ -49,7 +49,7 @@
 <script>
     import customIcon from 'vue-icon/lib/vue-feather.esm'
     import Farmacy from "./Farmacy";
-    import Login from "./Login";
+    import Login from "./UserInfo";
     import {mapGetters} from 'vuex'
 
     export default {
@@ -75,8 +75,7 @@
             }
         },
         computed: {
-            ...mapGetters(["allProducts"]),
-            ...mapGetters(["getTotalPrice"]),
+            ...mapGetters(["allProducts", "getTotalPrice"]),
             emptyBasket() {
                 if (this.allProducts.length === 0) {
                     return true;

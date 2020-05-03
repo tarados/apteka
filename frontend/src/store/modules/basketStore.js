@@ -6,25 +6,24 @@ export default {
     mutations: {
         addProduct(state, product) {
             state.basketProducts.push(product);
+            basket.setItems(state.basketProducts);
         },
         increment(state, index) {
             changeQuantity(state, index, 1);
-            basket.incrementItem(index);
+            basket.setItems(state.basketProducts);
         },
         decrement(state, index) {
             changeQuantity(state, index, -1);
-            basket.decrementItem(index);
+            basket.setItems(state.basketProducts);
 
         },
         delProduct(state, index) {
             state.basketProducts.splice(index, 1);
-            basket.deleteItem(index);
-        },
-        addTotalPriceToCheck(state) {
-            basket.addItemCheck(state.totalPrice);
+            basket.setItems(state.basketProducts);
         },
         clearStore(state) {
-            state.basketProducts.splice(0, state.basketProducts.length)
+            state.basketProducts.splice(0, state.basketProducts.length);
+            basket.clearLocalStorage();
         },
         addProductsFromBasket(state) {
             state.basketProducts = basket.getItems();

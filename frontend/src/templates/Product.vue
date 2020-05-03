@@ -33,7 +33,6 @@
                 this.product.photo = document.getElementById("myImg").src;
                 this.product.quantity = 1;
                 this.product.valueProduct = parseFloat((this.product.quantity * this.product.price).toFixed(1));
-                basket.addItem(this.product);
                 this.$store.commit('addProduct', this.product);
             }
         }

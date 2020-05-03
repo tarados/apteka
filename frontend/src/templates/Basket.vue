@@ -77,7 +77,6 @@
             },
             toCheckout() {
                 this.$router.push('/basket/checkout');
-                this.$store.commit('addTotalPriceToCheck')
             },
             deleteOrder(index) {
                 this.$store.commit('delProduct', index);

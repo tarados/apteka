@@ -1,9 +1,9 @@
-export function setLogin(item) {
+export function save(item) {
     item = JSON.stringify(item);
     localStorage.setItem('login', item);
 }
 
-export function getLogin() {
+export function load() {
     let items = localStorage.getItem('login');
     if (items) {
         items = JSON.parse(items);

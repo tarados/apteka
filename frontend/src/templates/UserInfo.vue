@@ -96,7 +96,7 @@
 <script>
     import * as send from '../send'
     import * as basket from '../basket'
-    import * as saveLogin from '../login'
+    import * as userInfo from '../userInfo'
     import {mapGetters} from 'vuex'
 
     export default {
@@ -108,7 +108,7 @@
         },
         data() {
             return {
-                form: saveLogin.getLogin(),
+                form: userInfo.load(),
                 visible: true
             };
         },
@@ -121,13 +121,16 @@
                 return dirty || validated ? valid : null;
             },
             async onSubmit() {
-                this.form.order = this.orderProductList;
-                this.form.pharmacyId = this.pharmacyForOrder.pharmacyId;
-                const response = await send.post("order", this.form);
+                let order = {
+                  order: this.orderProductList,
+                  pharmacyId: this.pharmacyId,
+                  ...this.form
+                };
+                const response = await send.post("order", order);
                 if (response) {
                     this.visible = !this.visible;
-                    basket.clearLocalStorage();
-                    saveLogin.setLogin(this.form);
+                    this.$store.commit("clearStore");
+                    userInfo.save(this.form);
 
                 }
                 this.form = {
