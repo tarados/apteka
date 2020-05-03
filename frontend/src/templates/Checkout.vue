@@ -29,7 +29,7 @@
             </div>
             <div class="price empty" v-else><p>Корзина пуста!</p></div>
         </div>
-        <Farmacy
+        <Pharmacy
                 v-show="!emptyBasket"
                 @choiceFarmacy="choiceFarmacy"
                 @choiceFarmacyFromMap="choiceFarmacyFromMap"
@@ -48,7 +48,7 @@
 
 <script>
     import customIcon from 'vue-icon/lib/vue-feather.esm'
-    import Farmacy from "./Farmacy";
+    import Pharmacy from "./Pharmacy";
     import Login from "./UserInfo";
     import {mapGetters} from 'vuex'
 
@@ -56,7 +56,7 @@
         name: "Checkout",
         components: {
             customIcon,
-            Farmacy,
+            Pharmacy,
             Login
         },
         data() {
