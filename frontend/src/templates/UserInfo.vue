@@ -123,7 +123,7 @@
             async onSubmit() {
                 let order = {
                   order: this.orderProductList,
-                  pharmacyId: this.pharmacyId,
+                  pharmacyId: this.pharmacyForOrder.pharmacyId,
                   ...this.form
                 };
                 const response = await send.post("order", order);
